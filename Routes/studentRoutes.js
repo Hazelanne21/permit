@@ -4,7 +4,7 @@ const studentController = require('../controllers/studentController');
 const authenticateToken = require('../middlewares/authenticateToken');
 
 router.post('/create', studentController.create);
-router.post('/login', studentController.login);
+router.get('/login', studentController.login);
 router.post('/logout', studentController.logout);
 router.post('/getPermit', authenticateToken, studentController.getPermit); 
 router.put('/update', studentController.update); // 
