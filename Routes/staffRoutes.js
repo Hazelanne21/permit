@@ -18,6 +18,7 @@ router.delete('/deleteTuitionList', authenticateToken, staffController.deleteTui
 
 
 router.post('/createSubject', authenticateToken, staffController.createSubject);
+router.get('/getSubject', authenticateToken, staffController.getSubject);
 router.delete('/deleteSubject', authenticateToken, staffController.deleteSubject);
 
 module.exports = router;
