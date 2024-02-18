@@ -9,7 +9,7 @@ const PORT = config.port;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use('', routes);
+app.use('/', routes);
 
 
 app.get('/', (req, res) => {
