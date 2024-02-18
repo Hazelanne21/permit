@@ -95,7 +95,6 @@ static async getallstaff(req, res) {
 }
 
  //update staff
-
  static async update(req, res) {
   try {
     const { Staff_Name, Password, Email } = req.body;
@@ -324,7 +323,24 @@ static async createSubject(req, res) {
   }
 }
 
-
+static async getSubject(req, res) {
+  try {
+    // SQL query to fetch all users
+    const selectUsersQuery = 'SELECT  Subject_Code, Description, Semester, Year FROM Subject';
+    db.query(selectUsersQuery, (err, result) => {
+      if (err) {
+        console.error('Error fetching users:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+        res.status(200).json(result);
+      }
+    });
+  } catch (error) {
+    console.error('Error loading users:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+    
 static async deleteSubject(req, res) {
   try {
     const { Subject_Code } = req.body;
