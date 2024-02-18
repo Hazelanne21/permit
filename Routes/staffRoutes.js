@@ -6,6 +6,7 @@ const authenticateToken = require('../middlewares/authenticateToken');
 
 router.post('/create', staffController.create);
 router.post('/login', staffController.login);
+router.get('/getallstaff', staffController.getallstaff);
 router.put('/update', authenticateToken, staffController.update);
 router.delete('/delete', authenticateToken, staffController.delete);
 router.post('/logout', authenticateToken, staffController.logout);
