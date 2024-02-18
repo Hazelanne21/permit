@@ -44,7 +44,23 @@ class StudentController {
     }
 }
 
-
+static async getAll(req, res) {
+  try {
+    // SQL query to fetch all users
+    const selectUsersQuery = 'SELECT  Student_Number, Student_Name, Password, Gbox, Mobile_Number, Year FROM Student';
+    db.query(selectUsersQuery, (err, result) => {
+      if (err) {
+        console.error('Error fetching users:', err);
+        res.status(500).json({ message: 'Internal Server Error' });
+      } else {
+        res.status(200).json(result);
+      }
+    });
+  } catch (error) {
+    console.error('Error loading users:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
 
 
   // Login for student
