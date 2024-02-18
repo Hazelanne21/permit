@@ -11,7 +11,7 @@ const PORT = config.port;
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/', routes, studentRoutes);
+app.use('/', routes, studentroutes);
 
 
 app.get('/', (req, res) => {
