@@ -8,6 +8,7 @@ router.post('/login', studentController.login);
 router.get('/getAllStudent', studentController.getAll);
 router.post('/logout', studentController.logout);
 router.post('/getPermit', authenticateToken, studentController.getPermit); 
+router.get('/permits', studentController.getAllPermits);
 router.put('/update', studentController.update); 
 router.delete('/delete', studentController.delete);
 
