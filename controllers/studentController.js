@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const db = require('../db');
 const config = require('../config');
+const fs = require('fs');
 class StudentController {
   // Register a new student 
 
@@ -75,43 +76,49 @@ static async getAll(req, res) {
 
 
 
+// Login for student
+static async login(req, res) {
+  try {
+    const { Student_Number, Password } = req.body;
 
-  // Login for student
-  
-  static async login(req, res) {
-    try {
-      const { Student_Number, Password } = req.body;
-  
-      // SQL query to retrieve student details by student number
-      const getStudentQuery = 'SELECT * FROM Student WHERE Student_Number = ?';
-      const [rows] = await db.promise().execute(getStudentQuery, [Student_Number]);
-  
-      if (rows.length === 0) {
-        return res.status(401).json({ error: 'Invalid Student Number or password' });
-      }
-  
-      const student = rows[0];
-  
-      // Ensure that the student has a password before attempting to compare
-      if (!student.Password) {
-        return res.status(401).json({ error: 'Invalid Student Number or password' });
-      }
-  
-      const passwordMatch = await bcrypt.compare(Password, student.Password);
-  
-      if (!passwordMatch) {
-        return res.status(401).json({ error: 'Invalid Student Number or password' });
-      }
-  
-      // Generate a JWT token for the authenticated student
-      const token = jwt.sign({ Student_Number: student.Student_Number, Student_Name: student.Student_Name }, config.secretKey, { expiresIn: '1h' });
-  
-      res.status(200).json({ token });
-    } catch (error) {
-      console.error('Error logging in student:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+    // SQL query to retrieve student details by student number
+    const getStudentQuery = 'SELECT * FROM Student WHERE Student_Number = ?';
+    const [rows] = await db.promise().execute(getStudentQuery, [Student_Number]);
+
+    if (rows.length === 0) {
+      return res.status(401).json({ error: 'Invalid Student Number or password' });
     }
+
+    const student = rows[0];
+
+    // Ensure that the student has a password before attempting to compare
+    if (!student.Password) {
+      return res.status(401).json({ error: 'Invalid Student Number or password' });
+    }
+
+    const passwordMatch = await bcrypt.compare(Password, student.Password);
+
+    if (!passwordMatch) {
+      return res.status(401).json({ error: 'Invalid Student Number or password' });
+    }
+
+    // Generate a JWT token for the authenticated student
+    const token = jwt.sign({ Student_Number: student.Student_Number, Student_Name: student.Student_Name }, config.secretKey, { expiresIn: '1h' });
+
+    // Write the token to a file on the local machine
+    fs.writeFile('token.txt', token, (err) => {
+      if (err) {
+        console.error('Error writing token to file:', err);
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
+
+      res.status(200).json({ token });
+    });
+  } catch (error) {
+    console.error('Error logging in student:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
+}
 
 
 
