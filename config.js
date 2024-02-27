@@ -4,8 +4,8 @@ module.exports = {
   secretKey: 'ley',
   dbConfig: {
     host: 'sql6.freemysqlhosting.net',
-    user: 'sql6684518',
-    password: 'EAmd5a5p4L',
-    database: 'sql6684518'
+    user: 'sql6687010',
+    password: 'nYSuwSE77J',
+    database: 'sql6687010'
   }
 };
