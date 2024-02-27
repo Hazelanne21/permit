@@ -401,9 +401,6 @@ static async getAll(req, res) {
     }
   }
   
-
-
-
-
+}
 
 module.exports = StudentController;
