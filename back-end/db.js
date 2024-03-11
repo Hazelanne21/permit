@@ -1,14 +1,17 @@
 // db.js
-const mysql = require('mysql2');
+const { Pool } = require('pg');
 const config = require('./config'); 
-const db = mysql.createConnection(config.dbConfig);
 
-db.connect((err) => {
+const pool = new Pool({
+  connectionString: config.dbConfig.connectionString,
+});
+
+pool.connect((err) => {
   if (err) {
-    console.error('Error connecting to MySQL:', err);
+    console.error('Error connecting to PostgreSQL:', err);
   } else {
-    console.log('Connected to MySQL');
+    console.log('Connected to PostgreSQL');
   }
 });
 
-module.exports = db;
+module.exports = pool;

@@ -8,45 +8,40 @@ class StudentController {
 
   static async create(req, res) {
     try {
-        const { Student_Number, Student_Name, Password, Gbox, Mobile_Number, Year } = req.body;
+      const { Student_Number, Student_Name, Password, Gbox, Mobile_Number, Year } = req.body;
 
-        // Check if the password is provided
-        if (!Password) {
-            return res.status(400).json({ error: 'Password is required' });
-        }
+      if (!Password) {
+        return res.status(400).json({ error: 'Password is required' });
+      }
 
-        const hashedPassword = await bcrypt.hash(Password, 10);
+      const hashedPassword = await bcrypt.hash(Password, 10);
 
-        // Validate mobile number format
-        const mobileRegex = /^09\d{9}$/; // Matches 11 digits starting with "09"
-        if (!mobileRegex.test(Mobile_Number)) {
-            return res.status(400).json({ error: 'Invalid mobile number format' });
-        }
+      const mobileRegex = /^09\d{9}$/;
+      if (!mobileRegex.test(Mobile_Number)) {
+        return res.status(400).json({ error: 'Invalid mobile number format' });
+      }
 
-        // Validate Gbox format
-        const gboxRegex = /^[a-zA-Z0-9._%+-]+@gbox\.ncf\.edu\.ph$/; // Matches the specified format
-        if (!gboxRegex.test(Gbox)) {
-            return res.status(400).json({ error: 'Invalid Gbox format. It should end with @gbox.ncf.edu.ph' });
-        }
+      const gboxRegex = /^[a-zA-Z0-9._%+-]+@gbox\.ncf\.edu\.ph$/;
+      if (!gboxRegex.test(Gbox)) {
+        return res.status(400).json({ error: 'Invalid Gbox format. It should end with @gbox.ncf.edu.ph' });
+      }
 
-        // Check if the student already exists based on Student_Number, Student_Name, and Gbox
-        const checkExistingStudentQuery = 'SELECT * FROM Student WHERE Student_Number = ? OR Student_Name = ? OR Gbox = ?';
-        const [existingRows] = await db.promise().execute(checkExistingStudentQuery, [Student_Number, Student_Name, Gbox]);
+      const checkExistingStudentQuery = 'SELECT * FROM Students WHERE Student_Number = $1 OR Student_Name = $2 OR Gbox = $3';
+      const { rows: existingRows } = await db.query(checkExistingStudentQuery, [Student_Number, Student_Name, Gbox]);
 
-        if (existingRows.length > 0) {
-            return res.status(400).json({ error: 'Student with the same Student Number, Name, or Gbox already exists' });
-        }
+      if (existingRows.length > 0) {
+        return res.status(400).json({ error: 'Student with the same Student Number, Name, or Gbox already exists' });
+      }
 
-        // SQL query to insert student details into the database
-        const insertStudentQuery = 'INSERT INTO Student (Student_Number, Student_Name, Year, Password, Gbox, Mobile_Number) VALUES (?, ?, ?, ?, ?, ?)';
-        await db.promise().execute(insertStudentQuery, [Student_Number, Student_Name, Year, hashedPassword, Gbox, Mobile_Number]);
+      const insertStudentQuery = 'INSERT INTO Students (Student_Number, Student_Name, Year, Password, Gbox, Mobile_Number) VALUES ($1, $2, $3, $4, $5, $6)';
+      await db.query(insertStudentQuery, [Student_Number, Student_Name, Year, hashedPassword, Gbox, Mobile_Number]);
 
-        res.status(201).json({ message: 'Student registered successfully' });
+      res.status(201).json({ message: 'Student registered successfully' });
     } catch (error) {
-        console.error('Error registering student:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+      console.error('Error registering student:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
     }
-}
+  }
 
 
 
