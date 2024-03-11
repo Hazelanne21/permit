@@ -1,11 +1,8 @@
 // config.js
 module.exports = {
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 4000,
   secretKey: 'ley',
   dbConfig: {
-    host: 'sql6.freemysqlhosting.net',
-    user: 'sql6687010',
-    password: 'nYSuwSE77J',
-    database: 'sql6687010'
+    connectionString: 'postgresql://hanaval:2CfNmGv3MTaY@ep-quiet-mouse-a1wnmfav-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require'
   }
 };
