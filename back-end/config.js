@@ -3,6 +3,11 @@ module.exports = {
   port: process.env.PORT || 4000,
   secretKey: 'ley',
   dbConfig: {
-    connectionString: 'postgresql://hanaval:2CfNmGv3MTaY@ep-quiet-mouse-a1wnmfav-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require'
+    user: 'hanaval',
+    host: 'ep-quiet-mouse-a1wnmfav-pooler.ap-southeast-1.aws.neon.tech',
+    database: 'neondb',
+    password: '2CfNmGv3MTaY',
+    port: 5432, // default PostgreSQL port
+    ssl: { rejectUnauthorized: false } // required for Heroku
   }
 };
