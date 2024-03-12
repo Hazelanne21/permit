@@ -6,7 +6,6 @@ const config = require("../config");
 
 const router = express.Router();
 
-// Register a new student
 router.post("/register", async (req, res) => {
   try {
     const {
@@ -15,7 +14,9 @@ router.post("/register", async (req, res) => {
       Password,
       Gbox,
       Mobile_Number,
-      Year,
+      Year_Level_ID,
+      Semester_ID,
+      Is_Irregular
     } = req.body;
 
     if (!Password) {
@@ -56,14 +57,16 @@ router.post("/register", async (req, res) => {
     }
 
     const insertStudentQuery =
-      "INSERT INTO Students (Student_Number, Student_Name, Year, Password, Gbox, Mobile_Number) VALUES ($1, $2, $3, $4, $5, $6)";
+      "INSERT INTO Students (Student_Number, Student_Name, Year_Level_ID, Semester_ID, Password, Gbox, Mobile_Number, Is_Irregular) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)";
     await db.query(insertStudentQuery, [
       Student_Number,
       Student_Name,
-      Year,
+      Year_Level_ID,
+      Semester_ID,
       hashedPassword,
       Gbox,
       Mobile_Number,
+      Is_Irregular
     ]);
 
     res.status(201).json({ message: "Student registered successfully" });
@@ -77,7 +80,7 @@ router.post("/register", async (req, res) => {
 router.get("/getStudents", async (req, res) => {
   try {
     const selectUsersQuery =
-      "SELECT Student_Number, Student_Name, Password, Gbox, Mobile_Number, Year FROM Students";
+      "SELECT Student_Number, Student_Name, Year_Level_ID, Semester_ID, Password, Gbox, Mobile_Number, Is_Irregular FROM Students";
     const { rows } = await db.query(selectUsersQuery);
     res.status(200).json(rows);
   } catch (error) {
@@ -89,43 +92,43 @@ router.get("/getStudents", async (req, res) => {
 // Login for student
 router.post("/login", async (req, res) => {
   try {
-    const { Student_Number, Password } = req.body;
+    const { studentNumber, password } = req.body;
 
-    const getStudentQuery = "SELECT * FROM Students WHERE Student_Number = $1";
-    const { rows } = await db.query(getStudentQuery, [Student_Number]);
-
+    const getStudentQuery = "SELECT * FROM Students WHERE student_number = $1";
+    const { rows } = await db.query(getStudentQuery, [studentNumber]);
     if (rows.length === 0) {
       return res
         .status(401)
-        .json({ error: "Invalid Student Number or password" });
+        .json({ error: "Invalid student number or password" });
     }
 
     const student = rows[0];
 
-    if (!student.Password) {
+    if (!student.password) {
       return res
         .status(401)
-        .json({ error: "Invalid Student Number or password" });
+        .json({ error: "Invalid student number or password" });
     }
 
-    const passwordMatch = await bcrypt.compare(Password, student.Password);
+    const passwordMatch = await bcrypt.compare(password, student.password);
 
     if (!passwordMatch) {
       return res
         .status(401)
-        .json({ error: "Invalid Student Number or password" });
+        .json({ error: "Invalid student number or password" });
     }
 
     const token = jwt.sign(
       {
-        Student_Number: student.Student_Number,
-        Student_Name: student.Student_Name,
+        studentNumber: student.student_number,
+        studentName: student.student_name,
       },
       config.secretKey,
       { expiresIn: "1h" }
     );
 
     res.status(200).json({ token });
+    console.log('login successful');
   } catch (error) {
     console.error("Error logging in student:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -137,7 +140,7 @@ router.post("/login", async (req, res) => {
 router.put("/upStudents/:studentNumber", async (req, res) => {
   try {
     const { studentNumber } = req.params;
-    const { Student_Name, Password, Gbox, Mobile_Number, Year } = req.body;
+    const { Student_Name, Year_Level_ID, Semester_ID, Password, Gbox, Mobile_Number, Is_Irregular } = req.body;
 
     const hashedPassword = await bcrypt.hash(Password, 10);
 
@@ -164,13 +167,15 @@ router.put("/upStudents/:studentNumber", async (req, res) => {
     }
 
     const updateStudentQuery =
-      "UPDATE Students SET Student_Name = $1, Password = $2, Gbox = $3, Mobile_Number = $4, Year = $5 WHERE Student_Number = $6";
+      "UPDATE Students SET Student_Name = $1, Year_Level_ID = $2, Semester_ID = $3, Password = $4, Gbox = $5, Mobile_Number = $6, Is_Irregular = $7 WHERE Student_Number = $8";
     await db.query(updateStudentQuery, [
       Student_Name,
+      Year_Level_ID,
+      Semester_ID,
       hashedPassword,
       Gbox,
       Mobile_Number,
-      Year,
+      Is_Irregular,
       studentNumber,
     ]);
 

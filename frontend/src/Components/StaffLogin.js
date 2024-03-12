@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './StaffLogin.css'; 
 import axios from 'axios';
 import StaffCreateAccount from './StaffCreateAccount'; 
-import logo from './images/CCS.png';
+import logo from '../images/CCS.png';
 
 
 const StaffLogin = ({ onLoginSuccess }) => {
