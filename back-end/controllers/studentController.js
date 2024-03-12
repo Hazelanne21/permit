@@ -74,7 +74,7 @@ router.post("/register", async (req, res) => {
 });
 
 // Get all students
-router.get("/students", async (req, res) => {
+router.get("/getStudents", async (req, res) => {
   try {
     const selectUsersQuery =
       "SELECT Student_Number, Student_Name, Password, Gbox, Mobile_Number, Year FROM Students";
@@ -134,7 +134,7 @@ router.post("/login", async (req, res) => {
 
 
 // Update student details
-router.put("/students/:studentNumber", async (req, res) => {
+router.put("/upStudents/:studentNumber", async (req, res) => {
   try {
     const { studentNumber } = req.params;
     const { Student_Name, Password, Gbox, Mobile_Number, Year } = req.body;
@@ -182,7 +182,7 @@ router.put("/students/:studentNumber", async (req, res) => {
 });
 
 // Delete student
-router.delete("/students/:studentNumber", async (req, res) => {
+router.delete("/delStudents/:studentNumber", async (req, res) => {
   try {
     const { studentNumber } = req.params;
 

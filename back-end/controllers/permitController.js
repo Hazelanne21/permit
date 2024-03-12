@@ -7,7 +7,7 @@ const config = require("../config");
 const router = express.Router();
 
 // Generate permit for student
-router.post("/permits", async (req, res) => {
+router.post("/genPermits", async (req, res) => {
   try {
     const { Student_Number, Exam, Semester } = req.body;
 
@@ -126,7 +126,7 @@ router.post("/permits", async (req, res) => {
 
 
 // Get all permits
-router.get("/permits", async (req, res) => {
+router.get("/getPermits", async (req, res) => {
   try {
     const { exam, semester, year } = req.query;
 
