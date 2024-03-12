@@ -1,0 +1,124 @@
+import React, { useState } from 'react';
+import './StudentLogin.css'; 
+import axios from 'axios';
+import StudentCreateAccount from './StudentCreateAccount'; 
+
+import logo from './images/CCS.png';
+
+
+const StudentLogin = () => {
+    
+    const [studentNumber, setStudentNumber] = useState('');
+    const [password, setPassword] = useState('');
+    const [showModal, ssetShowModal] = useState(false); 
+    const [error, setError] = useState('');
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        
+        try {
+            if (!studentNumber || !password) {
+                setError('Please enter student number and password');
+                return;
+            }
+            
+            const response = await axios.post('student/login', { studentNumber, password });
+            const data = response.data;
+            if (data.success) {
+        
+              localStorage.setItem("token", data.token);
+    
+              window.location.href = '/Studentdashboard';
+            } else {
+              setError('Invalid email or password');
+            }
+          } catch (error) {
+            console.error('Error signing in:', error);
+            if (error.response && error.response.status === 500) {
+              setError('Internal Server Error. Please try again later.');
+            } else {
+              setError('Something went wrong. Please try again later.');
+            }
+          }
+        };
+            
+       
+        const shandleCreateAccountClick = () => {
+            ssetShowModal(true); 
+        };
+    
+        const shandleCloseModal = () => {
+            ssetShowModal(false); 
+        };
+
+    return (
+        <div className="login-container">
+       <img src={logo} alt="Logo" className="logo" style={{ marginTop: '-90px', marginBottom: '-30px', marginLeft: '160px' }} />
+            <h2 className="login-heading">CCS STUDENT</h2>
+            <form onSubmit={handleLogin}>
+                <label htmlFor="studentNumber" className="login-label">
+                    Student Number:
+                </label>
+                <input
+                    type="studentNumber"
+                    id="studentNumber"
+                    placeholder="Student Number"
+                    value={studentNumber}
+                    onChange={ (e) => setStudentNumber(e.target.value)}
+                    className='login-input, form-control' 
+                    required
+                />
+                <label htmlFor="password" className="login-label">
+                    Password:
+                </label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className='login-input, form-control' 
+                    required
+                />
+
+                <div className="login-options">
+                    <a href="forgot-password" className="forgot-password-link">
+                        Forgot password?
+                    </a>
+                </div>
+
+                <button type="submit" className="login-button">
+                    Login
+                </button>
+                {error && <p className="error-message">{error}</p>}
+            </form>
+            <br />
+
+
+
+
+
+
+
+            <button type="button" className="create-button" onClick={shandleCreateAccountClick}>
+                Create Account
+            </button>
+
+            {showModal && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close" onClick={shandleCloseModal}>&times;</span>
+                        <div className="modal-header">
+                            <h2>Create Account</h2>
+                        </div>
+                        <div className="modal-body">
+                            <StudentCreateAccount />
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default StudentLogin;
