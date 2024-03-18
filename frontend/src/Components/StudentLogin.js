@@ -51,7 +51,7 @@ const StudentLogin = () => {
   };
 
   return (
-    <div className="login-container">
+    <div className="login-container" style={{ backgroundColor: "white" }}>
       <img
         src={logo}
         alt="Logo"
@@ -59,7 +59,7 @@ const StudentLogin = () => {
         style={{
           marginTop: "-90px",
           marginBottom: "-30px",
-          marginLeft: "160px",
+          marginLeft: "120px",
         }}
       />
       <h2 className="login-heading">CCS STUDENT</h2>

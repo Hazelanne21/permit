@@ -2,35 +2,46 @@ import React, { useState } from 'react';
 import './StaffLogin.css'; 
 import axios from 'axios';
 import StaffCreateAccount from './StaffCreateAccount'; 
+import { useNavigate } from 'react-router-dom';
 import logo from '../images/CCS.png';
 
-
-const StaffLogin = ({ onLoginSuccess }) => {
+const StaffLogin = () => {
     
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [showModal, setShowModal] = useState(false); // State to manage modal visibility
-    const [error, setError] = useState('');
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         
         try {
-            const response = await axios.post('http://localhost:3000/staff/login', { email, password });
-            const token = response.data.token;
-            console.log(token);
-            onLoginSuccess();
-            
-            
-        } catch (error) {
-            if (error.response && error.response.status === 401) {
-                setError('Invalid Email or password');
-            } else {
-                console.error('Login failed:', error);
-                setError('Internal Server Error');
+            if (!email || !password) {
+              setError("Please enter student number and password");
+              return;
             }
-        }
-    };
+      
+            const response = await axios.post("staff/login", {
+              email,
+              password,
+            });
+            const data = response.data;
+            if (data.token) {
+              localStorage.setItem("token", data.token);
+              navigate('/Staffdashboard');
+            } else {
+              setError("Invalid student number or password");
+            }
+          } catch (error) {
+            console.error("Error signing in:", error);
+            if (error.response && error.response.status === 500) {
+              setError("Internal Server Error. Please try again later.");
+            } else {
+              setError("Something went wrong. Please try again later.");
+            }
+          }
+        };
 
     const handleCreateAccountClick = () => {
         setShowModal(true); 
@@ -41,9 +52,17 @@ const StaffLogin = ({ onLoginSuccess }) => {
     };
 
     return (
-        
-        <div className="slogin-container">
-     <img src={logo} alt="Logo" className="logo" style={{ marginTop: '-90px', marginBottom: '-30px', marginLeft: '190px' }} />
+      <div className="login-container" style={{ backgroundColor: "white" }}>
+        <img
+          src={logo}
+          alt="Logo"
+          className="logo"
+          style={{
+            marginTop: "-90px",
+            marginBottom: "-30px",
+            marginLeft: "90px",
+          }}
+        />
             <h2 className="slogin-heading">ADMINISTRATOR</h2>
             <form onSubmit={handleLogin}>
                 <label htmlFor="email" className="slogin-label">
@@ -52,10 +71,12 @@ const StaffLogin = ({ onLoginSuccess }) => {
                 <input
                     type="email"
                     id="email"
-                    className="slogin-input"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    className="slogin-input"
+                    required
+
                 />
                 <label htmlFor="password" className="slogin-label">
                     Password:
@@ -103,3 +124,5 @@ const StaffLogin = ({ onLoginSuccess }) => {
 };
 
 export default StaffLogin;
+
+

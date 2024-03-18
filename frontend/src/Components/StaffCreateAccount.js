@@ -26,7 +26,7 @@ const StaffCreateAccount = () => {
             setEmail('');
             setPassword('');
         } catch (error) {
-            setError('Account creation failed. Please try again.');
+            setError('Already created an Account, try logging in');
         } finally {
             setLoading(false);
         }

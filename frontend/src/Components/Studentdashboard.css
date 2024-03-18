@@ -1,0 +1,61 @@
+.dashboard-container {
+    width: 1000px;
+    height: 600px;
+    margin: 0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 30px;
+    box-shadow: 0 0 20px rgba(5, 5, 5, 5.2);
+    position: absolute;
+    top: 0;
+    right: 90px;
+    top: 90px;
+}
+
+nav {
+    margin-bottom: 20px;
+}
+
+nav button {
+    margin-right: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+.navdashboard-container {
+    width: 299px;
+    height: 746px;
+    margin: 0;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(5, 5, 5, 5.2);
+    position: absolute;
+    top: -10px; 
+    right: 1205px;
+}
+
+.navdashboard-container button {
+    display: block;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    color: black; 
+    border: none; 
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 100px;
+}
+
+.navdashboard-container button:last-child {
+    margin-bottom: 0;
+}
+
