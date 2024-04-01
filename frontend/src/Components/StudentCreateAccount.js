@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+
 const StudentCreateAccount = () => {
   const [studentNumber, setStudentNumber] = useState("");
   const [studentName, setStudentName] = useState("");
@@ -74,10 +75,11 @@ const StudentCreateAccount = () => {
           />
         </div>
 
+
         <div className="form-group">
           <label htmlFor="password">Password:</label>
           <input
-            type="password"
+            type="text"
             id="password"
             placeholder="Password"
             value={password}

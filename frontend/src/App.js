@@ -100,6 +100,7 @@ const RoutesComponent = ({ userType, setUserType }) => {
             )
           }
         />
+        
       </Routes>
     </div>
   );

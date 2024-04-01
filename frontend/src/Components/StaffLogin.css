@@ -1,6 +1,7 @@
 .slogin-container {
   max-width: 500px;
   max-height: 50pd;
+  flex-wrap: wrap;
   margin: auto;
   padding: 150px;
   border: 2px solid #ddd;
@@ -78,6 +79,8 @@
 
 .smodal {
   display: block;
+  flex-wrap: wrap;
+  gap: 1em;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -98,6 +101,8 @@
 
 .sclose {
   color: #aaa;
+  flex-wrap: wrap;
+  flex: 1 0 8rem;
   position: absolute;
   top: 280px;
   right: 570px;

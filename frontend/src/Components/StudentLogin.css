@@ -95,12 +95,11 @@
   border: 1px solid #888;
   width: 16%;
 }
-
 .close {
   color: #aaa;
   position: absolute;
-  top: 280px;
-  right: 570px;
+  margin-top: -170px; 
+  left: 940px;
   font-size: 28px;
   font-weight: bold;
 }
@@ -111,6 +110,8 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+
 
 .modal-header h2 {
   margin-top: 0;

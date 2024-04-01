@@ -1,7 +1,7 @@
 // config.js
 module.exports = {
   port: process.env.PORT || 4000,
-  secretKey: 'ley',
+  secretKey: 'hazel',
   dbConfig: {
     user: 'hanaval',
     host: 'ep-quiet-mouse-a1wnmfav-pooler.ap-southeast-1.aws.neon.tech',

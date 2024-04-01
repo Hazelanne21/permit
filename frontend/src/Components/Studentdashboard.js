@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Studentdashboard.css';
+import logoImage from '../images/CCS.png';
 
 const StudentDashboard = () => {
     const [studentInfo, setStudentInfo] = useState(null);
     const [permits, setPermits] = useState([]);
     const [activeSection, setActiveSection] = useState('dashboard');
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         // Fetch student info and permits using backend API
@@ -14,7 +17,7 @@ const StudentDashboard = () => {
 
     const fetchStudentInfo = async () => {
         try {
-            const response = await fetch('/students/getStudentInfo', {
+            const response = await fetch('/students/getStudents', {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -54,12 +57,21 @@ const StudentDashboard = () => {
         setActiveSection(section);
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('authToken');
+        
+        navigate('/'); 
+    };
+
     return (
         <div>
             <nav className="navdashboard-container">
+            <img src={logoImage} alt="Logo" className="logo-image" />
+            <span className="logo-text">College of Computer Studies</span>
                 <button onClick={() => handleSectionChange('dashboard')}>Dashboard</button>
                 <button onClick={() => handleSectionChange('profile')}>Profile {studentInfo && studentInfo.Student_Name}</button>
                 <button onClick={() => handleSectionChange('permits')}>Permits</button>
+                <button onClick={handleLogout}>Logout</button>
             </nav>
             <div className="dashboard-container">
                 {activeSection === 'dashboard' && (

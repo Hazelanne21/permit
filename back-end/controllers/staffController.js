@@ -42,37 +42,43 @@ router.post('/create', async (req, res) => {
   }
 });
 
+
 router.post('/login', async (req, res) => {
   try {
-    const { Email, Password } = req.body;
+      const { email, password } = req.body; // Adjust to lowercase 'email' and 'password'
 
-    const getStaffQuery = 'SELECT * FROM Staff WHERE Email = $1';
-    const rows = await db.query(getStaffQuery, [Email]);
+      const getStaffQuery = 'SELECT * FROM Staff WHERE Email = $1';
+      const { rows } = await db.query(getStaffQuery, [email]); // Destructure 'rows' directly
 
-    if (rows.length === 0) {
-      return res.status(401).json({ error: 'Invalid Email or password' });
-    }
+      if (rows.length === 0) {
+          return res.status(401).json({ error: 'Invalid email or password' });
+      }
 
-    const staff = rows[0];
+      const staff = rows[0];
 
-    if (!staff.Password) {
-      return res.status(401).json({ error: 'Invalid Email or password' });
-    }
+      if (!staff.password) {
+          return res.status(401).json({ error: 'Invalid email or password' });
+      }
 
-    const passwordMatch = await bcrypt.compare(Password, staff.Password);
+      const passwordMatch = await bcrypt.compare(password, staff.password); // Adjust to lowercase 'password'
 
-    if (!passwordMatch) {
-      return res.status(401).json({ error: 'Invalid Email or password' });
-    }
+      if (!passwordMatch) {
+          return res.status(401).json({ error: 'Invalid email or password' });
+      }
 
-    const token = jwt.sign({ Email: staff.Email }, config.secretKey, { expiresIn: '1h' });
+      const token = jwt.sign({ email: staff.email }, config.secretKey, { expiresIn: '1h' }); // Adjust to lowercase 'email'
 
-    res.status(200).json({ token });
+      res.status(200).json({ token });
   } catch (error) {
-    console.error('Error logging in staff:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+      console.error('Error logging in staff:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+
+
+
+
 
 router.get('/getallstaff', async (req, res) => {
   try {

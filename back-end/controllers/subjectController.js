@@ -9,25 +9,27 @@ const config = require('../config');
 const router = express.Router();
 
 router.post('/createSubject', async (req, res) => {
-    try {
+  try {
       const { Subject_Code, Description, Semester, Year } = req.body;
-  
-      const checkExistingSubjectQuery = 'SELECT * FROM Subject WHERE Subject_Code = $1';
+
+      const checkExistingSubjectQuery = 'SELECT * FROM Subjects WHERE Subject_Code = $1';
       const existingSubjectRows = await db.query(checkExistingSubjectQuery, [Subject_Code]);
-  
+
       if (existingSubjectRows.length > 0) {
-        return res.status(400).json({ error: 'Subject with the same Subject Code already exists' });
+          return res.status(400).json({ error: 'Subject with the same Subject Code already exists' });
       }
-  
-      const insertSubjectQuery = 'INSERT INTO Subject (Subject_Code, Description, Semester, Year) VALUES ($1, $2, $3, $4)';
+
+      const insertSubjectQuery = 'INSERT INTO Subjects (Subject_Code, Description, Semester_ID, Year_Level_ID) VALUES ($1, $2, $3, $4)';
       await db.query(insertSubjectQuery, [Subject_Code, Description, Semester, Year]);
-  
+
       res.status(201).json({ message: 'Subject created successfully' });
-    } catch (error) {
+  } catch (error) {
       console.error('Error creating subject:', error);
       res.status(500).json({ error: 'Internal Server Error' });
-    }
-  });
+  }
+});
+
+
   
   router.get('/getSubject', async (req, res) => {
     try {

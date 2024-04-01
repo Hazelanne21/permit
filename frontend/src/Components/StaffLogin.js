@@ -9,39 +9,42 @@ const StaffLogin = () => {
     
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [showModal, setShowModal] = useState(false); // State to manage modal visibility
+    const [showModal, setShowModal] = useState(false);
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
+    // Ensure correct field names: email and password
     const handleLogin = async (e) => {
-        e.preventDefault();
-        
-        try {
-            if (!email || !password) {
-              setError("Please enter student number and password");
-              return;
-            }
-      
-            const response = await axios.post("staff/login", {
-              email,
-              password,
-            });
-            const data = response.data;
-            if (data.token) {
-              localStorage.setItem("token", data.token);
-              navigate('/Staffdashboard');
-            } else {
-              setError("Invalid student number or password");
-            }
-          } catch (error) {
-            console.error("Error signing in:", error);
-            if (error.response && error.response.status === 500) {
-              setError("Internal Server Error. Please try again later.");
-            } else {
-              setError("Something went wrong. Please try again later.");
-            }
-          }
-        };
+      e.preventDefault();
+  
+      try {
+        if (!email || !password) {
+          setError("Please enter student number and password");
+          return;
+        }
+  
+        const response = await axios.post("staff/login", {
+          email,
+          password,
+        });
+        const data = response.data;
+        if (data.token) {
+          localStorage.setItem("token", data.token);
+          navigate('/Staffdashboard');
+        } else {
+          setError("Invalid Email or password");
+        }
+      } catch (error) {
+        console.error("Error signing in:", error);
+        if (error.response && error.response.status === 500) {
+          setError("Internal Server Error. Please try again later.");
+        } else {
+          setError("Something went wrong. Please try again later.");
+        }
+      }
+    };
+  
+
 
     const handleCreateAccountClick = () => {
         setShowModal(true); 
@@ -82,13 +85,14 @@ const StaffLogin = () => {
                     Password:
                 </label>
                 <input
-                    type="password"
-                    id="password"
-                    className="slogin-input"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+                type="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="login-input, form-control"
+                required
+              />
 
                 <div className="slogin-options">
                     <a href="#!" className="sforgot-password-link">
@@ -102,7 +106,9 @@ const StaffLogin = () => {
                 {error && <p className="serror-message">{error}</p>}
             </form>
             <br />
-            <button type="button" className="screate-button" onClick={handleCreateAccountClick}>
+            <button type="button" 
+            className="screate-button" 
+            onClick={handleCreateAccountClick}>
                 Create Account
             </button>
 
