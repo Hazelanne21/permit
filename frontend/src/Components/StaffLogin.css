@@ -101,7 +101,6 @@
 
 .sclose {
   color: #aaa;
-  flex-wrap: wrap;
   flex: 1 0 8rem;
   position: absolute;
   top: 280px;

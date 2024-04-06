@@ -32,7 +32,7 @@ ul li {
 
 .navdashboard-container {
     width: 299px;
-    height: 746px;
+    height: 758px;
     margin: 0;
     padding: 20px;
     background-color: white;
@@ -227,7 +227,7 @@ table tr:first-child {
 .smodal-content button {
     background-color: #4CAF50;
     color: white;
-    padding: 10px; /* Adjust as needed */
+    padding: 10px; 
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -384,4 +384,53 @@ table tr:first-child {
     font-family: 'Courier New'; 
     position: relative; 
     top: 20px; 
+}
+
+
+/* Staffdashboard.css */
+
+.delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: darkred;
+}
+
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    width: 900px;
+    height: 35px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    border-color: #333;
+    font-size: 16px;
+}
+
+
+.search-button {
+    height: 40px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    border-color: black;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color:white;
 }
