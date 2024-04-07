@@ -17,7 +17,7 @@ const StaffCreateAccount = () => {
         setSuccess(false);
         
         try {
-            await axios.post('http://localhost:3000/staff/create', {
+            await axios.post('/staff/create', {
                 Staff_Name: staffName,
                 Email: email,
                 Password: password

@@ -9,7 +9,7 @@ import {
 import StudentLogin from "./Components/StudentLogin";
 import StaffLogin from "./Components/StaffLogin";
 import Studentdashboard from "./Components/Studentdashboard";
-import Staffdashboard from "./Components/Staffdashboard";
+import Staffdashboard from "./Components/StaffDashboard/Staffdashboard";
 import logo from "./images/CCS.png";
 import "./App.css";
 

@@ -124,14 +124,13 @@ router.post("/genPermits", async (req, res) => {
   }
 });
 
-
 // Get all permits
 router.get("/getPermits", async (req, res) => {
   try {
     const { exam, semester, year } = req.query;
 
     let selectPermitsQuery =
-      'SELECT Student_Number, Student_Name, Exam, Date_Release, Year, Semester, GROUP_CONCAT(CONCAT(Subject_Code, " - ", Description) SEPARATOR ", ") AS Subjects FROM Permit';
+      'SELECT Student_Number, Student_Name, Exam, Date_Release, Year, Semester, string_agg(CONCAT(Subject_Code, " - ", Description), ", ") AS Subjects FROM Permit';
     let whereClause = "";
 
     if (exam) {
