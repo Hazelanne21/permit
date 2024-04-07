@@ -3,27 +3,23 @@ import { useNavigate } from "react-router-dom";
 import "./Staffdashboard.css";
 import logoImage from "../../images/CCS.png";
 import axios from "axios";
+import Subjects from "./subjects";
 
 const StaffDashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
   const navigate = useNavigate();
-  const [showCreateSubjectModal, setShowCreateSubjectModal] = useState(false);
   const [showUpdateAdministratorModal, setShowUpdateAdministratorModal] =
     useState(false);
+    //eslint-disable-next-line
   const [searchTerm, setSearchTerm] = useState("");
+  //eslint-disable-next-line
   const [searchResults, setSearchResults] = useState([]);
+  //eslint-disable-next-line
   const [staffInfo, setStaffInfo] = useState({});
-  const [subjects, setSubjects] = useState([]);
+  //eslint-disable-next-line
   const [errorMessage, setErrorMessage] = useState("");
   const [showCreateStudentModal, setShowCreateStudentModal] = useState(false);
   const [students, setStudents] = useState([]);
-
-  const [subjectFormData, setSubjectFormData] = useState({
-    Subject_Code: "",
-    Description: "",
-    Semester_ID: "",
-    Year_Level_ID: "",
-  });
 
   const [updateAdminFormData, setupdateAdminFormData] = useState({
     Staff_Name: "",
@@ -42,35 +38,16 @@ const StaffDashboard = () => {
     fetchStaffInfo();
   }, []);
 
-  useEffect(() => {
-    fetchSubjects();
-  }, []);
-
   //search button
+  //eslint-disable-next-line
   const handleSearchInputChange = (e) => {
     setSearchTerm(e.target.value);
-  };
-  const handleSearch = () => {
-    searchSubjects();
   };
 
   const handleSectionChange = (section) => {
     setActiveSection(section);
   };
 
-  //create subject
-  const handleOpenCreateSubjectModal = () => {
-    setShowCreateSubjectModal(true);
-  };
-
-  const handleCloseCreateSubjectModal = () => {
-    setShowCreateSubjectModal(false);
-  };
-
-  const handleSubjectInputChange = (e) => {
-    const { name, value } = e.target;
-    setSubjectFormData({ ...subjectFormData, [name]: value });
-  };
 
   //Update Administrator
   const handleOpenUpdateAdministratorModal = () => {
@@ -95,79 +72,6 @@ const StaffDashboard = () => {
   const handleStudentInputChange = (e) => {
     const { name, value } = e.target;
     setStudentFormData({ ...studentFormData, [name]: value });
-  };
-
-  const fetchSubjects = async () => {
-    try {
-      const response = await axios.get("/subjects");
-      if (response.status === 200) {
-        setSubjects(response.data);
-      } else {
-        console.error("Failed to fetch subjects");
-      }
-    } catch (error) {
-      console.error("Error fetching subjects:", error);
-    }
-  };
-
-  // Function to search subjects
-  const searchSubjects = async () => {
-    try {
-      const response = await axios.get(
-        `/subjects/getSubject?searchTerm=${searchTerm}`
-      );
-      if (response.status === 200) {
-        setSearchResults(response.data);
-      } else {
-        console.error("Failed to search subjects");
-      }
-    } catch (error) {
-      console.error("Error searching subjects:", error);
-    }
-  };
-
-  const handleSubmitSubject = async (e) => {
-    e.preventDefault();
-    // Check if the subject already exists
-    const existingSubject = subjects.find(
-      (subject) => subject.Subject_Code === subjectFormData.Subject_Code
-    );
-    if (existingSubject) {
-      setErrorMessage("Subject already exists!");
-      return;
-    }
-    // Create new subject
-    try {
-      const response = await axios.post(
-        "/subjects/createSubject",
-        subjectFormData
-      );
-      if (response.status === 201) {
-        console.log("Subject created successfully");
-        const newSubject = { ...subjectFormData };
-        setSubjects([...subjects, newSubject]);
-        handleCloseCreateSubjectModal();
-        setErrorMessage("");
-      } else {
-        console.error("Failed to create subject");
-      }
-    } catch (error) {
-      console.error("Error creating subject:", error);
-    }
-  };
-
-  const handleDeleteSubject = async () => {
-    try {
-      const response = await axios.delete(`/subjects/deleteSubject`);
-      if (response.status === 200) {
-        console.log("Subject deleted successfully");
-        fetchSubjects(); // Refresh subject list after deletion
-      } else {
-        console.error("Failed to delete subject");
-      }
-    } catch (error) {
-      console.error("Error deleting subject:", error);
-    }
   };
 
   const handleSubmitStudent = async (e) => {
@@ -263,62 +167,9 @@ const StaffDashboard = () => {
             <p>Email: {staffInfo.Email}</p>
           </div>
         )}
-
         {activeSection === "subject" && (
           <div>
-            <h1>Subjects</h1>
-            <div className="search-container">
-              <input
-                className="search-bar"
-                placeholder="Search"
-                value={searchTerm}
-                onChange={handleSearchInputChange}
-              />
-              <button className="search-button" onClick={handleSearch}>
-                Search
-              </button>
-            </div>
-            <button
-              className="subject-button"
-              onClick={handleOpenCreateSubjectModal}
-            >
-              Add Subject
-            </button>
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-            <table>
-              <thead>
-                <tr>
-                  <th>Subject Code</th>
-                  <th>Description</th>
-                  <th>Semester</th>
-                  <th>Year Level</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {(searchResults.length > 0 ? searchResults : subjects).map(
-                  (subject, index) => (
-                    <tr key={index}>
-                      <td>{subject.Subject_Code}</td>
-                      <td>{subject.Description}</td>
-                      <td>{subject.Semester_ID}</td>
-                      <td>{subject.Year_Level_ID}</td>
-                      <td>
-                        <button
-                          onClick={() =>
-                            handleDeleteSubject(subject.Subject_Code)
-                          }
-                          className="delete-button"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  )
-                )}
-              </tbody>
-            </table>
+            <Subjects />
           </div>
         )}
 
@@ -334,60 +185,6 @@ const StaffDashboard = () => {
             </button>
           </div>
         )}
-
-        {showCreateSubjectModal && (
-          <div className="modal">
-            <div className="modal-content">
-              <span className="close" onClick={handleCloseCreateSubjectModal}>
-                &times;
-              </span>
-              <h2>Create Subject</h2>
-              <form onSubmit={handleSubmitSubject}>
-                <label>Subject Code:</label>
-                <input
-                  type="text"
-                  name="Subject_Code"
-                  value={subjectFormData.Subject_Code}
-                  onChange={handleSubjectInputChange}
-                />
-                <label>Description:</label>
-                <input
-                  type="text"
-                  name="Description"
-                  value={subjectFormData.Description}
-                  onChange={handleSubjectInputChange}
-                />
-                <label htmlFor="semester">Semester:</label>
-                <select
-                  id="semester"
-                  name="Semester_ID"
-                  value={subjectFormData.Semester_ID}
-                  onChange={handleSubjectInputChange}
-                >
-                  <option value="">Select Semester</option>
-                  <option value="1">1st Semester</option>
-                  <option value="2">2nd Semester</option>
-                  <option value="3">Summer</option>
-                </select>
-                <label htmlFor="year">Year Level:</label>
-                <select
-                  id="year"
-                  name="Year_Level_ID"
-                  value={subjectFormData.Year_Level_ID}
-                  onChange={handleSubjectInputChange}
-                >
-                  <option value="">Select Year Level</option>
-                  <option value="1">1st Year</option>
-                  <option value="2">2nd Year</option>
-                  <option value="3">3rd Year</option>
-                  <option value="4">4th Year</option>
-                </select>
-                <button type="submit">Create</button>
-              </form>
-            </div>
-          </div>
-        )}
-      </div>
 
       {showUpdateAdministratorModal && (
         <div className="umodal">
@@ -488,6 +285,7 @@ const StaffDashboard = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };
