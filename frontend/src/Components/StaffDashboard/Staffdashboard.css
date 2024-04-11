@@ -121,8 +121,10 @@ ul li {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 100%;
+    width: 90%;
+    margin-left: 20px;
     margin-top: 10px;
+    
 }
 
 .modal-content button:hover {
@@ -138,20 +140,25 @@ ul li {
 }
 
 
-.subject-button {
+
+.Student-button {
+    background-color: white;
     position: absolute;
-    left: 950px; 
-    top: 35px; 
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
+    left: 250px; 
+    top: 39px; 
+    color: black;
     border: none;
-    border-radius: 5px;
+    border-radius: 100px;
+    padding: 8px 16px;
+    margin-left: 5px;
     cursor: pointer;
 }
 
-
+  
+  .Student-button:hover {
+    background-color: white;
+    
+  }
 
 table {
     width: 100%;
@@ -241,18 +248,10 @@ table tr:first-child {
 .smodal-content button:hover {
     background-color: #45a049;
 }
-.Student-button {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
 
 
 
+  
 /* Admin Modal Styles */
 
 .umodal {
@@ -320,19 +319,26 @@ table tr:first-child {
 .umodal-content button:hover {
     background-color: #45a049;
 }
-.Update-button {
-    position: absolute;
-    left: 910px; 
-    top: 35px; 
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
 
+
+
+.Update-button {
+    background-color: white;
+    position: absolute;
+    left: 420px; 
+    top: 39px; 
+    color: black;
+    border: none;
+    border-radius: 100px;
+    padding: 8px 16px;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  
+  .Update-button:hover {
+    background-color: white;
+  }
+  
 
 
 /* Dropdown menu styles */
@@ -434,3 +440,5 @@ table tr:first-child {
 .search-button:hover {
     background-color:white;
 }
+
+

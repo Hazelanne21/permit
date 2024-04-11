@@ -4,6 +4,8 @@ import "./Staffdashboard.css";
 import logoImage from "../../images/CCS.png";
 import axios from "axios";
 import Subjects from "./subjects";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 const StaffDashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -158,11 +160,11 @@ const StaffDashboard = () => {
           <div>
             <h1>Administrator Information</h1>
             <button
-              className="Update-button"
-              onClick={handleOpenUpdateAdministratorModal}
-            >
-              Update Administrator
-            </button>
+                  onClick={handleOpenUpdateAdministratorModal}
+                    className="Update-button"
+                    >
+                    <FontAwesomeIcon icon={faEdit} />
+                    </button>
             <p>Staff Name: {staffInfo.Staff_Name}</p>
             <p>Email: {staffInfo.Email}</p>
           </div>
@@ -181,7 +183,7 @@ const StaffDashboard = () => {
               className="Student-button"
               onClick={handleOpenCreateStudentModal}
             >
-              Add Student
+              <FontAwesomeIcon icon={faPlus} />
             </button>
           </div>
         )}
