@@ -31,7 +31,7 @@ const UserTypeSelect = ({ setUserType }) => {
         src={logo}
         alt="Logo"
         className="logo"
-        style={{ marginTop: "-20px", marginLeft: "55px" }}
+        style={{ marginTop: "-50px", marginLeft: "55px" }}
       />
       <h1 style={{ marginLeft: "-15px" }}>Computer Studies</h1>
       <div className="button-container">
@@ -49,8 +49,7 @@ const RoutesComponent = ({ userType, setUserType }) => {
     if (location.pathname === "/") {
       setUserType(null);
     }
-  }, [location, setUserType]); // Include setUserType in the dependencies array
-
+  }, [location, setUserType]); 
   return (
     <div>
       <Routes>
