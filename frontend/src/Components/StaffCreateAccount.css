@@ -38,3 +38,12 @@ input[type="password"],
     margin-top: 10px;
     text-align: center;
 } 
+.password-input-container {
+    position: relative;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 20px;
+    top: 30%;
+}

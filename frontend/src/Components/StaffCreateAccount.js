@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import './StaffCreateAccount.css';
 
 const StaffCreateAccount = () => {
     const [staffName, setStaffName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(false);
@@ -33,6 +36,10 @@ const StaffCreateAccount = () => {
         }
     };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <div className="create-account-container">
             <form onSubmit={handleCreateAccount}>
@@ -46,7 +53,10 @@ const StaffCreateAccount = () => {
                 </div>
                 <div className="sform-group">
                     <label htmlFor="password">Password:</label>
-                    <input type="text" id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <div className="password-input-container">
+                        <input type={showPassword ? "text" : "password"} id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                        <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} onClick={togglePasswordVisibility} className="eye-icon"  size="sm"/>
+                    </div>
                 </div>
                 <button type="submit" className={`mscreate-button ${loading ? 'disabled' : ''}`} disabled={loading}>
                     {loading ? 'Creating...' : 'Create Account'}

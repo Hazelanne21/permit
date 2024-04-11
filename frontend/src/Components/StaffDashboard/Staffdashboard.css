@@ -142,7 +142,7 @@ ul li {
 
 
 .Student-button {
-    background-color: white;
+    background-color: transparent;
     position: absolute;
     left: 250px; 
     top: 39px; 
@@ -156,7 +156,7 @@ ul li {
 
   
   .Student-button:hover {
-    background-color: white;
+    background-color: transparent;
     
   }
 
@@ -323,7 +323,7 @@ table tr:first-child {
 
 
 .Update-button {
-    background-color: white;
+    background-color: transparent;
     position: absolute;
     left: 420px; 
     top: 39px; 
@@ -336,7 +336,7 @@ table tr:first-child {
   }
   
   .Update-button:hover {
-    background-color: white;
+    background-color: transparent;
   }
   
 
