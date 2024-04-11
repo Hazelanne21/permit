@@ -239,9 +239,6 @@ table tr:first-child {
     background-color: #45a049;
 }
 .Student-button {
-    position: absolute;
-    left: 950px; 
-    top: 35px; 
     margin-top: 10px;
     padding: 10px;
     background-color: #4CAF50;
