@@ -5,14 +5,10 @@ import axios from "axios";
 const Subjects = () => {
   const [subjects, setSubjects] = useState([]);
   const [showCreateSubjectModal, setShowCreateSubjectModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  //eslint-disable-next-line
   const [searchResults, setSearchResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-
-  const handleSearchInputChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
   const [subjectFormData, setSubjectFormData] = useState({
     Subject_Code: "",
     Description: "",
@@ -24,17 +20,17 @@ const Subjects = () => {
     fetchSubjects();
   }, []);
 
+
+    const handleCloseCreateSubjectModal = () => {
+    setShowCreateSubjectModal(false);
+  };
+
+  const handleSearchInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   const handleSearch = () => {
     searchSubjects();
-  };
-
-  //create subject
-  const handleOpenCreateSubjectModal = () => {
-    setShowCreateSubjectModal(true);
-  };
-
-  const handleCloseCreateSubjectModal = () => {
-    setShowCreateSubjectModal(false);
   };
 
   const handleSubjectInputChange = (e) => {
@@ -46,7 +42,7 @@ const Subjects = () => {
     try {
       const response = await axios.get("/subjects/getSubject/");
       if (response.status === 200) {
-        setSubjects(response.data.rows); // Update this line
+        setSubjects(response.data.rows);
       } else {
         console.error("Failed to fetch subjects");
       }
@@ -55,7 +51,6 @@ const Subjects = () => {
     }
   };
 
-  // Function to search subjects
   const searchSubjects = async () => {
     try {
       const response = await axios.get(
@@ -73,7 +68,6 @@ const Subjects = () => {
 
   const handleSubmitSubject = async (e) => {
     e.preventDefault();
-    // Check if the subject already exists
     const existingSubject = subjects.find(
       (subject) => subject.Subject_Code === subjectFormData.Subject_Code
     );
@@ -81,7 +75,6 @@ const Subjects = () => {
       setErrorMessage("Subject already exists!");
       return;
     }
-    // Create new subject
     try {
       const response = await axios.post(
         "/subjects/createSubject",
@@ -91,7 +84,7 @@ const Subjects = () => {
         console.log("Subject created successfully");
         const newSubject = { ...subjectFormData };
         setSubjects([...subjects, newSubject]);
-        handleCloseCreateSubjectModal();
+        setShowCreateSubjectModal(false);
         setErrorMessage("");
       } else {
         console.error("Failed to create subject");
@@ -108,7 +101,9 @@ const Subjects = () => {
       );
       if (response.status === 200) {
         console.log("Subject deleted successfully");
-        fetchSubjects(); // Refresh subject list after deletion
+        fetchSubjects();
+        setShowSuccessModal(true);
+        setTimeout(() => setShowSuccessModal(false), 2000); // Close the success modal after 2 seconds
       } else {
         console.error("Failed to delete subject");
       }
@@ -134,11 +129,19 @@ const Subjects = () => {
         </div>
         <button
           className="subject-button"
-          onClick={handleOpenCreateSubjectModal}
+          onClick={() => setShowCreateSubjectModal(true)}
         >
           Add Subject
         </button>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {/* Success Modal */}
+        {showSuccessModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <h2>Deleted successfully</h2>
+            </div>
+          </div>
+        )}
         <table>
           <thead>
             <tr>
@@ -177,7 +180,7 @@ const Subjects = () => {
       {showCreateSubjectModal && (
         <div className="modal">
           <div className="modal-content">
-            <span className="close" onClick={handleCloseCreateSubjectModal}>
+          <span className="close" onClick={handleCloseCreateSubjectModal}>
               &times;
             </span>
             <h2>Create Subject</h2>

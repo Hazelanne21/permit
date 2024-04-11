@@ -32,6 +32,7 @@ const StaffLogin = () => {
         navigate("/Staffdashboard");
       } else {
         setError("Invalid Email or password");
+        
       }
     } catch (error) {
       console.error("Error signing in:", error);
@@ -101,11 +102,12 @@ const StaffLogin = () => {
             Forgot password?
           </a>
         </div>
+        {error && <p className="serror-message">{error}</p>}
+
 
         <button type="submit" className="slogin-button">
           Login
         </button>
-        {error && <p className="serror-message">{error}</p>}
       </form>
       <br />
       <button
