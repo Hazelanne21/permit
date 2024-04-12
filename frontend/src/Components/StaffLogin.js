@@ -59,7 +59,7 @@ const StaffLogin = () => {
   };
 
   return (
-    <div className="login-container" style={{ backgroundColor: "white" }}>
+    <div className="slogin-container" style={{ backgroundColor: "white" }}>
       <img
         src={logo}
         alt="Logo"
@@ -93,7 +93,7 @@ const StaffLogin = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="login-input, form-control"
+          className="slogin-input, form-control"
           required
         />
 

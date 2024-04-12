@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import './StaffCreateAccount.css';
 
 const StaffCreateAccount = () => {
@@ -30,7 +28,7 @@ const StaffCreateAccount = () => {
             setEmail('');
             setPassword('');
         } catch (error) {
-            setError('Already created an Account, try logging in');
+            setError('Something went wrong. Please try again later.');
         } finally {
             setLoading(false);
         }
@@ -45,17 +43,18 @@ const StaffCreateAccount = () => {
             <form onSubmit={handleCreateAccount}>
                 <div className="sform-group">
                     <label htmlFor="staffName">Staff Name:</label>
-                    <input type="text" id="staffName" placeholder="Juan Dela Cruz" value={staffName} onChange={(e) => setStaffName(e.target.value)} />
+                    <input type="text" id="staffName" placeholder="Juan Dela Cruz" value={staffName} onChange={(e) => setStaffName(e.target.value)} required/>
                 </div>
                 <div className="sform-group">
                     <label htmlFor="email">Email:</label>
-                    <input type="text" id="email" placeholder="juandelacruz@gmail.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input type="text" id="email" placeholder="juandelacruz@gmail.com" value={email} onChange={(e) => setEmail(e.target.value)} required/>
                 </div>
                 <div className="sform-group">
                     <label htmlFor="password">Password:</label>
                     <div className="password-input-container">
-                        <input type={showPassword ? "text" : "password"} id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                        <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} onClick={togglePasswordVisibility} className="eye-icon"  size="sm"/>
+                        <input type={showPassword ? "text" : "password"} id="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                        <i type="button" className="toggle-password" onClick={togglePasswordVisibility}>
+                        </i>
                     </div>
                 </div>
                 <button type="submit" className={`mscreate-button ${loading ? 'disabled' : ''}`} disabled={loading}>

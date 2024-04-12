@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./StudentCreateAccount.css";
 
 
 const StudentCreateAccount = () => {
@@ -14,6 +15,14 @@ const StudentCreateAccount = () => {
   const [yearLevelId, setYearLevelId] = useState("");
   const [semesterId, setSemesterId] = useState("");
   const [isIrregular, setIsIrregular] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+
+
+  
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleCreateAccount = async (e) => {
     e.preventDefault();
@@ -44,7 +53,7 @@ const StudentCreateAccount = () => {
         setIsIrregular(false);
       }
     } catch (error) {
-      setError("Already created an Account, try logging in");
+      setError("Something went wrong. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -61,6 +70,7 @@ const StudentCreateAccount = () => {
             placeholder="21-1234"
             value={studentNumber}
             onChange={(e) => setStudentNumber(e.target.value)}
+            required
           />
         </div>
 
@@ -72,20 +82,34 @@ const StudentCreateAccount = () => {
             placeholder="Juan Dela Cruz"
             value={studentName}
             onChange={(e) => setStudentName(e.target.value)}
+            required
           />
         </div>
 
 
         <div className="form-group">
           <label htmlFor="password">Password:</label>
+          <div className="password-input-container">
           <input
-            type="text"
+            type={showPassword ? "text" : "password"}
             id="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
+           <i
+              type="button"
+              className="toggle-password"
+              onClick={togglePasswordVisibility}
+            >
+            </i>
+
+            <i type="button" className="ctoggle-password" onClick={togglePasswordVisibility}>
+                        </i>
         </div>
+        </div>
+
 
         <div className="form-group">
           <label htmlFor="gbox">Gbox:</label>
@@ -95,6 +119,7 @@ const StudentCreateAccount = () => {
             placeholder="jdc@gbox.ncf.edu.ph"
             value={gbox}
             onChange={(e) => setGbox(e.target.value)}
+            required
           />
         </div>
 
@@ -106,6 +131,7 @@ const StudentCreateAccount = () => {
             placeholder="09*********"
             value={mobileNumber}
             onChange={(e) => setMobileNumber(e.target.value)}
+            required
           />
         </div>
 
@@ -115,6 +141,7 @@ const StudentCreateAccount = () => {
             id="yearLevelId"
             value={yearLevelId}
             onChange={(e) => setYearLevelId(e.target.value)}
+            required
           >
             <option value="">Select Year Level</option>
             <option value="1">1st Year</option>
@@ -130,6 +157,7 @@ const StudentCreateAccount = () => {
             id="semesterId"
             value={semesterId}
             onChange={(e) => setSemesterId(e.target.value)}
+            required
           >
             <option value="">Select Semester</option>
             <option value="1">1st Semester</option>
@@ -150,15 +178,15 @@ const StudentCreateAccount = () => {
 
         <button
           type="submit"
-          className={`mcreate-button ${loading ? "disabled" : ""}`}
+          className={`create-button ${loading ? "disabled" : ""}`}
           disabled={loading}
         >
           {loading ? "Creating..." : "Create Account"}
         </button>
 
-        {error && <p className="error-message">{error}</p>}
+        {error && <p className="mqcreate-error-message">{error}</p>}
         {success && (
-          <p className="success-message">Account created successfully!</p>
+          <p className="mqcreate-success-message">Account created successfully!</p>
         )}
       </form>
     </div>

@@ -12,7 +12,7 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="password"],
-.create-button {
+.mscreate-button {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -28,22 +28,24 @@ input[type="password"],
     margin-left: -10px;
 }
 
-.create-button:disabled {
+.mscreate-button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }
 
-.serror-message,
+.serror-message {
+    margin-top: 10px;
+    text-align: center;
+    color: red;
+}
+
 .success-message {
     margin-top: 10px;
     text-align: center;
+    color: black;
 } 
 .password-input-container {
     position: relative;
 }
 
-.eye-icon {
-    position: absolute;
-    right: 20px;
-    top: 30%;
-}
+

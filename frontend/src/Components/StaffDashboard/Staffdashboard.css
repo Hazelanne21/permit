@@ -374,9 +374,9 @@ table tr:first-child {
 
 .logo-image {
     position: absolute;
-    top: 20px; 
-    right: 275px; 
-    width: 55px; 
+    top: 28px; 
+    right: 269px; 
+    width: 40px; 
     height: auto; 
     z-index: 1000; 
 }

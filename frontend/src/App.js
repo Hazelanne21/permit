@@ -33,7 +33,7 @@ const UserTypeSelect = ({ setUserType }) => {
         className="logo"
         style={{ marginTop: "-50px", marginLeft: "55px" }}
       />
-      <h1 style={{ marginLeft: "-15px" }}>Computer Studies</h1>
+      <h1 style={{ marginLeft: "30px" }}>Exam Permit</h1>
       <div className="button-container">
         <button onClick={() => handleUserTypeSelect("student")}>STUDENT</button>
         <button onClick={() => handleUserTypeSelect("staff")}>STAFF</button>
