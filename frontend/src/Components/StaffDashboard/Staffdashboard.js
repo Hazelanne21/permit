@@ -199,7 +199,7 @@ const StaffDashboard = () => {
             >
               &times;
             </span>
-            <h2>Update Administrator Information</h2>
+            <h2>Administrator Information</h2>
             <form onSubmit={handleSubmitUpdateAdministrator}>
               <label>Staff Name:</label>
               <input
