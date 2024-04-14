@@ -22,6 +22,15 @@ const Subjects = () => {
   }, []);
 
 
+  useEffect(() => {
+    const highlightedElement = document.querySelector('.highlight');
+    if (highlightedElement) {
+      highlightedElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [subjects]);
+
+
+
 // CREATE SUBJECT
   const [subjectFormData, setSubjectFormData] = useState({
     Subject_Code: "",
@@ -90,21 +99,34 @@ const Subjects = () => {
 
 
   // SEARCH
-
   const searchSubjects = async () => {
-    try {
-      const response = await axios.get(
-        `/subjects/getSubject?searchTerm=${searchTerm}`
-      );
-      if (response.status === 200) {
-        setSearchResults(response.data);
+  try {
+    const response = await axios.get(
+      `/subjects/getSubject?searchTerm=${searchTerm}`
+    );
+    if (response.status === 200) {
+      if (response.data.length > 0) {
+        setSubjects(response.data); 
+        setSearchResults([]); 
+        setErrorMessage(""); 
+     
+        const searchResultElement = document.getElementById("search-result");
+        if (searchResultElement) {
+          searchResultElement.scrollIntoView({ behavior: "smooth" });
+        }
       } else {
-        console.error("Failed to search subjects");
+        setSearchResults([]); // Clear search results state
+        setErrorMessage("No subjects found"); // Display error message
       }
-    } catch (error) {
-      console.error("Error searching subjects:", error);
+    } else {
+      console.error("Failed to search subjects");
     }
-  };
+  } catch (error) {
+    console.error("Error searching subjects:", error);
+  }
+};
+
+  
 
   const handleSearchInputChange = (e) => {
     setSearchTerm(e.target.value);
@@ -229,6 +251,9 @@ const Subjects = () => {
           </div>
         )}
         <div className="table-container"> 
+        {searchResults.length > 0 && (
+  <p className="search-results">Search results for: {searchTerm}</p>
+)}
           <table>
             <thead>
               <tr>
