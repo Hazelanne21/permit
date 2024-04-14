@@ -66,7 +66,7 @@ const StudentDashboard = () => {
     };
 
     const handleLogout = () => {
-        localStorage.removeItem('authToken');
+        sessionStorage.removeItem('token');
         navigate('/');
     };
 
