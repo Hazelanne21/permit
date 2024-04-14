@@ -196,47 +196,51 @@ const Subjects = () => {
             </div>
           </div>
         )}
-        <table>
-          <thead>
-            <tr>
-              <th>Subject Code</th>
-              <th>Name</th>
-              <th>Semester</th>
-              <th>Year Level</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Array.isArray(subjects) && subjects.length > 0
-              ? subjects.map((subject, index) => (
-                  <tr key={index}>
-                    <td>{subject.subject_code}</td>
-                    <td>{subject.name}</td>
-                    <td>
-                      {subject.semester_id === 3
-                        ? "Summer Class"
-                        : subject.semester_id}
-                    </td>
-                    <td>{subject.year_level_id}</td>
-                    <td>
-                      <button
-                        onClick={() => handleUpdateSubject(subject)}
-                        className="subject-update-button"
-                      >
-                        <FontAwesomeIcon icon={faEdit} />
-                      </button>
-                      <button
-                        onClick={() => handleDeleteSubject(subject.subject_id)}
-                        className="subject-delete-button"
-                      >
-                        <FontAwesomeIcon icon={faTrash} />
-                      </button>
-                    </td>
-                  </tr>
-                ))
-              : null}
-          </tbody>
-        </table>
+        <div className="table-container"> 
+          <table>
+            <thead>
+              <tr>
+                <th>Subject Code</th>
+                <th>Name</th>
+                <th>Semester</th>
+                <th>Year Level</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Array.isArray(subjects) && subjects.length > 0
+                ? subjects.map((subject, index) => (
+                    <tr key={index}>
+                      <td>{subject.subject_code}</td>
+                      <td>{subject.name}</td>
+                      <td>
+                        {subject.semester_id === 3
+                          ? "Summer Class"
+                          : subject.semester_id}
+                      </td>
+                      <td>{subject.year_level_id}</td>
+                      <td>
+                        <button
+                          onClick={() => handleUpdateSubject(subject)}
+                          className="subject-update-button"
+                        >
+                          <FontAwesomeIcon icon={faEdit} />
+                        </button>
+                        <button
+                          onClick={() =>
+                            handleDeleteSubject(subject.subject_id)
+                          }
+                          className="subject-delete-button"
+                        >
+                          <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                : null}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {showCreateSubjectModal && (
