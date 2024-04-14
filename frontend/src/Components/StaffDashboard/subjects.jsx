@@ -201,7 +201,7 @@ const Subjects = () => {
             <thead>
               <tr>
                 <th>Subject Code</th>
-                <th>Name</th>
+                <th>Description</th>
                 <th>Semester</th>
                 <th>Year Level</th>
                 <th>Action</th>
@@ -259,7 +259,7 @@ const Subjects = () => {
                 onChange={handleSubjectInputChange}
                 required
               />
-              <label>Name:</label>
+              <label>Description:</label>
               <input
                 type="text"
                 name="Name"
