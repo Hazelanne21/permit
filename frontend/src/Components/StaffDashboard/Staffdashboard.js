@@ -26,6 +26,7 @@ const StaffDashboard = () => {
   const [updateAdminFormData, setupdateAdminFormData] = useState({
     Staff_Name: "",
     Email: "",
+    Password: "",
   });
 
   const [studentFormData, setStudentFormData] = useState({
@@ -201,18 +202,29 @@ const StaffDashboard = () => {
             </span>
             <h2>Administrator Information</h2>
             <form onSubmit={handleSubmitUpdateAdministrator}>
-              <label>Staff Name:</label>
+
+              
+            <label>Staff Name:</label>
               <input
                 type="text"
                 name="Staff_Name"
                 value={updateAdminFormData.Staff_Name}
                 onChange={handleUpdateAdminInputChange}
               />
+    
               <label>Email:</label>
               <input
                 type="text"
                 name="Email"
                 value={updateAdminFormData.Email}
+                onChange={handleUpdateAdminInputChange}
+              />
+
+            <label>Password:</label>
+              <input
+                type="text"
+                name="Password"
+                value={updateAdminFormData.Password}
                 onChange={handleUpdateAdminInputChange}
               />
               <button type="submit">Update</button>
