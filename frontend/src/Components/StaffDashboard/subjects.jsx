@@ -37,9 +37,11 @@ const Subjects = () => {
     searchSubjects();
   };
 
-  const handleSubjectInputChange = (e) => {
-    const { name, value } = e.target;
-    setSubjectFormData({ ...subjectFormData, [name]: value });
+  const handleSubjectInputChange = (event) => {
+    setSubjectFormData({
+      ...subjectFormData,
+      [event.target.name]: event.target.value
+    });
   };
 
   const fetchSubjects = async () => {
@@ -47,6 +49,7 @@ const Subjects = () => {
       const response = await axios.get("/subjects/getSubject/");
       if (response.status === 200) {
         setSubjects(response.data.rows); // Update this line
+        console.log(response.data.rows)
       } else {
         console.error("Failed to fetch subjects");
       }
@@ -79,11 +82,16 @@ const Subjects = () => {
       setErrorMessage("");
       return;
     }
+    if (!subjectFormData.Semester_ID || !subjectFormData.Year_Level_ID) {
+      setErrorMessage("Semester and Year Level are required");
+      return;
+    }
     try {
       const response = await axios.post(
         "/subjects/createSubject",
         subjectFormData
       );
+      console.log("the fomr",subjectFormData)
       if (response.status === 201) {
         console.log("Subject created successfully");
         const newSubject = { ...subjectFormData };
@@ -170,7 +178,7 @@ const Subjects = () => {
                   <tr key={index}>
                     <td>{subject.subject_code}</td>
                     <td>{subject.description}</td>
-                    <td>{subject.semester_id}</td>
+                    <td>{subject.semester_id === 3 ? 'Summer Class' : subject.semester_id}</td>
                     <td>{subject.year_level_id}</td>
                     <td>
 
@@ -230,10 +238,10 @@ const Subjects = () => {
                 onChange={handleSubjectInputChange}
                 required
               >
-                <option value="">Select Semester</option>
-                <option value="1">1st Semester</option>
-                <option value="2">2nd Semester</option>
-                <option value="3">Summer</option>
+<option value="" disabled selected>Select Semester</option>
+<option value="1">1st Semester</option>
+<option value="2">2nd Semester</option>
+<option value="3">Summer</option>
               </select>
               <label htmlFor="year">Year Level:</label>
               <select
@@ -243,7 +251,7 @@ const Subjects = () => {
                 onChange={handleSubjectInputChange}
                 required
               >
-                <option value="">Select Year Level</option>
+                <option value="" disabled selected>Select Year Level</option>
                 <option value="1">1st Year</option>
                 <option value="2">2nd Year</option>
                 <option value="3">3rd Year</option>

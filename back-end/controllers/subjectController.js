@@ -10,9 +10,9 @@ const router = express.Router();
 
 router.post("/createSubject", async (req, res) => {
   try {
-    const { Subject_Code, Description, Semester, Year } = req.body;
+    const { Subject_Code, Description, Semester_ID, Year_Level_ID } = req.body;
 
-    console.log("Semester:", Semester, "Year:", Year);
+    console.log("Semester:", Semester_ID, "Year:", Year_Level_ID);
     const checkExistingSubjectQuery =
       "SELECT * FROM Subjects WHERE Subject_Code = $1";
     const existingSubjectRows = await db.query(checkExistingSubjectQuery, [
@@ -30,8 +30,8 @@ router.post("/createSubject", async (req, res) => {
     await db.query(insertSubjectQuery, [
       Subject_Code,
       Description,
-      Semester,
-      Year,
+      Semester_ID,
+      Year_Level_ID,
     ]);
 
     res.status(201).json({ message: "Subject created successfully" });
