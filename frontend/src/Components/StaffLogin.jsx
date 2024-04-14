@@ -28,7 +28,7 @@ const StaffLogin = () => {
       });
       const data = response.data;
       if (data.token) {
-        localStorage.setItem("token", data.token);
+        sessionStorage.setItem("token", data.token);
         navigate("/Staffdashboard");
       } else {
         setError("Invalid Email or password");

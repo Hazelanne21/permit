@@ -120,6 +120,7 @@ router.post("/login", async (req, res) => {
 
     const token = jwt.sign(
       {
+        studentId: student.student_id, // Add this line
         studentNumber: student.student_number,
         studentName: student.student_name,
       },

@@ -4,7 +4,7 @@ import "./Staffdashboard.css";
 import logoImage from "../../images/CCS.png";
 import axios from "axios";
 import Subjects from "./subjects";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const StaffDashboard = () => {
@@ -12,7 +12,7 @@ const StaffDashboard = () => {
   const navigate = useNavigate();
   const [showUpdateAdministratorModal, setShowUpdateAdministratorModal] =
     useState(false);
-    //eslint-disable-next-line
+  //eslint-disable-next-line
   const [searchTerm, setSearchTerm] = useState("");
   //eslint-disable-next-line
   const [searchResults, setSearchResults] = useState([]);
@@ -23,16 +23,13 @@ const StaffDashboard = () => {
   const [showCreateStudentModal, setShowCreateStudentModal] = useState(false);
   const [students, setStudents] = useState([]);
 
-
-
-  
   const handleEditStudent = (student) => {
     // Define the logic to handle editing a student
     console.log("Editing student:", student);
   };
 
   const handleDeleteStudent = (studentId) => {
-    // Define the logic to handle deleting a student 
+    // Define the logic to handle deleting a student
     console.log("Deleting student with ID:", studentId);
   };
 
@@ -63,7 +60,6 @@ const StaffDashboard = () => {
   const handleSectionChange = (section) => {
     setActiveSection(section);
   };
-
 
   //Update Administrator
   const handleOpenUpdateAdministratorModal = () => {
@@ -174,11 +170,11 @@ const StaffDashboard = () => {
           <div>
             <h1>Administrator Information</h1>
             <button
-                  onClick={handleOpenUpdateAdministratorModal}
-                    className="Update-button"
-                    >
-                    <FontAwesomeIcon icon={faEdit} />
-                    </button>
+              onClick={handleOpenUpdateAdministratorModal}
+              className="Update-button"
+            >
+              <FontAwesomeIcon icon={faEdit} />
+            </button>
             <p>Staff Name: {staffInfo.Staff_Name}</p>
             <p>Email: {staffInfo.Email}</p>
           </div>
@@ -189,168 +185,164 @@ const StaffDashboard = () => {
           </div>
         )}
 
-{activeSection === "list" && (
-  <div>
-    <h1>List Of Student</h1>
-    <button
-      className="Student-button"
-      onClick={handleOpenCreateStudentModal}
-    >
-      <FontAwesomeIcon icon={faPlus} />
-    </button>
-    <table>
-      <thead>
-        <tr>
-          <th>Student Number</th>
-          <th>Prelim Status</th>
-          <th>Midterm Status</th>
-          <th>SemiFinal Status</th>
-          <th>Final Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {students.map(student => (
-          <tr key={student.id}>
-            <td>{student.studentNumber}</td>
-            <td>{student.prelimStatus ? 'Paid' : 'Not Paid'}</td>
-            <td>{student.midtermStatus ? 'Paid' : 'Not Paid'}</td>
-            <td>{student.semiFinalStatus ? 'Paid' : 'Not Paid'}</td>
-            <td>{student.finalStatus ? 'Paid' : 'Not Paid'}</td>
-            <td>
-              <button onClick={() => handleEditStudent(student)}>
-              <FontAwesomeIcon icon={faEdit} />
-              </button>
-              
-              <button onClick={() => handleDeleteStudent(student.id)}>
-              <FontAwesomeIcon icon={faTrash} />
-              </button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-)}
-
-
-      {showUpdateAdministratorModal && (
-        <div className="umodal">
-          <div className="umodal-content">
-            <span
-              className="uclose"
-              onClick={handleCloseUpdateAdministratorModal}
+        {activeSection === "list" && (
+          <div>
+            <h1>List Of Student</h1>
+            <button
+              className="Student-button"
+              onClick={handleOpenCreateStudentModal}
             >
-              &times;
-            </span>
-            <h2>Administrator Information</h2>
-            <form onSubmit={handleSubmitUpdateAdministrator}>
+              <FontAwesomeIcon icon={faPlus} />
+            </button>
+            <table>
+              <thead>
+                <tr>
+                  <th>Student Number</th>
+                  <th>Prelim Status</th>
+                  <th>Midterm Status</th>
+                  <th>SemiFinal Status</th>
+                  <th>Final Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {students.map((student) => (
+                  <tr key={student.id}>
+                    <td>{student.studentNumber}</td>
+                    <td>{student.prelimStatus ? "Paid" : "Not Paid"}</td>
+                    <td>{student.midtermStatus ? "Paid" : "Not Paid"}</td>
+                    <td>{student.semiFinalStatus ? "Paid" : "Not Paid"}</td>
+                    <td>{student.finalStatus ? "Paid" : "Not Paid"}</td>
+                    <td>
+                      <button onClick={() => handleEditStudent(student)}>
+                        <FontAwesomeIcon icon={faEdit} />
+                      </button>
 
-              
-            <label>Staff Name:</label>
-              <input
-                type="text"
-                name="Staff_Name"
-                value={updateAdminFormData.Staff_Name}
-                onChange={handleUpdateAdminInputChange}
-              />
-    
-              <label>Email:</label>
-              <input
-                type="text"
-                name="Email"
-                value={updateAdminFormData.Email}
-                onChange={handleUpdateAdminInputChange}
-              />
-
-            <label>Password:</label>
-              <input
-                type="text"
-                name="Password"
-                value={updateAdminFormData.Password}
-                onChange={handleUpdateAdminInputChange}
-              />
-              <button type="submit">Update</button>
-            </form>
+                      <button onClick={() => handleDeleteStudent(student.id)}>
+                        <FontAwesomeIcon icon={faTrash} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        </div>
-      )}
+        )}
 
-      {showCreateStudentModal && (
-        <div className="smodal">
-          <div className="smodal-content">
-            <span className="sclose" onClick={handleCloseCreateStudentModal}>
-              &times;
-            </span>
-            <h2>Student Already Paid</h2>
-            <form onSubmit={handleSubmitStudent}>
-  <label>Student Number:</label>
-  <input
-    type="text"
-    name="Student_Number"
-    value={studentFormData.Student_Number}
-    onChange={handleStudentInputChange}
-    required
-  />
-  <label>Prelim Status:</label>
-  <select
-  className="select-dropdown"
-    name="Prelim_Status"
-    value={studentFormData.Prelim_Status}
-    onChange={handleStudentInputChange}
-    required
-  >
-    <option value="">Select Prelim Status</option>
-    <option value="Paid">Paid</option>
-    <option value="Not Paid">Not Paid</option>
-  </select>
+        {showUpdateAdministratorModal && (
+          <div className="umodal">
+            <div className="umodal-content">
+              <span
+                className="uclose"
+                onClick={handleCloseUpdateAdministratorModal}
+              >
+                &times;
+              </span>
+              <h2>Administrator Information</h2>
+              <form onSubmit={handleSubmitUpdateAdministrator}>
+                <label>Staff Name:</label>
+                <input
+                  type="text"
+                  name="Staff_Name"
+                  value={updateAdminFormData.Staff_Name}
+                  onChange={handleUpdateAdminInputChange}
+                />
 
+                <label>Email:</label>
+                <input
+                  type="text"
+                  name="Email"
+                  value={updateAdminFormData.Email}
+                  onChange={handleUpdateAdminInputChange}
+                />
 
-  <label>Midterm Status:</label>
-  <select
-  className="select-dropdown"
-    name="Midterm_Status"
-    value={studentFormData.Midterm_Status}
-    onChange={handleStudentInputChange}
-    required
-  >
-    <option value="">Select Midterm Status</option>
-    <option value="Paid">Paid</option>
-    <option value="Not Paid">Not Paid</option>
-  </select>
- 
-  <label>SemiFinal Status:</label>
-  <select
-  className="select-dropdown"
-    name="SemiFinal_Status"
-    value={studentFormData.SemiFinal_Status}
-    onChange={handleStudentInputChange}
-    required
-  >
-    <option value="">Select SemiFinal Status</option>
-    <option value="Paid">Paid</option>
-    <option value="Not Paid">Not Paid</option>
-  </select>
-
-  <label>Final Status:</label>
-  <select
-  className="select-dropdown"
-    name="Final_Status"
-    value={studentFormData.Final_Status}
-    onChange={handleStudentInputChange}
-    required
-  >
-    <option value="">Select Final Status</option>
-    <option value="Paid">Paid</option>
-    <option value="Not Paid">Not Paid</option>
-  </select>
-
-  <button type="submit">Create</button>
-</form>
+                <label>Password:</label>
+                <input
+                  type="text"
+                  name="Password"
+                  value={updateAdminFormData.Password}
+                  onChange={handleUpdateAdminInputChange}
+                />
+                <button type="submit">Update</button>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+
+        {showCreateStudentModal && (
+          <div className="smodal">
+            <div className="smodal-content">
+              <span className="sclose" onClick={handleCloseCreateStudentModal}>
+                &times;
+              </span>
+              <h2>Student Already Paid</h2>
+              <form onSubmit={handleSubmitStudent}>
+                <label>Student Number:</label>
+                <input
+                  type="text"
+                  name="Student_Number"
+                  value={studentFormData.Student_Number}
+                  onChange={handleStudentInputChange}
+                  required
+                />
+                <label>Prelim Status:</label>
+                <select
+                  className="select-dropdown"
+                  name="Prelim_Status"
+                  value={studentFormData.Prelim_Status}
+                  onChange={handleStudentInputChange}
+                  required
+                >
+                  <option value="">Select Prelim Status</option>
+                  <option value="Paid">Paid</option>
+                  <option value="Not Paid">Not Paid</option>
+                </select>
+
+                <label>Midterm Status:</label>
+                <select
+                  className="select-dropdown"
+                  name="Midterm_Status"
+                  value={studentFormData.Midterm_Status}
+                  onChange={handleStudentInputChange}
+                  required
+                >
+                  <option value="">Select Midterm Status</option>
+                  <option value="Paid">Paid</option>
+                  <option value="Not Paid">Not Paid</option>
+                </select>
+
+                <label>SemiFinal Status:</label>
+                <select
+                  className="select-dropdown"
+                  name="SemiFinal_Status"
+                  value={studentFormData.SemiFinal_Status}
+                  onChange={handleStudentInputChange}
+                  required
+                >
+                  <option value="">Select SemiFinal Status</option>
+                  <option value="Paid">Paid</option>
+                  <option value="Not Paid">Not Paid</option>
+                </select>
+
+                <label>Final Status:</label>
+                <select
+                  className="select-dropdown"
+                  name="Final_Status"
+                  value={studentFormData.Final_Status}
+                  onChange={handleStudentInputChange}
+                  required
+                >
+                  <option value="">Select Final Status</option>
+                  <option value="Paid">Paid</option>
+                  <option value="Not Paid">Not Paid</option>
+                </select>
+
+                <button type="submit">Create</button>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

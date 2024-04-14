@@ -14,20 +14,20 @@ const StudentLogin = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+  
     try {
       if (!studentNumber || !password) {
         setError("Please enter student number and password");
         return;
       }
-
+  
       const response = await axios.post("students/login", {
         studentNumber,
         password,
       });
       const data = response.data;
       if (data.token) {
-        localStorage.setItem("token", data.token);
+        sessionStorage.setItem("token", data.token); // Store token in session storage
         navigate('/Studentdashboard');
       } else {
         setError("Invalid student number or password");
