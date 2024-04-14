@@ -129,6 +129,7 @@ const StudentStatus = () => {
       >
         <FontAwesomeIcon icon={faPlus} />
       </button>
+      <div className="table-container"> 
       <table>
         <thead>
           <tr>
@@ -149,11 +150,15 @@ const StudentStatus = () => {
               <td>{status.semifinal_status ? "Paid" : "Not Paid"}</td>
               <td>{status.final_status ? "Paid" : "Not Paid"}</td>
               <td>
-                <button onClick={() => handleOpenUpdateStatusModal()}>
+                
+                <button        
+                 className="list-update-button"
+                onClick={() => handleOpenUpdateStatusModal()}>
                   <FontAwesomeIcon icon={faEdit} />
                 </button>
 
                 <button
+                className="list-delete-button"
                   onClick={() => handleDeleteStatus(status.student_number)}
                 >
                   <FontAwesomeIcon icon={faTrash} />
@@ -163,6 +168,7 @@ const StudentStatus = () => {
           ))}
         </tbody>
       </table>
+              </div>
       {showCreateStatusModal && (
         <div className="smodal">
           <div className="smodal-content">

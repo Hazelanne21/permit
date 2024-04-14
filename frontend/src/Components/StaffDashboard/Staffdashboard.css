@@ -535,6 +535,8 @@ table tr:first-child {
     cursor: pointer;
 }
 
+
+
 .staffProfile-update-button:hover {
     background-color: transparent;
 }
@@ -555,3 +557,136 @@ table tr:first-child {
     color: black;
     text-decoration: none;
 }
+
+
+
+
+/* StudentStatus.css */
+
+.StudentStatus {
+    margin: 20px;
+  }
+  
+  .StudentStatus h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .StudentStatus-button {
+    background-color: transparent;
+    position: absolute;
+    left: 380px; 
+    top: 35px; 
+    color: black;
+    border: none;
+    border-radius: 100px;
+    padding: 8px 16px;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  
+  .StudentStatus-button:hover {
+    background-color: transparent;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  table th {
+    background-color: #f2f2f2;
+  }
+  
+  .StudentStatus-button button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #007bff;
+  }
+  
+  .StudentStatus-button button:hover {
+    color: #0056b3;
+  }
+  
+  .smodal {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+  .smodal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+  }
+  
+  .sclose {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .sclose:hover,
+  .sclose:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+
+  .list-delete-button {
+    background-color: transparent;
+    color: red;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  
+  .list-delete-button:hover {
+    background-color: rgb(166, 165, 165);
+  }
+
+
+  
+.list-update-button {
+    background-color: transparent;
+    color: #0056b3;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  
+  .list-update-button:hover {
+    background-color: rgb(166, 165, 165);
+  }
+
+  .table-container {
+    max-height: 400px; 
+    overflow-y: auto; 
+  }
+
+
+
+
+
+  

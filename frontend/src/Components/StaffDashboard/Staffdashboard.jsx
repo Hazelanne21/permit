@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import List from "./list";
 import { jwtDecode } from "jwt-decode";
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const StaffDashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
