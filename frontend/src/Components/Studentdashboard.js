@@ -112,7 +112,9 @@ const StudentDashboard = () => {
                     <h1>Welcome to the Dashboard, {studentInfo && studentInfo.Student_Name}!</h1>
                 )}
                 {activeSection === 'permits' && (
+                    
                     <ul>
+                         <h1>Exam Permit</h1>
                         {permits.map((permit, index) => (
                             <li key={index}>
                                 Exam: {permit.Exam}, Date Release: {permit.Date_Release}
