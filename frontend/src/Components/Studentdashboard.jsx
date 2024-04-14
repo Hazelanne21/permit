@@ -9,11 +9,10 @@ const StudentDashboard = () => {
     const [studentInfo, setStudentInfo] = useState(null);
     const [permits, setPermits] = useState([]);
     const [activeSection, setActiveSection] = useState('dashboard');
-    const [isProfileModalOpen, setProfileModalOpen] = useState(false); // State for modal
-    const [isDropdownOpen, setDropdownOpen] = useState(false); // State for dropdown
+    const [isProfileModalOpen, setProfileModalOpen] = useState(false); 
+    const [isDropdownOpen, setDropdownOpen] = useState(false); 
 
     const handleUpdateProfile = () => {
-        // Add logic to handle profile update here
     };
     const navigate = useNavigate(); 
 
