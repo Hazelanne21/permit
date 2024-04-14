@@ -148,10 +148,10 @@ const Subjects = () => {
     });
   };
 
-  const handleDeleteSubject = async (subjectCode) => {
+  const handleDeleteSubject = async (subjectId) => {
     try {
       const response = await axios.delete(
-        `/subjects/deleteSubject/${subjectCode}`
+        `/subjects/deleteSubject/${subjectId}`
       );
       if (response.status === 200) {
         console.log("Subject deleted successfully");
@@ -165,7 +165,6 @@ const Subjects = () => {
       console.error("Error deleting subject:", error);
     }
   };
-
   return (
     <div className="container">
       <div>
@@ -227,9 +226,7 @@ const Subjects = () => {
                         <FontAwesomeIcon icon={faEdit} />
                       </button>
                       <button
-                        onClick={() =>
-                          handleDeleteSubject(subject.subject_code)
-                        }
+                        onClick={() => handleDeleteSubject(subject.subject_id)}
                         className="subject-delete-button"
                       >
                         <FontAwesomeIcon icon={faTrash} />
