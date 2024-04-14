@@ -5,7 +5,7 @@ import logoImage from "../../images/CCS.png";
 import axios from "axios";
 import Subjects from "./subjects";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const StaffDashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -22,6 +22,19 @@ const StaffDashboard = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showCreateStudentModal, setShowCreateStudentModal] = useState(false);
   const [students, setStudents] = useState([]);
+
+
+
+  
+  const handleEditStudent = (student) => {
+    // Define the logic to handle editing a student
+    console.log("Editing student:", student);
+  };
+
+  const handleDeleteStudent = (studentId) => {
+    // Define the logic to handle deleting a student 
+    console.log("Deleting student with ID:", studentId);
+  };
 
   const [updateAdminFormData, setupdateAdminFormData] = useState({
     Staff_Name: "",
@@ -193,6 +206,7 @@ const StaffDashboard = () => {
           <th>Midterm Status</th>
           <th>SemiFinal Status</th>
           <th>Final Status</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -203,6 +217,15 @@ const StaffDashboard = () => {
             <td>{student.midtermStatus ? 'Paid' : 'Not Paid'}</td>
             <td>{student.semiFinalStatus ? 'Paid' : 'Not Paid'}</td>
             <td>{student.finalStatus ? 'Paid' : 'Not Paid'}</td>
+            <td>
+              <button onClick={() => handleEditStudent(student)}>
+              <FontAwesomeIcon icon={faEdit} />
+              </button>
+              
+              <button onClick={() => handleDeleteStudent(student.id)}>
+              <FontAwesomeIcon icon={faTrash} />
+              </button>
+            </td>
           </tr>
         ))}
       </tbody>
