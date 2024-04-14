@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import List from "./list";
 import { jwtDecode } from "jwt-decode";
-import { faUser } from '@fortawesome/free-solid-svg-icons'; 
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const StaffDashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -48,10 +48,6 @@ const StaffDashboard = () => {
   };
 
   // PROFILE
-const handleUpdateProfile = () => {
-};
-
-
 // eslint-disable-next-line
 const toggleDropdown = () => {
   if (!isProfileModalOpen) {
@@ -137,29 +133,12 @@ const toggleProfileModal = () => {
         <button onClick={() => handleSectionChange("dashboard")}>
           Dashboard
         </button>
-        <button onClick={() => handleSectionChange("profile")}>Profile</button>
         <button onClick={() => handleSectionChange("subject")}>Subjects</button>
-        <button onClick={() => handleSectionChange("list")}>
-          List of Student
-        </button>
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={() => handleSectionChange("list")}>List of Student </button>
       </nav>
 
       <div className="dashboard-container">
         {activeSection === "dashboard" && <h1>Welcome to the Dashboard!</h1>}
-        {activeSection === "profile" && (
-          <div>
-            <h1>Administrator Information</h1>
-            <button
-              onClick={handleOpenUpdateAdministratorModal}
-              className="Update-button"
-            >
-              <FontAwesomeIcon icon={faEdit} />
-            </button>
-            <p>Staff Name: {decodedStaffName}</p>
-            <p>Email: {decodedStaffEmail}</p>
-          </div>
-        )}
         {activeSection === "subject" && (
           <div>
             <Subjects />
@@ -216,14 +195,14 @@ const toggleProfileModal = () => {
   <div className="modal">
     <div className="staffProfile-modal-content">
         <span className="staffProfile-close" onClick={toggleProfileModal}>&times;</span>
-        <h2>Profile  <i
-          onClick={() => handleUpdateProfile(staffInfo)}
+        <h2>Administrator Information  <i
+          onClick={handleOpenUpdateAdministratorModal}
           className="staffProfile-update-button"
         >
           <FontAwesomeIcon icon={faEdit} />
         </i></h2>
-        <p>Staff Name: {staffInfo.Staff_Name}</p>
-        <p>Email: {staffInfo.Email}</p>
+        <p>Staff Name: {decodedStaffName}</p>
+            <p>Email: {decodedStaffEmail}</p>
       </div>
     </div>
 )}
