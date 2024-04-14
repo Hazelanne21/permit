@@ -79,3 +79,102 @@ ul li {
     position: relative; 
     top: 20px; 
 }
+
+
+/* Dropdown container */
+.dropdown {
+    position: absolute;
+    display: inline-block;
+    top: 20px; 
+    right: 100px;
+    z-index: 1000; 
+}
+
+
+.dropbtn {
+    background-color: green;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 90px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+.dropbtn::after {
+    content: '\25BE'; 
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+/* Styles for the update button */
+  .studentProfile-modal-content {
+    background: linear-gradient(45deg, #3B945E, #72CC64, #A8C41D); /* Gradient background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+}
+
+
+  .StudentProfile-update-button:hover {
+    background-color: transparent;
+  }
+
+
+  .studentProfile-close {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 30px;
+    color: #ffffff;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.studentProfile-modal-content {
+    position: relative; 
+    background: linear-gradient(45deg, #3B945E, #72CC64, #A8C41D); 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+}
+
+
+    .studentProfile-close:hover,
+    .studentProfile-close:focus {
+        color: black;
+        text-decoration: none;
+    }
+
+    
+    .disabled-dropdown {
+        pointer-events: none;
+    }
+    

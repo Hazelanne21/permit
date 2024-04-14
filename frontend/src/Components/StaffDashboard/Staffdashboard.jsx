@@ -5,7 +5,7 @@ import logoImage from "../../images/CCS.png";
 import axios from "axios";
 import Subjects from "./subjects";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
-import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const StaffDashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -22,6 +22,19 @@ const StaffDashboard = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showCreateStudentModal, setShowCreateStudentModal] = useState(false);
   const [students, setStudents] = useState([]);
+
+
+
+  
+  const handleEditStudent = (student) => {
+    // Define the logic to handle editing a student
+    console.log("Editing student:", student);
+  };
+
+  const handleDeleteStudent = (studentId) => {
+    // Define the logic to handle deleting a student 
+    console.log("Deleting student with ID:", studentId);
+  };
 
   const [updateAdminFormData, setupdateAdminFormData] = useState({
     Staff_Name: "",
@@ -176,20 +189,50 @@ const StaffDashboard = () => {
           </div>
         )}
 
-        {activeSection === "list" && (
-          <div>
-            <h1>List Of Student</h1>
-            <input className="search-bar" placeholder="Search" />
-           
-           
-            <button
-              className="Student-button"
-              onClick={handleOpenCreateStudentModal}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-            </button>
-          </div>
-        )}
+{activeSection === "list" && (
+  <div>
+    <h1>List Of Student</h1>
+    <button
+      className="Student-button"
+      onClick={handleOpenCreateStudentModal}
+    >
+      <FontAwesomeIcon icon={faPlus} />
+    </button>
+    <table>
+      <thead>
+        <tr>
+          <th>Student Number</th>
+          <th>Prelim Status</th>
+          <th>Midterm Status</th>
+          <th>SemiFinal Status</th>
+          <th>Final Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {students.map(student => (
+          <tr key={student.id}>
+            <td>{student.studentNumber}</td>
+            <td>{student.prelimStatus ? 'Paid' : 'Not Paid'}</td>
+            <td>{student.midtermStatus ? 'Paid' : 'Not Paid'}</td>
+            <td>{student.semiFinalStatus ? 'Paid' : 'Not Paid'}</td>
+            <td>{student.finalStatus ? 'Paid' : 'Not Paid'}</td>
+            <td>
+              <button onClick={() => handleEditStudent(student)}>
+              <FontAwesomeIcon icon={faEdit} />
+              </button>
+              
+              <button onClick={() => handleDeleteStudent(student.id)}>
+              <FontAwesomeIcon icon={faTrash} />
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}
+
 
       {showUpdateAdministratorModal && (
         <div className="umodal">
@@ -241,63 +284,69 @@ const StaffDashboard = () => {
             </span>
             <h2>Student Already Paid</h2>
             <form onSubmit={handleSubmitStudent}>
-              <label>Student Number:</label>
-              <input
-                type="text"
-                name="Student_Number"
-                value={studentFormData.Student_Number}
-                onChange={handleStudentInputChange}
-              />
-              <label>Prelim Status:</label>
-              <input
-                type="checkbox"
-                name="Prelim_Status"
-                checked={studentFormData.Prelim_Status}
-                onChange={() =>
-                  setStudentFormData({
-                    ...studentFormData,
-                    Prelim_Status: !studentFormData.Prelim_Status,
-                  })
-                }
-              />
-              <label>Midterm Status:</label>
-              <input
-                type="checkbox"
-                name="Midterm_Status"
-                checked={studentFormData.Midterm_Status}
-                onChange={() =>
-                  setStudentFormData({
-                    ...studentFormData,
-                    Midterm_Status: !studentFormData.Midterm_Status,
-                  })
-                }
-              />
-              <label>SemiFinal Status:</label>
-              <input
-                type="checkbox"
-                name="SemiFinal_Status"
-                checked={studentFormData.SemiFinal_Status}
-                onChange={() =>
-                  setStudentFormData({
-                    ...studentFormData,
-                    SemiFinal_Status: !studentFormData.SemiFinal_Status,
-                  })
-                }
-              />
-              <label>Final Status:</label>
-              <input
-                type="checkbox"
-                name="Final_Status"
-                checked={studentFormData.Final_Status}
-                onChange={() =>
-                  setStudentFormData({
-                    ...studentFormData,
-                    Final_Status: !studentFormData.Final_Status,
-                  })
-                }
-              />
-              <button type="submit">Create</button>
-            </form>
+  <label>Student Number:</label>
+  <input
+    type="text"
+    name="Student_Number"
+    value={studentFormData.Student_Number}
+    onChange={handleStudentInputChange}
+    required
+  />
+  <label>Prelim Status:</label>
+  <select
+  className="select-dropdown"
+    name="Prelim_Status"
+    value={studentFormData.Prelim_Status}
+    onChange={handleStudentInputChange}
+    required
+  >
+    <option value="">Select Prelim Status</option>
+    <option value="Paid">Paid</option>
+    <option value="Not Paid">Not Paid</option>
+  </select>
+
+
+  <label>Midterm Status:</label>
+  <select
+  className="select-dropdown"
+    name="Midterm_Status"
+    value={studentFormData.Midterm_Status}
+    onChange={handleStudentInputChange}
+    required
+  >
+    <option value="">Select Midterm Status</option>
+    <option value="Paid">Paid</option>
+    <option value="Not Paid">Not Paid</option>
+  </select>
+ 
+  <label>SemiFinal Status:</label>
+  <select
+  className="select-dropdown"
+    name="SemiFinal_Status"
+    value={studentFormData.SemiFinal_Status}
+    onChange={handleStudentInputChange}
+    required
+  >
+    <option value="">Select SemiFinal Status</option>
+    <option value="Paid">Paid</option>
+    <option value="Not Paid">Not Paid</option>
+  </select>
+
+  <label>Final Status:</label>
+  <select
+  className="select-dropdown"
+    name="Final_Status"
+    value={studentFormData.Final_Status}
+    onChange={handleStudentInputChange}
+    required
+  >
+    <option value="">Select Final Status</option>
+    <option value="Paid">Paid</option>
+    <option value="Not Paid">Not Paid</option>
+  </select>
+
+  <button type="submit">Create</button>
+</form>
           </div>
         </div>
       )}
