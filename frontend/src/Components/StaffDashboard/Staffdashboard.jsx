@@ -119,7 +119,7 @@ const toggleProfileModal = () => {
   return (
     <div>
           <div className={`dropdown ${isProfileModalOpen ? 'disabled-dropdown' : ''}`}>
-                <button className="dropbtn" onClick={toggleDropdown}>{staffInfo && staffInfo.Staff_Name} <FontAwesomeIcon icon={faUser} /></button>
+                <button className="dropbtn" onClick={toggleDropdown}>{decodedStaffName}</button>
                 {isDropdownOpen && (
                     <div className="dropdown-content">
                         <a href="#profile" onClick={toggleProfileModal}>Profile</a>
@@ -134,7 +134,7 @@ const toggleProfileModal = () => {
           Dashboard
         </button>
         <button onClick={() => handleSectionChange("subject")}>Subjects</button>
-        <button onClick={() => handleSectionChange("list")}>List of Student </button>
+        <button onClick={() => handleSectionChange("list")}>Tuition Status</button>
       </nav>
 
       <div className="dashboard-container">
