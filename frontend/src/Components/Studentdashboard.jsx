@@ -4,6 +4,7 @@ import './Studentdashboard.css';
 import logoImage from '../images/CCS.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 const StudentDashboard = () => {
     const [studentInfo, setStudentInfo] = useState(null);
@@ -87,7 +88,7 @@ const StudentDashboard = () => {
     return (
         <div>
             <div className={`dropdown ${isProfileModalOpen ? 'disabled-dropdown' : ''}`}>
-                <button className="dropbtn" onClick={toggleDropdown}>{studentInfo && studentInfo.Student_Name}</button>
+                <button className="dropbtn" onClick={toggleDropdown}>{studentInfo && studentInfo.Student_Name} <FontAwesomeIcon icon={faUser} /></button>
                 {isDropdownOpen && (
                     <div className="dropdown-content">
                         <a href="#profile" onClick={toggleProfileModal}>Profile</a>
@@ -97,7 +98,7 @@ const StudentDashboard = () => {
             </div>
 
     
-    href="#profile"
+
             <nav className="navdashboard-container">
                 <img src={logoImage} alt="Logo" className="logo-image" />
                 <span className="logo-text">College of Computer Studies</span>
