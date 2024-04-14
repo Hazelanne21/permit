@@ -2,11 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Studentdashboard.css';
 import logoImage from '../images/CCS.png';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 const StudentDashboard = () => {
     const [studentInfo, setStudentInfo] = useState(null);
     const [permits, setPermits] = useState([]);
     const [activeSection, setActiveSection] = useState('dashboard');
+    const [isProfileModalOpen, setProfileModalOpen] = useState(false); // State for modal
+    const [isDropdownOpen, setDropdownOpen] = useState(false); // State for dropdown
+
+    const handleUpdateProfile = () => {
+        // Add logic to handle profile update here
+    };
     const navigate = useNavigate(); 
 
     useEffect(() => {
@@ -28,7 +36,7 @@ const StudentDashboard = () => {
                 setStudentInfo(data);
             } else {
                 throw new Error('Failed to fetch student info');
-            }
+            } 
         } catch (error) {
             console.error(error);
         }
@@ -59,26 +67,49 @@ const StudentDashboard = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('authToken');
-        
-        navigate('/'); 
+        navigate('/');
+    };
+
+    // Function to toggle profile modal visibility
+    const toggleProfileModal = () => {
+        setProfileModalOpen(!isProfileModalOpen);
+        // Close dropdown when profile modal is opened
+        setDropdownOpen(false);
+    };
+
+    // Function to toggle dropdown visibility
+    const toggleDropdown = () => {
+        // Allow dropdown to be toggled only if profile modal is not open
+        if (!isProfileModalOpen) {
+            setDropdownOpen(!isDropdownOpen);
+        }
     };
 
     return (
         <div>
+            <div className={`dropdown ${isProfileModalOpen ? 'disabled-dropdown' : ''}`}>
+                <button className="dropbtn" onClick={toggleDropdown}>{studentInfo && studentInfo.Student_Name}</button>
+                {isDropdownOpen && (
+                    <div className="dropdown-content">
+                        <a href="#profile" onClick={toggleProfileModal}>Profile</a>
+                        <a href="#logout" onClick={handleLogout}>Logout</a>
+                    </div>
+                )}
+            </div>
+
+    
+    href="#profile"
             <nav className="navdashboard-container">
-            <img src={logoImage} alt="Logo" className="logo-image" />
-            <span className="logo-text">College of Computer Studies</span>
+                <img src={logoImage} alt="Logo" className="logo-image" />
+                <span className="logo-text">College of Computer Studies</span>
                 <button onClick={() => handleSectionChange('dashboard')}>Dashboard</button>
-                <button onClick={() => handleSectionChange('profile')}>Profile {studentInfo && studentInfo.Student_Name}</button>
                 <button onClick={() => handleSectionChange('permits')}>Permits</button>
-                <button onClick={handleLogout}>Logout</button>
+    
             </nav>
+
             <div className="dashboard-container">
                 {activeSection === 'dashboard' && (
                     <h1>Welcome to the Dashboard, {studentInfo && studentInfo.Student_Name}!</h1>
-                )}
-                {activeSection === 'profile' && (
-                    <h1>Profile Content Goes Here</h1>
                 )}
                 {activeSection === 'permits' && (
                     <ul>
@@ -89,8 +120,29 @@ const StudentDashboard = () => {
                         ))}
                     </ul>
                 )}
-              
             </div>
+
+            {/* Profile modal */}
+            {isProfileModalOpen && (
+    <div className="modal">
+        <div className="studentProfile-modal-content">
+            <span className="studentProfile-close" onClick={toggleProfileModal}>&times;</span>
+            <h2>Profile  <i
+                        onClick={() => handleUpdateProfile(studentInfo)}
+                        className="StudentProfile-update-button"
+                      >
+                        <FontAwesomeIcon icon={faEdit} />
+                      </i></h2>
+    
+            <p>Student Name: {studentInfo && studentInfo.Student_Name}</p>
+            <p>Gbox: {studentInfo && studentInfo.Gbox}</p>
+            <p>Mobile Number: {studentInfo && studentInfo.Mobile_Number}</p>
+            <p>Year: {studentInfo && studentInfo.Year_level}</p>
+            {/* Add the update icon */}
+          
+        </div>
+    </div>
+)}
         </div>
     );
 };
