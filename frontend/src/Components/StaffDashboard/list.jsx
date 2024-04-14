@@ -122,7 +122,7 @@ const StudentStatus = () => {
 
   return (
     <div className="StudentStatus">
-      <h1>List Of Student Tuition Statuses</h1>
+      <h1>List Of Student Tuition Status</h1>
       <button
         className="StudentStatus-button"
         onClick={handleOpenCreateStatusModal}
