@@ -179,7 +179,6 @@ const StaffDashboard = () => {
         {activeSection === "list" && (
           <div>
             <h1>List Of Student</h1>
-            <input className="search-bar" placeholder="Search" />
            
            
             <button
