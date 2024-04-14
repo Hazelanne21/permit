@@ -9,7 +9,8 @@ CREATE TABLE Semester (
 );
 
 CREATE TABLE Students(
-    Student_Number VARCHAR(255) NOT NULL PRIMARY KEY,
+    Student_ID SERIAL PRIMARY KEY,
+    Student_Number VARCHAR(255) NOT NULL,
     Student_Name VARCHAR(255),
     Year_Level_ID INT,
     Semester_ID INT,
@@ -32,43 +33,45 @@ CREATE TABLE Subjects (
 );
 
 CREATE TABLE StudentSubjects (
-    Student_Number VARCHAR(255),
+    Student_ID INT,
     Subject_ID INT,
-    FOREIGN KEY (Student_Number) REFERENCES Students(Student_Number),
+    FOREIGN KEY (Student_ID) REFERENCES Students(Student_ID),
     FOREIGN KEY (Subject_ID) REFERENCES Subjects(Subject_ID),
-    PRIMARY KEY (Student_Number, Subject_ID)
+    PRIMARY KEY (Student_ID, Subject_ID)
 );
 
 CREATE TABLE Staff (
-    Staff_Name VARCHAR(255) PRIMARY KEY,
+    Staff_ID SERIAL PRIMARY KEY,
+    Staff_Name VARCHAR(255) NOT NULL,
     Password VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE TuitionPaymentStatus (
     TuitionList_ID SERIAL PRIMARY KEY,
-    Student_Number VARCHAR(255) NOT NULL,
+    Student_ID INT NOT NULL,
     Prelim_Status BOOLEAN DEFAULT FALSE,
     Midterm_Status BOOLEAN DEFAULT FALSE,
     SemiFinal_Status BOOLEAN DEFAULT FALSE,
     Final_Status BOOLEAN DEFAULT FALSE,
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    Staff_Name VARCHAR(255),
-    FOREIGN KEY (Student_Number) REFERENCES Students(Student_Number),
-    FOREIGN KEY (Staff_Name) REFERENCES Staff(Staff_Name)
+    Staff_ID INT,
+    FOREIGN KEY (Student_ID) REFERENCES Students(Student_ID),
+    FOREIGN KEY (Staff_ID) REFERENCES Staff(Staff_ID)
 );
 
 CREATE TABLE Permit (
-    Permit_Number SERIAL PRIMARY KEY,
-    Student_Number VARCHAR(255),
+    Permit_ID SERIAL PRIMARY KEY,
+    Permit_Number VARCHAR(255) NOT NULL,
+    Student_ID INT NOT NULL,
     Exam VARCHAR(50) NOT NULL,
     Date_Release DATE NOT NULL,
     Subject_ID INT,
     Description VARCHAR(255),
     Sequence_No VARCHAR(255) NOT NULL,
-    Staff_Name VARCHAR(255),
+    Staff_ID INT,
     Exam_Period VARCHAR(50) NOT NULL,
-    FOREIGN KEY (Student_Number) REFERENCES Students(Student_Number),
+    FOREIGN KEY (Student_ID) REFERENCES Students(Student_ID),
     FOREIGN KEY (Subject_ID) REFERENCES Subjects (Subject_ID),
-    FOREIGN KEY (Staff_Name) REFERENCES Staff (Staff_Name)
+    FOREIGN KEY (Staff_ID) REFERENCES Staff (Staff_ID)
 );

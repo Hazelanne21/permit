@@ -15,7 +15,7 @@ import "./App.css";
 
 const UserTypeSelect = ({ setUserType }) => {
   const navigate = useNavigate();
-
+  
   const handleUserTypeSelect = (type) => {
     setUserType(type);
     if (type === "student") {
@@ -108,10 +108,27 @@ const RoutesComponent = ({ userType, setUserType }) => {
 const App = () => {
   const [userType, setUserType] = useState(null);
 
+  const RoutesComponentWithNavigation = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const token = sessionStorage.getItem('token');
+      if (token) {
+        if (userType === "student") {
+          navigate("/Studentdashboard");
+        } else if (userType === "staff") {
+          navigate("/Staffdashboard");
+        }
+      }
+    }, [navigate]);
+
+    return <RoutesComponent userType={userType} setUserType={setUserType} />;
+  };
+
   return (
     <Router>
       <div className="app-container" style={{ marginRight: "20px" }}>
-        <RoutesComponent userType={userType} setUserType={setUserType} />
+        <RoutesComponentWithNavigation />
       </div>
     </Router>
   );
