@@ -118,19 +118,31 @@ router.put("/updateTuitionList", async (req, res) => {
       Staff_ID,
     } = req.body;
 
+    const StudentNumber = String(Student_Number);
     const getStudentIdQuery =
       "SELECT Student_ID FROM Students WHERE Student_Number = $1";
-    const studentRows = await db.query(getStudentIdQuery, [Student_Number]);
+    const studentRows = await db.query(getStudentIdQuery, [StudentNumber]);
 
-    if (studentRows.length === 0) {
+    if (studentRows.rows.length === 0) {
+      console.warn(`Student with Student_Number ${StudentNumber} does not exist. Skipping entry.`);
       return res
         .status(400)
         .json({
-          error: `Student with Student Number ${Student_Number} does not exist`,
+          error: `Student with Student Number ${StudentNumber} does not exist`,
         });
     }
 
-    const Student_ID = studentRows[0].Student_ID;
+    // Add this check
+    if (!studentRows.rows[0]) {
+      console.error(`No rows returned from query for Student_Number ${StudentNumber}. Skipping entry.`);
+      return res
+        .status(400)
+        .json({
+          error: `No rows returned from query for Student_Number ${StudentNumber}`,
+        });
+    }
+
+    const Student_ID = studentRows.rows[0].student_id;
 
     const updateTuitionListQuery = `
       UPDATE TuitionPaymentStatus
@@ -164,22 +176,32 @@ router.delete("/deleteTuitionList", async (req, res) => {
   try {
     const { Student_Number } = req.body;
 
-    const getStudentIdQuery =
-      "SELECT Student_ID FROM Students WHERE Student_Number = $1";
-    const studentRows = await db.query(getStudentIdQuery, [Student_Number]);
+    const StudentNumber = String(Student_Number);
+    const getStudentIdQuery = "SELECT Student_ID FROM Students WHERE Student_Number = $1";
+    const studentRows = await db.query(getStudentIdQuery, [StudentNumber]);
 
-    if (studentRows.length === 0) {
+    if (studentRows.rows.length === 0) {
+      console.warn(`Student with Student_Number ${StudentNumber} does not exist. Skipping entry.`);
       return res
         .status(400)
         .json({
-          error: `Student with Student Number ${Student_Number} does not exist`,
+          error: `Student with Student Number ${StudentNumber} does not exist`,
         });
     }
 
-    const Student_ID = studentRows[0].Student_ID;
+    // Add this check
+    if (!studentRows.rows[0]) {
+      console.error(`No rows returned from query for Student_Number ${StudentNumber}. Skipping entry.`);
+      return res
+        .status(400)
+        .json({
+          error: `No rows returned from query for Student_Number ${StudentNumber}`,
+        });
+    }
 
-    const deleteTuitionListQuery =
-      "DELETE FROM TuitionPaymentStatus WHERE Student_ID = $1";
+    const Student_ID = studentRows.rows[0].student_id;
+
+    const deleteTuitionListQuery = "DELETE FROM TuitionPaymentStatus WHERE Student_ID = $1";
     await db.query(deleteTuitionListQuery, [Student_ID]);
 
     res

@@ -9,6 +9,8 @@ const StudentStatus = () => {
   const [showCreateStatusModal, setShowCreateStatusModal] = useState(false);
   const [studentStatuses, setStudentStatuses] = useState([]);
   const token = sessionStorage.getItem("token");
+  const [showUpdateStatusModal, setShowUpdateStatusModal] = useState(false);
+
   let Staff_ID = "";
 
   if (token) {
@@ -24,28 +26,37 @@ const StudentStatus = () => {
     Final_Status: "",
     Staff_ID: Staff_ID,
   });
-
   const handleOpenCreateStatusModal = () => {
     setShowCreateStatusModal(true);
   };
 
+  const handleOpenUpdateStatusModal = () => {
+    setShowUpdateStatusModal(true);
+  };
   const handleCloseCreateStatusModal = () => {
     setShowCreateStatusModal(false);
+  };
+  const handleCloseUpdateStatusModal = () => {
+    setShowUpdateStatusModal(false);
   };
 
   const handleStatusInputChange = (e) => {
     const { name, value } = e.target;
     setStatusFormData({ ...statusFormData, [name]: value });
   };
-
-  const handleEditStatus = (status) => {
-    // Define the logic to handle editing a status
-    console.log("Editing status:", status);
-  };
-
-  const handleDeleteStatus = (statusId) => {
-    // Define the logic to handle deleting a status
-    console.log("Deleting status with ID:", statusId);
+  
+  const handleDeleteStatus = async (studentNumber) => {
+    try {
+      const response = await axios.delete("/tuitions/deleteTuitionList", { data: { Student_Number: studentNumber } });
+      if (response.status === 200) {
+        console.log("Status deleted successfully");
+        setStudentStatuses(studentStatuses.filter(status => status.student_number !== studentNumber));
+      } else {
+        console.error("Failed to delete status");
+      }
+    } catch (error) {
+      console.error("Error deleting status:", error.message);
+    }
   };
 
   const handleSubmitStatus = async (e) => {
@@ -88,6 +99,27 @@ const StudentStatus = () => {
 
     fetchTuitionList();
   }, []);
+  
+  const handleUpdateSubmitStatus = async (e) => {
+    e.preventDefault();
+    try {
+      await handleUpdateStatus(statusFormData);
+      console.log("Status updated successfully");
+      handleCloseUpdateStatusModal();
+    } catch (error) {
+      console.error("Error updating status:", error.message);
+    }
+  };
+
+  const handleUpdateStatus = async (statusFormData) => {
+    try {
+      const response = await axios.put("/tuitions/updateTuitionList", statusFormData);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error updating tuition list:", error);
+    }
+  };
+
   return (
     <div className="StudentStatus">
       <h1>List Of Student Tuition Statuses</h1>
@@ -117,7 +149,7 @@ const StudentStatus = () => {
               <td>{status.semifinal_status ? "Paid" : "Not Paid"}</td>
               <td>{status.final_status ? "Paid" : "Not Paid"}</td>
               <td>
-                <button onClick={() => handleEditStatus(status)}>
+                <button onClick={() => handleOpenUpdateStatusModal()}>
                   <FontAwesomeIcon icon={faEdit} />
                 </button>
 
@@ -200,6 +232,79 @@ const StudentStatus = () => {
               </select>
 
               <button type="submit">Create</button>
+            </form>
+          </div>
+        </div>
+      )}
+      {showUpdateStatusModal && (
+        <div className="smodal">
+          <div className="smodal-content">
+            <span className="sclose" onClick={handleCloseUpdateStatusModal}>
+              &times;
+            </span>
+            <h2>Update Student Tuition Status</h2>
+            <form onSubmit={handleUpdateSubmitStatus}>
+              <label>Student Number:</label>
+              <input
+                type="text"
+                name="Student_Number"
+                value={statusFormData.Student_Number}
+                onChange={handleStatusInputChange}
+                required
+              />
+              <label>Prelim Status:</label>
+              <select
+                className="select-dropdown"
+                name="Prelim_Status"
+                value={statusFormData.Prelim_Status}
+                onChange={handleStatusInputChange}
+                required
+              >
+                <option value="">Select Prelim Status</option>
+                <option value="True">Paid</option>
+                <option value="False">Not Paid</option>
+              </select>
+
+              <label>Midterm Status:</label>
+              <select
+                className="select-dropdown"
+                name="Midterm_Status"
+                value={statusFormData.Midterm_Status}
+                onChange={handleStatusInputChange}
+                required
+              >
+                <option value="">Select Midterm Status</option>
+                <option value="True">Paid</option>
+                <option value="False">Not Paid</option>
+              </select>
+
+              <label>SemiFinal Status:</label>
+              <select
+                className="select-dropdown"
+                name="SemiFinal_Status"
+                value={statusFormData.SemiFinal_Status}
+                onChange={handleStatusInputChange}
+                required
+              >
+                <option value="">Select SemiFinal Status</option>
+                <option value="True">Paid</option>
+                <option value="False">Not Paid</option>
+              </select>
+
+              <label>Final Status:</label>
+              <select
+                className="select-dropdown"
+                name="Final_Status"
+                value={statusFormData.Final_Status}
+                onChange={handleStatusInputChange}
+                required
+              >
+                <option value="">Select Final Status</option>
+                <option value="True">Paid</option>
+                <option value="False">Not Paid</option>
+              </select>
+
+              <button type="submit">Update</button>
             </form>
           </div>
         </div>
