@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "./Staffdashboard.css"; // Import your existing CSS file
-import "./subjects.css"; // Import the CSS file for the modal
-import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import "./Staffdashboard.css"; 
+import "./subjects.css"; 
+import axios from "axios";
+
 
 const Subjects = () => {
   const [subjects, setSubjects] = useState([]);
@@ -13,12 +14,23 @@ const Subjects = () => {
   //eslint-disable-next-line
   const [searchResults, setSearchResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+ 
+ 
+ 
+  useEffect(() => {
+    fetchSubjects();
+  }, []);
+
+
+// CREATE SUBJECT
   const [subjectFormData, setSubjectFormData] = useState({
     Subject_Code: "",
     Name: "",
     Semester_ID: "",
     Year_Level_ID: "",
   });
+
+  // UPDATE SUBJECT
   const [showUpdateSubjectModal, setShowUpdateSubjectModal] = useState(false);
   const [updateSubjectFormData, setUpdateSubjectFormData] = useState({
     Subject_Code: "",
@@ -27,58 +39,9 @@ const Subjects = () => {
     Year_Level_ID: "",
   });
 
-  useEffect(() => {
-    fetchSubjects();
-  }, []);
 
-  const handleCloseCreateSubjectModal = () => {
-    setShowCreateSubjectModal(false);
-  };
 
-  const handleSearchInputChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const handleSearch = () => {
-    searchSubjects();
-  };
-
-  const handleSubjectInputChange = (event) => {
-    setSubjectFormData({
-      ...subjectFormData,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const fetchSubjects = async () => {
-    try {
-      const response = await axios.get("/subjects/getSubject/");
-      if (response.status === 200) {
-        setSubjects(response.data.rows); // Update this line
-        console.log(response.data.rows);
-      } else {
-        console.error("Failed to fetch subjects");
-      }
-    } catch (error) {
-      console.log("Error fetching subjects:", error.message);
-    }
-  };
-
-  const searchSubjects = async () => {
-    try {
-      const response = await axios.get(
-        `/subjects/getSubject?searchTerm=${searchTerm}`
-      );
-      if (response.status === 200) {
-        setSearchResults(response.data);
-      } else {
-        console.error("Failed to search subjects");
-      }
-    } catch (error) {
-      console.error("Error searching subjects:", error);
-    }
-  };
-
+  // CREATE SUBJECTS
   const handleSubmitSubject = async (e) => {
     e.preventDefault();
     const existingSubject = subjects.find(
@@ -111,14 +74,68 @@ const Subjects = () => {
       setErrorMessage("Failed to Create Subject");
     }
   };
-  const handleUpdateSubject = (subject) => {
-    setUpdateSubjectFormData({
-      ...subject,
-      Subject_ID: subject.subject_id, // Assuming the subject object has a Subject_ID property
+
+
+  const handleSubjectInputChange = (event) => {
+    setSubjectFormData({
+      ...subjectFormData,
+      [event.target.name]: event.target.value,
     });
-    setShowUpdateSubjectModal(true);
   };
 
+// MODALCREATE
+  const handleCloseCreateSubjectModal = () => {
+    setShowCreateSubjectModal(false);
+  };
+
+
+  // SEARCH
+
+  const searchSubjects = async () => {
+    try {
+      const response = await axios.get(
+        `/subjects/getSubject?searchTerm=${searchTerm}`
+      );
+      if (response.status === 200) {
+        setSearchResults(response.data);
+      } else {
+        console.error("Failed to search subjects");
+      }
+    } catch (error) {
+      console.error("Error searching subjects:", error);
+    }
+  };
+
+  const handleSearchInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearch = () => {
+    searchSubjects();
+  };
+
+
+ 
+
+ 
+  const fetchSubjects = async () => {
+    try {
+      const response = await axios.get("/subjects/getSubject/");
+      if (response.status === 200) {
+        setSubjects(response.data.rows); // Update this line
+        console.log(response.data.rows);
+      } else {
+        console.error("Failed to fetch subjects");
+      }
+    } catch (error) {
+      console.log("Error fetching subjects:", error.message);
+    }
+  };
+
+ 
+
+
+  // UPDATE SUBJECTS
   const handleSubmitUpdateSubject = async (e) => {
     e.preventDefault();
     try {
@@ -141,6 +158,15 @@ const Subjects = () => {
     }
   };
 
+  const handleUpdateSubject = (subject) => {
+    setUpdateSubjectFormData({
+      ...subject,
+      Subject_ID: subject.subject_id, // Assuming the subject object has a Subject_ID property
+    });
+    setShowUpdateSubjectModal(true);
+  };
+
+
   const handleUpdateSubjectInputChange = (event) => {
     setUpdateSubjectFormData({
       ...updateSubjectFormData,
@@ -148,6 +174,8 @@ const Subjects = () => {
     });
   };
 
+
+  // DELETE SUBJECTS
   const handleDeleteSubject = async (subjectId) => {
     try {
       const response = await axios.delete(
@@ -165,6 +193,10 @@ const Subjects = () => {
       console.error("Error deleting subject:", error);
     }
   };
+
+
+
+  
   return (
     <div className="container">
       <div>
