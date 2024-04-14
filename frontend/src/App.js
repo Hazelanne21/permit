@@ -12,6 +12,7 @@ import Studentdashboard from "./Components/Studentdashboard";
 import Staffdashboard from "./Components/StaffDashboard/Staffdashboard";
 import logo from "./images/CCS.png";
 import "./App.css";
+import { jwtDecode } from "jwt-decode";
 
 const UserTypeSelect = ({ setUserType }) => {
   const navigate = useNavigate();
@@ -112,18 +113,28 @@ const App = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-      const token = sessionStorage.getItem('token');
-      if (token) {
-        if (userType === "student") {
-          navigate("/Studentdashboard");
-        } else if (userType === "staff") {
-          navigate("/Staffdashboard");
+        const token = sessionStorage.getItem('token');
+        if (token) {
+            let decodedToken;
+            try {
+                decodedToken = jwtDecode(token);
+            } catch (error) {
+                console.error('Failed to decode token', error);
+                return;
+            }
+
+            if (decodedToken.email) {
+                setUserType('staff');
+                navigate("/Staffdashboard");
+            } else if (decodedToken.studentNumber) {
+                setUserType('student');
+                navigate("/Studentdashboard");
+            }
         }
-      }
     }, [navigate]);
 
     return <RoutesComponent userType={userType} setUserType={setUserType} />;
-  };
+};
 
   return (
     <Router>

@@ -6,6 +6,7 @@ import Subjects from "./subjects";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import List from "./list";
+import { jwtDecode } from "jwt-decode";
 
 const StaffDashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -23,6 +24,11 @@ const StaffDashboard = () => {
     Email: "",
     Password: "",
   });
+
+  //decode the token
+  const token = sessionStorage.getItem("token");
+  const decodedStaffName = jwtDecode(token).name;
+  const decodedStaffEmail = jwtDecode(token).email;
 
   useEffect(() => {
     fetchStaffInfo();
@@ -120,8 +126,8 @@ const StaffDashboard = () => {
             >
               <FontAwesomeIcon icon={faEdit} />
             </button>
-            <p>Staff Name: {staffInfo.Staff_Name}</p>
-            <p>Email: {staffInfo.Email}</p>
+            <p>Staff Name: {decodedStaffName}</p>
+            <p>Email: {decodedStaffEmail}</p>
           </div>
         )}
         {activeSection === "subject" && (
