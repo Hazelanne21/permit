@@ -1,12 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Staffdashboard.css";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { jwtDecode } from "jwt-decode";
 
 const StudentStatus = () => {
   const [showCreateStatusModal, setShowCreateStatusModal] = useState(false);
   const [studentStatuses, setStudentStatuses] = useState([]);
+  const token = sessionStorage.getItem("token");
+  let Staff_ID = "";
+
+  if (token) {
+    const decodedToken = jwtDecode(token);
+    Staff_ID = decodedToken.Staff_ID;
+  }
 
   const [statusFormData, setStatusFormData] = useState({
     Student_Number: "",
@@ -14,6 +22,7 @@ const StudentStatus = () => {
     Midterm_Status: "",
     SemiFinal_Status: "",
     Final_Status: "",
+    Staff_ID: Staff_ID,
   });
 
   const handleOpenCreateStatusModal = () => {
@@ -43,8 +52,8 @@ const StudentStatus = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "/staff/createTuitionStatus",
-        statusFormData
+        "/tuitions/createTuitionList",
+        { tuitionList: [statusFormData] } // Wrap statusFormData in an array and assign it to the tuitionList field
       );
       if (response.status === 201) {
         console.log("Status created successfully");
@@ -55,14 +64,37 @@ const StudentStatus = () => {
         console.error("Failed to create status");
       }
     } catch (error) {
-      console.error("Error creating status:", error);
+      console.error("Error creating status:", error.message);
     }
   };
 
+  useEffect(() => {
+    const fetchTuitionList = async () => {
+      try {
+        const response = await axios.get("/tuitions/getAllTuitionList");
+        if (response.status === 200) {
+          setStudentStatuses(response.data.tuitionList);
+          console.log(
+            "Tuition list fetched successfully",
+            response.data.tuitionList
+          );
+        } else {
+          console.error("Failed to fetch tuition list");
+        }
+      } catch (error) {
+        console.error("Error fetching tuition list:", error.message);
+      }
+    };
+
+    fetchTuitionList();
+  }, []);
   return (
     <div className="StudentStatus">
       <h1>List Of Student Tuition Statuses</h1>
-      <button className="StudentStatus-button" onClick={handleOpenCreateStatusModal}>
+      <button
+        className="StudentStatus-button"
+        onClick={handleOpenCreateStatusModal}
+      >
         <FontAwesomeIcon icon={faPlus} />
       </button>
       <table>
@@ -78,18 +110,20 @@ const StudentStatus = () => {
         </thead>
         <tbody>
           {studentStatuses.map((status) => (
-            <tr key={status.id}>
-              <td>{status.Student_Number}</td>
-              <td>{status.Prelim_Status}</td>
-              <td>{status.Midterm_Status}</td>
-              <td>{status.SemiFinal_Status}</td>
-              <td>{status.Final_Status}</td>
+            <tr key={status.student_number}>
+              <td>{status.student_number}</td>
+              <td>{status.prelim_status ? "Paid" : "Not Paid"}</td>
+              <td>{status.midterm_status ? "Paid" : "Not Paid"}</td>
+              <td>{status.semifinal_status ? "Paid" : "Not Paid"}</td>
+              <td>{status.final_status ? "Paid" : "Not Paid"}</td>
               <td>
                 <button onClick={() => handleEditStatus(status)}>
                   <FontAwesomeIcon icon={faEdit} />
                 </button>
-  
-                <button onClick={() => handleDeleteStatus(status.id)}>
+
+                <button
+                  onClick={() => handleDeleteStatus(status.student_number)}
+                >
                   <FontAwesomeIcon icon={faTrash} />
                 </button>
               </td>
@@ -122,10 +156,10 @@ const StudentStatus = () => {
                 required
               >
                 <option value="">Select Prelim Status</option>
-                <option value="Paid">Paid</option>
-                <option value="Not Paid">Not Paid</option>
+                <option value="True">Paid</option>
+                <option value="False">Not Paid</option>
               </select>
-  
+
               <label>Midterm Status:</label>
               <select
                 className="select-dropdown"
@@ -135,10 +169,10 @@ const StudentStatus = () => {
                 required
               >
                 <option value="">Select Midterm Status</option>
-                <option value="Paid">Paid</option>
-                <option value="Not Paid">Not Paid</option>
+                <option value="True">Paid</option>
+                <option value="False">Not Paid</option>
               </select>
-  
+
               <label>SemiFinal Status:</label>
               <select
                 className="select-dropdown"
@@ -148,10 +182,10 @@ const StudentStatus = () => {
                 required
               >
                 <option value="">Select SemiFinal Status</option>
-                <option value="Paid">Paid</option>
-                <option value="Not Paid">Not Paid</option>
+                <option value="True">Paid</option>
+                <option value="False">Not Paid</option>
               </select>
-  
+
               <label>Final Status:</label>
               <select
                 className="select-dropdown"
@@ -161,10 +195,10 @@ const StudentStatus = () => {
                 required
               >
                 <option value="">Select Final Status</option>
-                <option value="Paid">Paid</option>
-                <option value="Not Paid">Not Paid</option>
+                <option value="True">Paid</option>
+                <option value="False">Not Paid</option>
               </select>
-  
+
               <button type="submit">Create</button>
             </form>
           </div>
@@ -172,5 +206,5 @@ const StudentStatus = () => {
       )}
     </div>
   );
-}
+};
 export default StudentStatus;

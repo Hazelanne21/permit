@@ -41,8 +41,6 @@ router.post('/create', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
 router.post('/login', async (req, res) => {
   try {
       const { email, password } = req.body; // Adjust to lowercase 'email' and 'password'
@@ -74,12 +72,6 @@ router.post('/login', async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
-
-
-
-
 router.get('/getallstaff', async (req, res) => {
   try {
     const selectUsersQuery = 'SELECT Staff_Name, Email, Password FROM Staff';
@@ -143,119 +135,4 @@ router.post('/logout', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-router.post('/createTuitionList', async (req, res) => {
-  try {
-    const { tuitionList } = req.body;
-
-    if (!tuitionList || !Array.isArray(tuitionList)) {
-      return res.status(400).json({ error: 'Invalid tuition list format' });
-    }
-
-    const duplicateEntries = [];
-
-    for (const entry of tuitionList) {
-      const { Student_Number, Prelim_Status, Midterm_Status, SemiFinal_Status, Final_Status } = entry;
-
-      const checkExistingStudentQuery = 'SELECT * FROM Student WHERE Student_Number = $1';
-      const existingStudentRows = await db.query(checkExistingStudentQuery, [Student_Number]);
-
-      if (existingStudentRows.length === 0) {
-        console.warn(`Student with Student_Number ${Student_Number} does not exist. Skipping entry.`);
-        continue;
-      }
-
-      const checkExistingTuitionListQuery = 'SELECT * FROM TuitionList WHERE Student_Number = $1';
-      const existingTuitionListRows = await db.query(checkExistingTuitionListQuery, [Student_Number]);
-
-      if (existingTuitionListRows.length > 0) {
-        duplicateEntries.push(Student_Number);
-        continue;
-      }
-
-      const insertTuitionListQuery = `
-        INSERT INTO TuitionList (Student_Number, Prelim_Status, Midterm_Status, SemiFinal_Status, Final_Status)
-        VALUES ($1, $2, $3, $4, $5);
-      `;
-
-      const params = [
-        Student_Number,
-        Prelim_Status || null,
-        Midterm_Status || null,
-        SemiFinal_Status || null,
-        Final_Status || null,
-      ];
-
-      await db.query(insertTuitionListQuery, params);
-    }
-
-    if (duplicateEntries.length > 0) {
-      console.warn(`Duplicate entries found for student numbers: ${duplicateEntries.join(', ')}`);
-    }
-
-    res.status(201).json({ message: 'Tuition list created successfully' });
-  } catch (error) {
-    console.error('Error creating tuition list:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-router.put('/updateTuitionList', async (req, res) => {
-  try {
-    const { Student_Number, Prelim_Status, Midterm_Status, SemiFinal_Status, Final_Status } = req.body;
-
-    const checkExistingStudentQuery = 'SELECT * FROM Student WHERE Student_Number = $1';
-    const existingStudentRows = await db.query(checkExistingStudentQuery, [Student_Number]);
-
-    if (existingStudentRows.length === 0) {
-      return res.status(400).json({ error: `Student with Student Number ${Student_Number} does not exist` });
-    }
-
-    const updateTuitionListQuery = `
-      UPDATE TuitionList
-      SET Prelim_Status = $1,
-          Midterm_Status = $2,
-          SemiFinal_Status = $3,
-          Final_Status = $4
-      WHERE Student_Number = $5;
-    `;
-
-    const params = [
-      Prelim_Status !== undefined ? Prelim_Status : null,
-      Midterm_Status !== undefined ? Midterm_Status : null,
-      SemiFinal_Status !== undefined ? SemiFinal_Status : null,
-      Final_Status !== undefined ? Final_Status : null,
-      Student_Number
-    ];
-
-    await db.query(updateTuitionListQuery, params);
-
-    res.status(200).json({ message: 'Tuition list updated successfully' });
-  } catch (error) {
-    console.error('Error updating tuition list:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
-router.delete('/deleteTuitionList', async (req, res) => {
-  try {
-    const { Student_Number } = req.body;
-
-    const checkExistingStudentQuery = 'SELECT * FROM Student WHERE Student_Number = $1';
-    const existingStudentRows = await db.query(checkExistingStudentQuery, [Student_Number]);
-
-    if (existingStudentRows.length === 0) {
-      return res.status(400).json({ error: `Student with Student Number ${Student_Number} does not exist` });
-    }
-
-    const deleteTuitionListQuery = 'DELETE FROM TuitionList WHERE Student_Number = $1';
-    await db.query(deleteTuitionListQuery, [Student_Number]);
-
-    res.status(200).json({ message: 'Tuition list entry deleted successfully' });
-  } catch (error) {
-    console.error('Error deleting tuition list entry:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
 module.exports = router;

@@ -92,6 +92,7 @@ const StaffDashboard = () => {
 
     navigate("/");
   };
+  
   return (
     <div>
       <nav className="navdashboard-container">
