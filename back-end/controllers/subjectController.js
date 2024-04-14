@@ -1,16 +1,11 @@
 const express = require("express");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 const db = require("../db");
-const config = require("../config");
-
-// staffRouter.js
 
 const router = express.Router();
 
 router.post("/createSubject", async (req, res) => {
   try {
-    const { Subject_Code, Description, Semester_ID, Year_Level_ID } = req.body;
+    const { Subject_Code, Name, Semester_ID, Year_Level_ID } = req.body;
     const checkExistingSubjectQuery =
       "SELECT * FROM Subjects WHERE Subject_Code = $1";
     const existingSubjectRows = await db.query(checkExistingSubjectQuery, [
@@ -24,10 +19,10 @@ router.post("/createSubject", async (req, res) => {
     }
 
     const insertSubjectQuery =
-      "INSERT INTO Subjects (Subject_Code, Description, Semester_ID, Year_Level_ID) VALUES ($1, $2, $3, $4)";
+      "INSERT INTO Subjects (Subject_Code, Name, Semester_ID, Year_Level_ID) VALUES ($1, $2, $3, $4)";
     await db.query(insertSubjectQuery, [
       Subject_Code,
-      Description,
+      Name,
       Semester_ID,
       Year_Level_ID,
     ]);
@@ -42,7 +37,7 @@ router.post("/createSubject", async (req, res) => {
 router.get("/getSubject", async (req, res) => {
   try {
     const selectUsersQuery =
-      "SELECT Subject_Code, Description, Semester_ID, Year_Level_ID FROM Subjects";
+      "SELECT Subject_ID, Subject_Code, Name, Semester_ID, Year_Level_ID FROM Subjects";
     const result = await db.query(selectUsersQuery);
     res.status(200).json(result);
   } catch (error) {
@@ -51,24 +46,58 @@ router.get("/getSubject", async (req, res) => {
   }
 });
 
-router.delete("/deleteSubject/:Subject_Code", async (req, res) => {
+router.put("/updateSubject/:Subject_ID", async (req, res) => {
   try {
-    const { Subject_Code } = req.params;
+    const { Subject_ID } = req.params;
+    const { Subject_Code, Name, Semester_ID, Year_Level_ID } = req.body;
 
     const checkExistingSubjectQuery =
-    "SELECT * FROM Subjects WHERE Subject_Code = $1";
+      "SELECT * FROM Subjects WHERE Subject_ID = $1";
     const existingSubjectRows = await db.query(checkExistingSubjectQuery, [
-      Subject_Code,
+      Subject_ID,
     ]);
 
     if (existingSubjectRows.length === 0) {
       return res
         .status(400)
-        .json({ error: "Subject with the given Subject Code does not exist" });
+        .json({ error: "Subject with the given Subject ID does not exist" });
     }
 
-    const deleteSubjectQuery = "DELETE FROM Subjects WHERE Subject_Code = $1";
-    await db.query(deleteSubjectQuery, [Subject_Code]);
+    const updateSubjectQuery =
+      "UPDATE Subjects SET Subject_Code = $1, Name = $2, Semester_ID = $3, Year_Level_ID = $4 WHERE Subject_ID = $5";
+    await db.query(updateSubjectQuery, [
+      Subject_Code,
+      Name,
+      Semester_ID,
+      Year_Level_ID,
+      Subject_ID,
+    ]);
+
+    res.status(200).json({ message: "Subject updated successfully" });
+  } catch (error) {
+    console.error("Error updating subject:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+router.delete("/deleteSubject/:Subject_ID", async (req, res) => {
+  try {
+    const { Subject_ID } = req.params;
+
+    const checkExistingSubjectQuery =
+    "SELECT * FROM Subjects WHERE Subject_ID = $1";
+    const existingSubjectRows = await db.query(checkExistingSubjectQuery, [
+      Subject_ID,
+    ]);
+
+    if (existingSubjectRows.length === 0) {
+      return res
+        .status(400)
+        .json({ error: "Subject with the given Subject ID does not exist" });
+    }
+
+    const deleteSubjectQuery = "DELETE FROM Subjects WHERE Subject_ID = $1";
+    await db.query(deleteSubjectQuery, [Subject_ID]);
 
     res.status(200).json({ message: "Subject deleted successfully" });
   } catch (error) {

@@ -2,28 +2,34 @@ import React, { useState, useEffect } from "react";
 import "./Staffdashboard.css"; // Import your existing CSS file
 import "./subjects.css"; // Import the CSS file for the modal
 import axios from "axios";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const Subjects = () => {
   const [subjects, setSubjects] = useState([]);
   const [showCreateSubjectModal, setShowCreateSubjectModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-      //eslint-disable-next-line
+  //eslint-disable-next-line
   const [searchResults, setSearchResults] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [subjectFormData, setSubjectFormData] = useState({
     Subject_Code: "",
-    Description: "",
+    Name: "",
     Semester_ID: "",
-    Year_Level_ID: "", 
+    Year_Level_ID: "",
+  });
+  const [showUpdateSubjectModal, setShowUpdateSubjectModal] = useState(false);
+  const [updateSubjectFormData, setUpdateSubjectFormData] = useState({
+    Subject_Code: "",
+    Name: "",
+    Semester_ID: "",
+    Year_Level_ID: "",
   });
 
   useEffect(() => {
     fetchSubjects();
   }, []);
-
 
   const handleCloseCreateSubjectModal = () => {
     setShowCreateSubjectModal(false);
@@ -40,7 +46,7 @@ const Subjects = () => {
   const handleSubjectInputChange = (event) => {
     setSubjectFormData({
       ...subjectFormData,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -49,7 +55,7 @@ const Subjects = () => {
       const response = await axios.get("/subjects/getSubject/");
       if (response.status === 200) {
         setSubjects(response.data.rows); // Update this line
-        console.log(response.data.rows)
+        console.log(response.data.rows);
       } else {
         console.error("Failed to fetch subjects");
       }
@@ -91,7 +97,6 @@ const Subjects = () => {
         "/subjects/createSubject",
         subjectFormData
       );
-      console.log("the fomr",subjectFormData)
       if (response.status === 201) {
         console.log("Subject created successfully");
         const newSubject = { ...subjectFormData };
@@ -106,11 +111,42 @@ const Subjects = () => {
       setErrorMessage("Failed to Create Subject");
     }
   };
-
   const handleUpdateSubject = (subject) => {
-    // Logic for handling update action
+    setUpdateSubjectFormData({
+      ...subject,
+      Subject_ID: subject.subject_id, // Assuming the subject object has a Subject_ID property
+    });
+    setShowUpdateSubjectModal(true);
   };
-  
+
+  const handleSubmitUpdateSubject = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(
+        `/subjects/updateSubject/${updateSubjectFormData.Subject_ID}`,
+        updateSubjectFormData
+      );
+      if (response.status === 200) {
+        console.log("Subject updated successfully");
+        fetchSubjects(); // Fetch the subjects again to update the list
+        setShowUpdateSubjectModal(false); // Close the update modal
+        setErrorMessage(""); // Clear any error messages
+      } else {
+        console.error("Failed to update subject");
+        setErrorMessage("Failed to Update Subject");
+      }
+    } catch (error) {
+      console.error("Error updating subject:", error.message);
+      setErrorMessage("Failed to Update Subject");
+    }
+  };
+
+  const handleUpdateSubjectInputChange = (event) => {
+    setUpdateSubjectFormData({
+      ...updateSubjectFormData,
+      [event.target.name]: event.target.value,
+    });
+  };
 
   const handleDeleteSubject = async (subjectCode) => {
     try {
@@ -144,14 +180,13 @@ const Subjects = () => {
           <button className="search-button" onClick={handleSearch}>
             Search
           </button>
-            </div>
-            <button
-              className="subject-add-button"
-              onClick={() => setShowCreateSubjectModal(true)}
-            >
-              <FontAwesomeIcon icon={faPlus} />
+        </div>
+        <button
+          className="subject-add-button"
+          onClick={() => setShowCreateSubjectModal(true)}
+        >
+          <FontAwesomeIcon icon={faPlus} />
         </button>
-
 
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         {/* Success Modal */}
@@ -166,7 +201,7 @@ const Subjects = () => {
           <thead>
             <tr>
               <th>Subject Code</th>
-              <th>Description</th>
+              <th>Name</th>
               <th>Semester</th>
               <th>Year Level</th>
               <th>Action</th>
@@ -177,27 +212,28 @@ const Subjects = () => {
               ? subjects.map((subject, index) => (
                   <tr key={index}>
                     <td>{subject.subject_code}</td>
-                    <td>{subject.description}</td>
-                    <td>{subject.semester_id === 3 ? 'Summer Class' : subject.semester_id}</td>
+                    <td>{subject.name}</td>
+                    <td>
+                      {subject.semester_id === 3
+                        ? "Summer Class"
+                        : subject.semester_id}
+                    </td>
                     <td>{subject.year_level_id}</td>
                     <td>
-
-                    <button
-                    onClick={() =>
-                      handleUpdateSubject(subject)
-                    }
-                    className="subject-update-button"
-                    >
-                    <FontAwesomeIcon icon={faEdit} />
-                    </button>
-                    <button
-                    onClick={() =>
-                      handleDeleteSubject(subject.subject_code)
-                    }
-                    className="subject-delete-button"
-                  >
-                    <FontAwesomeIcon icon={faTrash} />
-                  </button>
+                      <button
+                        onClick={() => handleUpdateSubject(subject)}
+                        className="subject-update-button"
+                      >
+                        <FontAwesomeIcon icon={faEdit} />
+                      </button>
+                      <button
+                        onClick={() =>
+                          handleDeleteSubject(subject.subject_code)
+                        }
+                        className="subject-delete-button"
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </button>
                     </td>
                   </tr>
                 ))
@@ -209,7 +245,7 @@ const Subjects = () => {
       {showCreateSubjectModal && (
         <div className="modal">
           <div className="modal-content">
-          <span className="close" onClick={handleCloseCreateSubjectModal}>
+            <span className="close" onClick={handleCloseCreateSubjectModal}>
               &times;
             </span>
             <h2>Create Subject</h2>
@@ -222,11 +258,11 @@ const Subjects = () => {
                 onChange={handleSubjectInputChange}
                 required
               />
-              <label>Description:</label>
+              <label>Name:</label>
               <input
                 type="text"
-                name="Description"
-                value={subjectFormData.Description}
+                name="Name"
+                value={subjectFormData.Name}
                 onChange={handleSubjectInputChange}
                 required
               />
@@ -238,10 +274,12 @@ const Subjects = () => {
                 onChange={handleSubjectInputChange}
                 required
               >
-<option value="" disabled selected>Select Semester</option>
-<option value="1">1st Semester</option>
-<option value="2">2nd Semester</option>
-<option value="3">Summer</option>
+                <option value="" disabled selected>
+                  Select Semester
+                </option>
+                <option value="1">1st Semester</option>
+                <option value="2">2nd Semester</option>
+                <option value="3">Summer</option>
               </select>
               <label htmlFor="year">Year Level:</label>
               <select
@@ -251,7 +289,9 @@ const Subjects = () => {
                 onChange={handleSubjectInputChange}
                 required
               >
-                <option value="" disabled selected>Select Year Level</option>
+                <option value="" disabled selected>
+                  Select Year Level
+                </option>
                 <option value="1">1st Year</option>
                 <option value="2">2nd Year</option>
                 <option value="3">3rd Year</option>
@@ -259,6 +299,70 @@ const Subjects = () => {
               </select>
               {errorMessage && <p className="error-message">{errorMessage}</p>}
               <button type="submit">Create</button>
+            </form>
+          </div>
+        </div>
+      )}
+      {showUpdateSubjectModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <span
+              className="close"
+              onClick={() => setShowUpdateSubjectModal(false)}
+            >
+              &times;
+            </span>
+            <h2>Update Subject</h2>
+            <form onSubmit={handleSubmitUpdateSubject}>
+              <label>Subject Code:</label>
+              <input
+                type="text"
+                name="Subject_Code"
+                value={updateSubjectFormData.Subject_Code}
+                onChange={handleUpdateSubjectInputChange}
+                required
+              />
+              <label>Name:</label>
+              <input
+                type="text"
+                name="Name"
+                value={updateSubjectFormData.Name}
+                onChange={handleUpdateSubjectInputChange}
+                required
+              />
+              <label htmlFor="semester">Semester:</label>
+              <select
+                id="semester"
+                name="Semester_ID"
+                value={updateSubjectFormData.Semester_ID}
+                onChange={handleUpdateSubjectInputChange}
+                required
+              >
+                <option value="" disabled selected>
+                  Select Semester
+                </option>
+                <option value="1">1st Semester</option>
+                <option value="2">2nd Semester</option>
+                <option value="3">Summer</option>
+              </select>
+              <label htmlFor="year">Year Level:</label>
+              <select
+                id="year"
+                name="Year_Level_ID"
+                value={updateSubjectFormData.Year_Level_ID}
+                onChange={handleUpdateSubjectInputChange}
+                required
+              >
+                <option value="" disabled selected>
+                  Select Year Level
+                </option>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option value="4">4th Year</option>
+              </select>
+              {errorMessage && <p className="error-message">{errorMessage}</p>}
+              <button type="submit">Update</button>
             </form>
           </div>
         </div>
