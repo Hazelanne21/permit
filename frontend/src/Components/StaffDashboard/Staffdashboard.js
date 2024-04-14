@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Staffdashboard.css";
 import logoImage from "../../images/CCS.png";
+import axios from "axios";
 import Subjects from "./subjects";
-import List from "./list";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
+import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 const StaffDashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -18,12 +20,21 @@ const StaffDashboard = () => {
   const [staffInfo, setStaffInfo] = useState({});
   //eslint-disable-next-line
   const [errorMessage, setErrorMessage] = useState("");
+  const [showCreateStudentModal, setShowCreateStudentModal] = useState(false);
+  const [students, setStudents] = useState([]);
 
   const [updateAdminFormData, setupdateAdminFormData] = useState({
     Staff_Name: "",
     Email: "",
   });
 
+  const [studentFormData, setStudentFormData] = useState({
+    Student_Number: "",
+    Prelim_Status: "",
+    Midterm_Status: "",
+    SemiFinal_Status: "",
+    Final_Status: "",
+  });
 
   useEffect(() => {
     fetchStaffInfo();
@@ -52,6 +63,60 @@ const StaffDashboard = () => {
     setupdateAdminFormData({ ...updateAdminFormData, [name]: value });
   };
 
+  const handleOpenCreateStudentModal = () => {
+    setShowCreateStudentModal(true);
+  };
+
+  const handleCloseCreateStudentModal = () => {
+    setShowCreateStudentModal(false);
+  };
+
+  const handleStudentInputChange = (e) => {
+    const { name, value } = e.target;
+    setStudentFormData({ ...studentFormData, [name]: value });
+  };
+
+  const handleSubmitStudent = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "/staff/createTuitionList",
+        studentFormData
+      );
+      if (response.status === 201) {
+        console.log("Student created successfully");
+        const newStudent = response.data;
+        setStudents([...students, newStudent]); // Update students state with the new student
+        handleCloseCreateStudentModal();
+      } else {
+        console.error("Failed to create student");
+      }
+    } catch (error) {
+      console.error("Error creating student:", error);
+    }
+  };
+
+  const handleSubmitUpdateAdministrator = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/staff/update", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(studentFormData),
+      });
+      if (response.ok) {
+        console.log("Administrator updated successfully");
+        handleCloseCreateStudentModal();
+      } else {
+        console.error("Failed to update Administrator");
+      }
+    } catch (error) {
+      console.error("Error updating administrator:", error);
+    }
+  };
+
   const fetchStaffInfo = async () => {
     try {
       const response = await fetch("/staff/getallstaff");
@@ -67,26 +132,7 @@ const StaffDashboard = () => {
       console.error("Error fetching staff info:", error);
     }
   };
-  const handleSubmitUpdateAdministrator = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("/staff/update", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updateAdminFormData),
-      });
-      if (response.ok) {
-        console.log("Administrator updated successfully");
-        handleCloseUpdateAdministratorModal();
-      } else {
-        console.error("Failed to update Administrator");
-      }
-    } catch (error) {
-      console.error("Error updating administrator:", error);
-    }
-  };
+
   const handleLogout = () => {
     localStorage.removeItem("authToken");
 
@@ -114,11 +160,11 @@ const StaffDashboard = () => {
           <div>
             <h1>Administrator Information</h1>
             <button
-              className="Update-button"
-              onClick={handleOpenUpdateAdministratorModal}
-            >
-              Update Administrator
-            </button>
+                  onClick={handleOpenUpdateAdministratorModal}
+                    className="Update-button"
+                    >
+                    <FontAwesomeIcon icon={faEdit} />
+                    </button>
             <p>Staff Name: {staffInfo.Staff_Name}</p>
             <p>Email: {staffInfo.Email}</p>
           </div>
@@ -131,7 +177,16 @@ const StaffDashboard = () => {
 
         {activeSection === "list" && (
           <div>
-            <List />
+            <h1>List Of Student</h1>
+            <input className="search-bar" placeholder="Search" />
+           
+           
+            <button
+              className="Student-button"
+              onClick={handleOpenCreateStudentModal}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+            </button>
           </div>
         )}
 
@@ -144,7 +199,7 @@ const StaffDashboard = () => {
             >
               &times;
             </span>
-            <h2>Update Administrator Information</h2>
+            <h2>Administrator Information</h2>
             <form onSubmit={handleSubmitUpdateAdministrator}>
               <label>Staff Name:</label>
               <input
@@ -161,6 +216,75 @@ const StaffDashboard = () => {
                 onChange={handleUpdateAdminInputChange}
               />
               <button type="submit">Update</button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {showCreateStudentModal && (
+        <div className="smodal">
+          <div className="smodal-content">
+            <span className="sclose" onClick={handleCloseCreateStudentModal}>
+              &times;
+            </span>
+            <h2>Student Already Paid</h2>
+            <form onSubmit={handleSubmitStudent}>
+              <label>Student Number:</label>
+              <input
+                type="text"
+                name="Student_Number"
+                value={studentFormData.Student_Number}
+                onChange={handleStudentInputChange}
+              />
+              <label>Prelim Status:</label>
+              <input
+                type="checkbox"
+                name="Prelim_Status"
+                checked={studentFormData.Prelim_Status}
+                onChange={() =>
+                  setStudentFormData({
+                    ...studentFormData,
+                    Prelim_Status: !studentFormData.Prelim_Status,
+                  })
+                }
+              />
+              <label>Midterm Status:</label>
+              <input
+                type="checkbox"
+                name="Midterm_Status"
+                checked={studentFormData.Midterm_Status}
+                onChange={() =>
+                  setStudentFormData({
+                    ...studentFormData,
+                    Midterm_Status: !studentFormData.Midterm_Status,
+                  })
+                }
+              />
+              <label>SemiFinal Status:</label>
+              <input
+                type="checkbox"
+                name="SemiFinal_Status"
+                checked={studentFormData.SemiFinal_Status}
+                onChange={() =>
+                  setStudentFormData({
+                    ...studentFormData,
+                    SemiFinal_Status: !studentFormData.SemiFinal_Status,
+                  })
+                }
+              />
+              <label>Final Status:</label>
+              <input
+                type="checkbox"
+                name="Final_Status"
+                checked={studentFormData.Final_Status}
+                onChange={() =>
+                  setStudentFormData({
+                    ...studentFormData,
+                    Final_Status: !studentFormData.Final_Status,
+                  })
+                }
+              />
+              <button type="submit">Create</button>
             </form>
           </div>
         </div>

@@ -68,14 +68,15 @@ const StudentLogin = () => {
           Student Number:
         </label>
         <input
-          type="studentNumber"
+          type="text"
           id="studentNumber"
           placeholder="Student Number"
           value={studentNumber}
           onChange={(e) => setStudentNumber(e.target.value)}
-          className="login-input, form-control"
+          className="login-input"
           required
         />
+        
         <label htmlFor="password" className="login-label">
           Password:
         </label>
@@ -85,7 +86,7 @@ const StudentLogin = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="login-input, form-control"
+          className="login-input"
           required
         />
 
@@ -94,16 +95,16 @@ const StudentLogin = () => {
             Forgot password?
           </a>
         </div>
+                {error && <p className="slogin-error-message">{error}</p>}
 
         <button type="submit" className="login-button">
           Login
         </button>
-        {error && <p className="error-message">{error}</p>}
       </form>
       <br />
       <button
         type="button"
-        className="create-button"
+        className="mcreate-button"
         onClick={shandleCreateAccountClick}
       >
         Create Account

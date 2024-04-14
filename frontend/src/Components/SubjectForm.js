@@ -119,7 +119,6 @@ const StaffDashboard = () => {
 
   const handleSubmitSubject = async (e) => {
     e.preventDefault();
-    // Check if the subject already exists
     const existingSubject = subjects.find(
       (subject) => subject.Subject_Code === subjectFormData.Subject_Code
     );

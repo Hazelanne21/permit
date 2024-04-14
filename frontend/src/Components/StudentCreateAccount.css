@@ -13,13 +13,18 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 .create-button {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
     box-sizing: border-box;
     font-size: 16px;
 }
+
+.password-input-container input[type="password"] {
+    width: calc(108% - 30px); /* Adjusted width */
+}
+
 
 .create-button {
     background-color: #4caf50;
@@ -33,14 +38,19 @@ input[type="password"],
     cursor: not-allowed;
 }
 
-.error-message,
-.success-message {
+.mqcreate-error-message {
     margin-top: 10px;
     text-align: center;
-} 
+    color: red; /* Change the color to red */
+}
 
-.close {
-    color: #aaa;
+.mqcreate-success-message {
+    margin-top: 10px;
+    text-align: center;
+    color: red;
+}  
+.close { 
+    color: #aaa;    
     position: absolute;
     top: 200px;
     right: 590px;

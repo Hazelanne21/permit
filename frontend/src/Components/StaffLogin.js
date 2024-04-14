@@ -32,6 +32,7 @@ const StaffLogin = () => {
         navigate("/Staffdashboard");
       } else {
         setError("Invalid Email or password");
+        
       }
     } catch (error) {
       console.error("Error signing in:", error);
@@ -58,7 +59,7 @@ const StaffLogin = () => {
   };
 
   return (
-    <div className="login-container" style={{ backgroundColor: "white" }}>
+    <div className="slogin-container" style={{ backgroundColor: "white" }}>
       <img
         src={logo}
         alt="Logo"
@@ -92,7 +93,7 @@ const StaffLogin = () => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="login-input, form-control"
+          className="slogin-input, form-control"
           required
         />
 
@@ -101,11 +102,12 @@ const StaffLogin = () => {
             Forgot password?
           </a>
         </div>
+        {error && <p className="serror-message">{error}</p>}
+
 
         <button type="submit" className="slogin-button">
           Login
         </button>
-        {error && <p className="serror-message">{error}</p>}
       </form>
       <br />
       <button
