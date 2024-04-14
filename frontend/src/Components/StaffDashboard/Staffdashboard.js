@@ -208,7 +208,7 @@ const StaffDashboard = () => {
               <input
                 type="text"
                 name="Staff_Name"
-                value={updateAdminFormData.Email}
+                value={updateAdminFormData.Staff_Name}
                 onChange={handleUpdateAdminInputChange}
               />
     
