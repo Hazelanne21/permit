@@ -284,63 +284,69 @@ const StaffDashboard = () => {
             </span>
             <h2>Student Already Paid</h2>
             <form onSubmit={handleSubmitStudent}>
-              <label>Student Number:</label>
-              <input
-                type="text"
-                name="Student_Number"
-                value={studentFormData.Student_Number}
-                onChange={handleStudentInputChange}
-              />
-              <label>Prelim Status:</label>
-              <input
-                type="checkbox"
-                name="Prelim_Status"
-                checked={studentFormData.Prelim_Status}
-                onChange={() =>
-                  setStudentFormData({
-                    ...studentFormData,
-                    Prelim_Status: !studentFormData.Prelim_Status,
-                  })
-                }
-              />
-              <label>Midterm Status:</label>
-              <input
-                type="checkbox"
-                name="Midterm_Status"
-                checked={studentFormData.Midterm_Status}
-                onChange={() =>
-                  setStudentFormData({
-                    ...studentFormData,
-                    Midterm_Status: !studentFormData.Midterm_Status,
-                  })
-                }
-              />
-              <label>SemiFinal Status:</label>
-              <input
-                type="checkbox"
-                name="SemiFinal_Status"
-                checked={studentFormData.SemiFinal_Status}
-                onChange={() =>
-                  setStudentFormData({
-                    ...studentFormData,
-                    SemiFinal_Status: !studentFormData.SemiFinal_Status,
-                  })
-                }
-              />
-              <label>Final Status:</label>
-              <input
-                type="checkbox"
-                name="Final_Status"
-                checked={studentFormData.Final_Status}
-                onChange={() =>
-                  setStudentFormData({
-                    ...studentFormData,
-                    Final_Status: !studentFormData.Final_Status,
-                  })
-                }
-              />
-              <button type="submit">Create</button>
-            </form>
+  <label>Student Number:</label>
+  <input
+    type="text"
+    name="Student_Number"
+    value={studentFormData.Student_Number}
+    onChange={handleStudentInputChange}
+    required
+  />
+  <label>Prelim Status:</label>
+  <select
+  className="select-dropdown"
+    name="Prelim_Status"
+    value={studentFormData.Prelim_Status}
+    onChange={handleStudentInputChange}
+    required
+  >
+    <option value="">Select Prelim Status</option>
+    <option value="Paid">Paid</option>
+    <option value="Not Paid">Not Paid</option>
+  </select>
+
+
+  <label>Midterm Status:</label>
+  <select
+  className="select-dropdown"
+    name="Midterm_Status"
+    value={studentFormData.Midterm_Status}
+    onChange={handleStudentInputChange}
+    required
+  >
+    <option value="">Select Midterm Status</option>
+    <option value="Paid">Paid</option>
+    <option value="Not Paid">Not Paid</option>
+  </select>
+ 
+  <label>SemiFinal Status:</label>
+  <select
+  className="select-dropdown"
+    name="SemiFinal_Status"
+    value={studentFormData.SemiFinal_Status}
+    onChange={handleStudentInputChange}
+    required
+  >
+    <option value="">Select SemiFinal Status</option>
+    <option value="Paid">Paid</option>
+    <option value="Not Paid">Not Paid</option>
+  </select>
+
+  <label>Final Status:</label>
+  <select
+  className="select-dropdown"
+    name="Final_Status"
+    value={studentFormData.Final_Status}
+    onChange={handleStudentInputChange}
+    required
+  >
+    <option value="">Select Final Status</option>
+    <option value="Paid">Paid</option>
+    <option value="Not Paid">Not Paid</option>
+  </select>
+
+  <button type="submit">Create</button>
+</form>
           </div>
         </div>
       )}
