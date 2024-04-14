@@ -6,6 +6,9 @@ import axios from "axios";
 import Subjects from "./subjects";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faPlus, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+
+
 
 const StaffDashboard = () => {
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -22,7 +25,14 @@ const StaffDashboard = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showCreateStudentModal, setShowCreateStudentModal] = useState(false);
   const [students, setStudents] = useState([]);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  
 
+
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+};
 
 
   
@@ -63,6 +73,11 @@ const StaffDashboard = () => {
   const handleSectionChange = (section) => {
     setActiveSection(section);
   };
+
+
+  const toggleProfileModal = () => {
+    // Define the logic to toggle the profile modal visibility
+};
 
 
   //Update Administrator
@@ -154,18 +169,26 @@ const StaffDashboard = () => {
   };
   return (
     <div>
+      <div className={`dropdown ${isDropdownOpen ? 'open' : ''}`}>
+                <button className="dropbtn" onClick={toggleDropdown}>
+                    <FontAwesomeIcon icon={faUser} /> {/* Dropdown icon */}
+                </button>
+                {isDropdownOpen && (
+                    <div className="dropdown-content">
+                       <a href="#profile" onClick={toggleProfileModal}>Profile</a>
+                        <a href="#logout" onClick={handleLogout}>Logout</a>
+                    </div>
+                )}
+            </div>
+            
       <nav className="navdashboard-container">
         <img src={logoImage} alt="Logo" className="logo-image" />
         <span className="logo-text">College of Computer Studies</span>
         <button onClick={() => handleSectionChange("dashboard")}>
           Dashboard
         </button>
-        <button onClick={() => handleSectionChange("profile")}>Profile</button>
         <button onClick={() => handleSectionChange("subject")}>Subjects</button>
-        <button onClick={() => handleSectionChange("list")}>
-          List of Student
-        </button>
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={() => handleSectionChange("list")}>List of Student</button>
       </nav>
 
       <div className="dashboard-container">
@@ -351,6 +374,8 @@ const StaffDashboard = () => {
         </div>
       )}
     </div>
+
+    
     </div>
   );
 };
