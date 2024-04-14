@@ -176,19 +176,40 @@ const StaffDashboard = () => {
           </div>
         )}
 
-        {activeSection === "list" && (
-          <div>
-            <h1>List Of Student</h1>
-           
-           
-            <button
-              className="Student-button"
-              onClick={handleOpenCreateStudentModal}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-            </button>
-          </div>
-        )}
+{activeSection === "list" && (
+  <div>
+    <h1>List Of Student</h1>
+    <button
+      className="Student-button"
+      onClick={handleOpenCreateStudentModal}
+    >
+      <FontAwesomeIcon icon={faPlus} />
+    </button>
+    <table>
+      <thead>
+        <tr>
+          <th>Student Number</th>
+          <th>Prelim Status</th>
+          <th>Midterm Status</th>
+          <th>SemiFinal Status</th>
+          <th>Final Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {students.map(student => (
+          <tr key={student.id}>
+            <td>{student.studentNumber}</td>
+            <td>{student.prelimStatus ? 'Paid' : 'Not Paid'}</td>
+            <td>{student.midtermStatus ? 'Paid' : 'Not Paid'}</td>
+            <td>{student.semiFinalStatus ? 'Paid' : 'Not Paid'}</td>
+            <td>{student.finalStatus ? 'Paid' : 'Not Paid'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}
+
 
       {showUpdateAdministratorModal && (
         <div className="umodal">
