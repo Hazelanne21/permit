@@ -12,6 +12,7 @@ router.post("/createSubject", async (req, res) => {
   try {
     const { Subject_Code, Description, Semester, Year } = req.body;
 
+    console.log("Semester:", Semester, "Year:", Year);
     const checkExistingSubjectQuery =
       "SELECT * FROM Subjects WHERE Subject_Code = $1";
     const existingSubjectRows = await db.query(checkExistingSubjectQuery, [

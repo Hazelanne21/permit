@@ -47,6 +47,7 @@ const Subjects = () => {
       const response = await axios.get("/subjects/getSubject/");
       if (response.status === 200) {
         setSubjects(response.data.rows); // Update this line
+        console.log("Subjects fetched successfully", response.data.rows);
       } else {
         console.error("Failed to fetch subjects");
       }
