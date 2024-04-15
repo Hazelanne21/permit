@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import "./Staffdashboard.css";
 import logoImage from "../../images/CCS.png";
 import Subjects from "./subjects";
+import List from "./list";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import List from "./list";
 import { jwtDecode } from "jwt-decode";
 
 const StaffDashboard = () => {
@@ -132,6 +132,7 @@ const toggleProfileModal = () => {
         <button onClick={() => handleSectionChange("dashboard")}>
           Dashboard
         </button>
+        <button onClick={() => handleSectionChange("Create")}>Create Account for Student</button>
         <button onClick={() => handleSectionChange("subject")}>Subjects</button>
         <button onClick={() => handleSectionChange("list")}>Tuition Status</button>
       </nav>

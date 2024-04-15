@@ -64,9 +64,7 @@ const StudentLogin = () => {
       />
       <h2 className="login-heading">CCS STUDENT</h2>
       <form onSubmit={handleLogin}>
-        <label htmlFor="studentNumber" className="login-label">
-          Student Number:
-        </label>
+        <label htmlFor="studentNumber" className="login-label">Student Number:</label>
         <input
           type="text"
           id="studentNumber"

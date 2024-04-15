@@ -124,10 +124,11 @@ const StudentDashboard = () => {
                     
                     <ul>
                          <h1>Exam Permit   <FontAwesomeIcon icon={faEdit}/> </h1>
-                        {permits.map((permit, index) => (
-                            <li key={index}>
-                                    
-                                Exam: {permit.Exam}, Date Release: {permit.Date_Release}
+                        {permits.map((permit) => (
+                            <li key={permit._id}>
+                                <p>Subject: {permit.Subject}</p>
+                                <p>Section: {permit.Section}</p>
+                                <p>Status: {permit.Status}</p>
                             </li>
                         ))}
                     </ul>
