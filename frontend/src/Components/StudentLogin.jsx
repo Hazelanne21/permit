@@ -64,7 +64,7 @@ const StudentLogin = () => {
       />
       <h2 className="login-heading">CCS STUDENT</h2>
       <form onSubmit={handleLogin}>
-        <label htmlFor="studentNumber" className="login-label">
+        <label htmlFor="studentNumber" className="login-label" style={{ color: "white" }}>
           Student Number:
         </label>
         <input
@@ -77,7 +77,7 @@ const StudentLogin = () => {
           required
         />
         
-        <label htmlFor="password" className="login-label">
+        <label htmlFor="password" className="login-label" style={{ color: "white" }}>
           Password:
         </label>
         <input
@@ -116,7 +116,7 @@ const StudentLogin = () => {
             <span className="close" onClick={shandleCloseModal}>
               &times;
             </span>
-            <div className="modal-header">
+            <div className="modal-header" style={{ textAlign: "center" }}>
               <h2>Create Account</h2>
             </div>
             <div className="modal-body">

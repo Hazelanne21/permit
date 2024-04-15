@@ -4,10 +4,11 @@
   max-width: 500px;
   max-height: 400px;
   margin: auto;
-  padding: 150px;
-  border: 2px solid #ddd;
+  padding: 130px;
+  border: 1px solid #161616;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(to bottom, #e7ef88, #0e9777,  #042a06);
 }
 
 .login-heading {
@@ -26,7 +27,8 @@
   padding: 15px;
   margin-bottom: 10px;
   border: 2px solid #ddd;
-  border-radius: 5px;
+  border-radius: 10px;
+  
 }
 
 
@@ -41,12 +43,12 @@
 
 
 .forgot-password-link {
-  color: #007bff;
+  color: #02162b;
   text-decoration: none;
 }
 
 .login-button {
-  background-color: #007bff;
+  background-color: #f0f053;
   color: #fff;
   padding: 10px 100px;
   margin-left: 70px;
@@ -75,7 +77,7 @@
 
 
 .login-button:hover {
-  background-color: #0056b3;
+  background-color: #0e9777;
 }
 
 .create-button:hover {
@@ -105,10 +107,11 @@
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: 10% auto;
   padding: 120px;
-  border: 1px solid #888;
+  border: 5px solid #888;
   width: 16%;
+  /*background: linear-gradient(to bottom, #e7ef88, #0e9777,  #e7ef88);*/
 }
 .close {
   color: #aaa;
@@ -144,18 +147,13 @@
 }
 
 .modal-body {
-  padding-top: -10px;
+  padding-top: 5px;
 }
 
 
-
-
-
-
-
-
 .form-group {
-margin-bottom: 15px;
+  margin-bottom: 20px;
+  
 }
 
 label {
