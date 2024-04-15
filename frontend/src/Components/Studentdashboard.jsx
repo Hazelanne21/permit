@@ -116,7 +116,7 @@ const StudentDashboard = () => {
     
             </nav>
 
-            <div className="dashboard-container">
+            <div className="dashboard-container" style={{ textAlign: "center" }}>
                 {activeSection === 'dashboard' && (
                     <h1>Welcome to the Dashboard, {decodedStudentName}!</h1>
                 )}

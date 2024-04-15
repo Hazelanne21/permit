@@ -17,7 +17,7 @@ import { jwtDecode } from "jwt-decode";
 const UserTypeSelect = ({ setUserType }) => {
   const navigate = useNavigate();
   
-  const handleUserTypeSelect = (type) => {
+const handleUserTypeSelect = (type) => {
     setUserType(type);
     if (type === "student") {
       navigate("/Student");
