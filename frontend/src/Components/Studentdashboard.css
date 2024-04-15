@@ -35,7 +35,7 @@ ul li {
     height: 746px;
     margin: 0;
     padding: 20px;
-    background-color: white;
+    background: linear-gradient(to top, #031c15, #e0f44a, #053124, #e0f44a);
     box-shadow: 0 0 20px rgba(5, 5, 5, 5.2);
     position: absolute;
     top: -10px; 
