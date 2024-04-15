@@ -137,7 +137,7 @@ const toggleProfileModal = () => {
       </nav>
 
       <div className="dashboard-container">
-        {activeSection === "dashboard" && <h1>Welcome to the Dashboard!</h1>}
+        {activeSection === "dashboard" && <h1>Welcome to the Dashboard, {decodedStaffName}!</h1>}
         {activeSection === "subject" && (
           <div>
             <Subjects />

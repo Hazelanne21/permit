@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import './Studentdashboard.css';
 import logoImage from '../images/CCS.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faUser  } from "@fortawesome/free-solid-svg-icons";
+import { jwtDecode } from "jwt-decode";
 
 const StudentDashboard = () => {
     const [studentInfo, setStudentInfo] = useState(null);
@@ -12,6 +12,14 @@ const StudentDashboard = () => {
     const [activeSection, setActiveSection] = useState('dashboard');
     const [isProfileModalOpen, setProfileModalOpen] = useState(false); 
     const [isDropdownOpen, setDropdownOpen] = useState(false); 
+    
+
+
+
+    const token = sessionStorage.getItem("token");
+    const decodedStudentName = jwtDecode(token).name;
+    // const decodedStudentEmail = jwtDecode(token).email;
+
 
     const handleUpdateProfile = () => {
     };
@@ -70,6 +78,7 @@ const StudentDashboard = () => {
         navigate('/');
     };
 
+
     // Function to toggle profile modal visibility
     const toggleProfileModal = () => {
         setProfileModalOpen(!isProfileModalOpen);
@@ -88,7 +97,7 @@ const StudentDashboard = () => {
     return (
         <div>
             <div className={`dropdown ${isProfileModalOpen ? 'disabled-dropdown' : ''}`}>
-                <button className="dropbtn" onClick={toggleDropdown}>{studentInfo && studentInfo.Student_Name} <FontAwesomeIcon icon={faUser} /></button>
+                <button className="dropbtn" onClick={toggleDropdown}>{decodedStudentName} <FontAwesomeIcon icon={faUser} /></button>
                 {isDropdownOpen && (
                     <div className="dropdown-content">
                         <a href="#profile" onClick={toggleProfileModal}>Profile</a>
@@ -109,14 +118,15 @@ const StudentDashboard = () => {
 
             <div className="dashboard-container">
                 {activeSection === 'dashboard' && (
-                    <h1>Welcome to the Dashboard, {studentInfo && studentInfo.Student_Name}!</h1>
+                    <h1>Welcome to the Dashboard, {decodedStudentName}!</h1>
                 )}
                 {activeSection === 'permits' && (
                     
                     <ul>
-                         <h1>Exam Permit</h1>
+                         <h1>Exam Permit   <FontAwesomeIcon icon={faEdit}/> </h1>
                         {permits.map((permit, index) => (
                             <li key={index}>
+                                    
                                 Exam: {permit.Exam}, Date Release: {permit.Date_Release}
                             </li>
                         ))}
