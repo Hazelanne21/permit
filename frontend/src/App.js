@@ -27,12 +27,12 @@ const UserTypeSelect = ({ setUserType }) => {
   };
 
   return (
-    <div className="type-container">
+    <div className="type-container"  style={{ background: "linear-gradient(to bottom, #d2fa9e, #0e9777)" }}>
       <img
         src={logo}
         alt="Logo"
         className="logo"
-        style={{ marginTop: "-50px", marginLeft: "55px" }}
+        style={{ marginTop: "-50px", marginLeft: "55px", background: ""}}
       />
       <h1 style={{ marginLeft: "30px" }}>Exam Permit</h1>
       <div className="button-container">
