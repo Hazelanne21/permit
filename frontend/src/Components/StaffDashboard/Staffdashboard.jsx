@@ -121,13 +121,31 @@ const toggleDropdown = () => {
     ssetShowModal(true);
   };
 
+ 
+
+
   const toggleCollapse = () => {
     const navContainer = document.querySelector(".navdashboard-container");
+    const dashboardContainer = document.querySelector(".dashboard-container");
+  
+    // Toggle the collapsed class on the nav container
     navContainer.classList.toggle("collapsed");
+  
+    // Check if the nav container is collapsed
+    const isCollapsed = navContainer.classList.contains("collapsed");
+  
+    // Adjust the width of the dashboard container based on the collapse state
+    if (isCollapsed) {
+      dashboardContainer.style.width = "calc(100% - 80px)"; // Adjust width when collapsed
+    } else {
+      dashboardContainer.style.width = "calc(100% - 450px)"; // Adjust width when expanded
+    }
   };
+  
   
   return (
     <div>
+      <div className="nav-container">
           <div className={`dropdown ${isProfileModalOpen ? 'disabled-dropdown' : ''}`}>
                 <button className="dropbtn" onClick={toggleDropdown}>{decodedStaffName}</button>
                 {isDropdownOpen && (
@@ -240,6 +258,7 @@ const toggleDropdown = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };
