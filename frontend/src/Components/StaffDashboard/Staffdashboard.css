@@ -1,3 +1,4 @@
+/* DASHBOARD */
 .dashboard-container {
     width: 1100px;
     height: 600px;
@@ -13,33 +14,36 @@
     top: 90px;
 }
 
-nav {
-    margin-bottom: 20px;
-}
 
-nav button {
-    margin-right: 10px;
-}
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-ul li {
-    margin-bottom: 10px;
-}
-
+/* SIDEBAR */
 .navdashboard-container {
+    color: white;
+    overflow: hidden;
+    transition: all 0.3s ease;
     width: 299px;
-    height: 758px;
+    height: 858px;
     margin: 0;
     padding: 20px;
-    background-color: white;
-    box-shadow: 0 0 20px rgba(5, 5, 5, 5.2);
     position: absolute;
-    top: -10px; 
-    right: 1205px;
+    top: -10px;
+    left: 20px;
+}
+  
+.navdashboard-container.collapsed .logo-image,
+.navdashboard-container.collapsed .logo-text,
+.navdashboard-container.collapsed button {
+  display: none;
+}
+
+.navdashboard-container.collapsed {
+    width: 80px; 
+    background-color: transparent; 
+}
+
+
+.navdashboard-container:not(.collapsed) {
+    background-color: #f2f2f2; 
 }
 
 .navdashboard-container button {
@@ -48,21 +52,55 @@ ul li {
     width: 100%;
     padding: 10px;
     background-color: white;
-    color: black; 
-    border: none; 
+    color: black;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-top: 100px;
+    
 }
-
 .navdashboard-container button:last-child {
     margin-bottom: 0;
 }
+.collapse-btn {
+    cursor: pointer;
+    padding: 10px;
+    margin-left: 10px;
+  }
+  
+  .collapse-btn span {
+    display: block;
+    background-color: black;
+    height: 3px;
+    width: 25px;
+    margin: 5px 0;
+  }
 
 
 
-/* Suject Modal Styles */
+/* CCS LOGO */
+.logo-image {
+    position: absolute;
+    top: 78px; 
+    right: 279px; 
+    width: 40px; 
+    height: auto; 
+    z-index: 1000; 
+}
 
+.logo-text {
+    margin-left: 51px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #333; 
+    font-family: 'Courier New'; 
+    position: relative; 
+    top: 20px; 
+}
+
+  
+
+/* SUBJECTS */
 .modal {
     display: flex;
     flex-wrap:wrap;
@@ -76,7 +114,6 @@ ul li {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
 }
-
 
 .modal-content {
     background-color: white;
@@ -103,7 +140,6 @@ ul li {
     text-decoration: none;
 }
 
-
 .modal-content input[type="text"] {
     width: 100%;
     padding: 10px;
@@ -112,7 +148,6 @@ ul li {
     border-radius: 5px;
     box-sizing: border-box;
 }
-
 
 .modal-content button {
     background-color: #4CAF50;
@@ -131,59 +166,197 @@ ul li {
     background-color: #45a049;
 }
 
+
+
+/* SEARCH SUBJECTS */
+.search-container {
+    margin-bottom: 20px;
+}
+
 .search-bar {
-    top: 90px;
-    margin-left: 50px;
-    width: 1000px; 
-    height: 40px;
+    width: 900px;
+    height: 35px;
+    border: 1px solid #ccc;
     border-radius: 10px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    border-color: #333;
+    font-size: 16px;
+}
+
+.search-button {
+    height: 40px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    border-color: black;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+}
+.search-button:hover {
+    background-color:white;
 }
 
 
+  
+/* ADMIN MODAL */
+.umodal {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
 
-.Student-button {
-    background-color: transparent;
+.umodal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+}
+
+.uclose {
+    color: #aaa;
     position: absolute;
-    left: 250px; 
-    top: 39px; 
-    color: black;
-    border: none;
-    border-radius: 100px;
-    padding: 8px 16px;
-    margin-left: 5px;
+    top: 249px; 
+    right: 570px; 
+    font-size: 30px;
+    font-weight: bold;
     cursor: pointer;
 }
 
+.uclose:hover,
+.uclose:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.umodal-content input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.umodal-content button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.umodal-content button:hover {
+    background-color: #45a049;
+}
+
+
+
+/* DROPDOWN MENU FOR YEAR AND SEMESTER */
+.modal-content select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M5 7l5 5 5-5z" fill="none" stroke="%23333" stroke-width="2" /></svg>'); /* Custom arrow icon */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 15px;
+    cursor: pointer;
+}
+
+.modal-content select:hover {
+    border-color: #aaa;
+}
+.modal-content select:focus {
+    outline: none;
+    border-color: #007bff; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
+
+
+
+/* ADMIN NAME DROPDOWN */
+.select-dropdown {
+    width: 400px; 
+    padding: 8px; 
+    font-size: 16px;
+    color: #333; 
+    background-color: #f4f4f4; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+  }
   
-  .Student-button:hover {
-    background-color: transparent;
-    
+  .select-dropdown option {
+    font-size: 14px; 
+    color: #333;
+    background-color: #fff; 
   }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+  .dropdown {
+    position: absolute;
+    display: inline-block;
+    top: 20px; 
+    right: 100px;
+    z-index: 1000; 
 }
 
-th, td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
+.dropbtn {
+    background-color: green;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
 }
 
-th {
-    background-color: #f2f2f2;
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 90px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
 }
 
-table tr:first-child {
-    background-color: #dddddd;
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropbtn::after {
+    content: '\25BE'; 
+    font-size: 12px;
+    margin-left: 5px;
 }
 
 
 
-
-/* List of Student Modal Style */
+/*TUITION STATUS*/
 .smodal {
     display: flex;
     align-items: center;
@@ -251,318 +424,7 @@ table tr:first-child {
 
 
 
-  
-/* Admin Modal Styles */
-
-.umodal {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    z-index: 2;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-
-.umodal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    width: 100%;
-}
-
-.uclose {
-    color: #aaa;
-    position: absolute;
-    top: 249px; 
-    right: 570px; 
-    font-size: 30px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.uclose:hover,
-.uclose:focus {
-    color: black;
-    text-decoration: none;
-}
-
-
-.umodal-content input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-
-.umodal-content button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.umodal-content button:hover {
-    background-color: #45a049;
-}
-
-
-
-.Update-button {
-    background-color: transparent;
-    position: absolute;
-    left: 420px; 
-    top: 39px; 
-    color: black;
-    border: none;
-    border-radius: 100px;
-    padding: 8px 16px;
-    margin-left: 5px;
-    cursor: pointer;
-  }
-  
-  .Update-button:hover {
-    background-color: transparent;
-  }
-  
-
-
-/* Dropdown menu styles */
-.modal-content select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    appearance: none;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M5 7l5 5 5-5z" fill="none" stroke="%23333" stroke-width="2" /></svg>'); /* Custom arrow icon */
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 15px;
-    cursor: pointer;
-}
-
-
-.modal-content select:hover {
-    border-color: #aaa;
-}
-
-.modal-content select:focus {
-    outline: none;
-    border-color: #007bff; 
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
-}
-
-
-
-
-
-.logo-image {
-    position: absolute;
-    top: 28px; 
-    right: 269px; 
-    width: 40px; 
-    height: auto; 
-    z-index: 1000; 
-}
-
-
-.logo-text {
-    margin-left: 51px;
-    font-size: 15px;
-    font-weight: bold;
-    color: #333; 
-    font-family: 'Courier New'; 
-    position: relative; 
-    top: 20px; 
-}
-
-
-/* Staffdashboard.css */
-
-.delete-button {
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 16px;
-    cursor: pointer;
-}
-
-.delete-button:hover {
-    background-color: darkred;
-}
-
-
-.search-container {
-    margin-bottom: 20px;
-}
-
-.search-bar {
-    width: 900px;
-    height: 35px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 5px 10px;
-    margin-right: 10px;
-    border-color: #333;
-    font-size: 16px;
-}
-
-
-.search-button {
-    height: 40px;
-    padding: 0 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: white;
-    border-color: black;
-    color: black;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.search-button:hover {
-    background-color:white;
-}
-
-
-
-.select-dropdown {
-    width: 400px; 
-    padding: 8px; 
-    font-size: 16px;
-    color: #333; 
-    background-color: #f4f4f4; 
-    border: 1px solid #ccc; 
-    border-radius: 4px; 
-  }
-  
-  
-  .select-dropdown option {
-    font-size: 14px; 
-    color: #333;
-    background-color: #fff; 
-  }
-
-
-  .dropdown {
-    position: absolute;
-    display: inline-block;
-    top: 20px; 
-    right: 100px;
-    z-index: 1000; 
-}
-
-
-.dropbtn {
-    background-color: green;
-    color: white;
-    padding: 12px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 90px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-
-.dropbtn::after {
-    content: '\25BE'; 
-    font-size: 12px;
-    margin-left: 5px;
-}
-
-
-/* Profile modal Styles */
-.staffProfile-modal-content {
-    background: linear-gradient(45deg, #3B945E, #72CC64, #A8C41D); /* Gradient background */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    width: 100%;
-    position: relative; /* Add position relative */
-}
-
-/* Update button styles */
-.staffProfile-update-button {
-    background-color: transparent;
-    position: absolute;
-    top: 30px; /* Adjust top position */
-    right: 60px; /* Adjust right position */
-    color: white;
-    border: none;
-    border-radius: 100px;
-    padding: 8px 16px;
-    margin-left: 5px;
-    cursor: pointer;
-}
-
-
-
-.staffProfile-update-button:hover {
-    background-color: transparent;
-}
-
-/* Close button styles */
-.staffProfile-close {
-    position: absolute;
-    top: 20px; /* Adjust top position */
-    right: 20px; /* Adjust right position */
-    font-size: 30px;
-    color: #ffffff;
-    z-index: 1;
-    cursor: pointer;
-}
-
-.staffProfile-close:hover,
-.staffProfile-close:focus {
-    color: black;
-    text-decoration: none;
-}
-
-
-
-
-/* StudentStatus.css */
-
+/* STUDENT STATUS HEADER */
 .StudentStatus {
     margin: 20px;
   }
@@ -572,7 +434,28 @@ table tr:first-child {
     margin-bottom: 10px;
   }
   
-  .StudentStatus-button {
+
+
+  /* STUDENT STATUS TABLE */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  table th {
+    background-color: #f2f2f2;
+  }
+
+
+
+/* STATUS ADD BUTTON */
+.StudentStatus-button {
     background-color: transparent;
     position: absolute;
     left: 380px; 
@@ -588,22 +471,9 @@ table tr:first-child {
   .StudentStatus-button:hover {
     background-color: transparent;
   }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  table th, table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  table th {
-    background-color: #f2f2f2;
-  }
-  
+
+
+  /* STATUS UPDATE BUTTON */
   .StudentStatus-button button {
     background: none;
     border: none;
@@ -615,6 +485,8 @@ table tr:first-child {
     color: #0056b3;
   }
   
+
+  /* STATUS ADD MODAL */
   .smodal {
     display: block;
     position: fixed;
@@ -650,6 +522,8 @@ table tr:first-child {
   }
   
 
+
+  /* LIST OF STUDENT */
   .list-delete-button {
     background-color: transparent;
     color: red;
@@ -664,8 +538,6 @@ table tr:first-child {
     background-color: rgb(166, 165, 165);
   }
 
-
-  
 .list-update-button {
     background-color: transparent;
     color: #0056b3;

@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import "./Staffdashboard.css";
 import logoImage from "../../images/CCS.png";
 import Subjects from "./subjects";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import List from "./list";
 import StudentCreateAccount from "../StudentCreateAccount";
 import { jwtDecode } from "jwt-decode";
@@ -23,7 +21,7 @@ const StaffDashboard = () => {
   const [staffInfo, setStaffInfo] = useState({});
   //eslint-disable-next-line
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const [isProfileModalOpen, setProfileModalOpen] = useState(false); 
+  const [isProfileModalOpen] = useState(false); 
 
   const [updateAdminFormData, setupdateAdminFormData] = useState({
     Staff_Name: "",
@@ -42,7 +40,7 @@ const StaffDashboard = () => {
 
   //search button
   //eslint-disable-next-line
-  const handleSearchInputChange = (e) => {
+  const handleSearchInputChange = (e) => { 
     setSearchTerm(e.target.value);
   };
 
@@ -50,7 +48,6 @@ const StaffDashboard = () => {
     setActiveSection(section);
   };
 
-  // PROFILE
 // eslint-disable-next-line
 const toggleDropdown = () => {
   if (!isProfileModalOpen) {
@@ -59,10 +56,6 @@ const toggleDropdown = () => {
 };
 
 
-const toggleProfileModal = () => {
-  setProfileModalOpen(!isProfileModalOpen);
-  setDropdownOpen(false);
-};
 
   //Update Administrator
   const handleOpenUpdateAdministratorModal = () => {
@@ -128,6 +121,10 @@ const toggleProfileModal = () => {
     ssetShowModal(true);
   };
 
+  const toggleCollapse = () => {
+    const navContainer = document.querySelector(".navdashboard-container");
+    navContainer.classList.toggle("collapsed");
+  };
   
   return (
     <div>
@@ -135,18 +132,23 @@ const toggleProfileModal = () => {
                 <button className="dropbtn" onClick={toggleDropdown}>{decodedStaffName}</button>
                 {isDropdownOpen && (
                     <div className="dropdown-content">
-                        <a href="#profile" onClick={toggleProfileModal}>Profile</a>
+                        <a href="#admin" onClick={handleOpenUpdateAdministratorModal}>Admin</a>
                         <a href="#logout" onClick={handleLogout}>Logout</a>
                     </div>
                 )}
             </div>
       <nav className="navdashboard-container">
+      <div className="collapse-btn" onClick={toggleCollapse}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
         <img src={logoImage} alt="Logo" className="logo-image" />
         <span className="logo-text">College of Computer Studies</span>
         <button onClick={() => handleSectionChange("dashboard")}>
           Dashboard
         </button>
-        <button onClick={shandleCreateAccountClick}> Create Account </button>
+        <button onClick={shandleCreateAccountClick}> Student Account </button>
         <button onClick={() => handleSectionChange("subject")}>Subjects</button>
         <button onClick={() => handleSectionChange("list")}>Tuition Status</button>
       </nav>
@@ -215,13 +217,8 @@ const toggleProfileModal = () => {
       {isProfileModalOpen && (
   <div className="modal">
     <div className="staffProfile-modal-content">
-        <span className="staffProfile-close" onClick={toggleProfileModal}>&times;</span>
-        <h2>Administrator Information  <i
-          onClick={handleOpenUpdateAdministratorModal}
-          className="staffProfile-update-button"
-        >
-          <FontAwesomeIcon icon={faEdit} />
-        </i></h2>
+        <span className="staffProfile-close" onClick={handleOpenUpdateAdministratorModal}>&times;</span>
+        <h2>Admin Information</h2>
         <p>Staff Name: {decodedStaffName}</p>
             <p>Email: {decodedStaffEmail}</p>
       </div>
