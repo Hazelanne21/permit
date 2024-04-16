@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import "./StudentLogin.css";
 import axios from "axios";
-import StudentCreateAccount from "./StudentCreateAccount";
 import { useNavigate } from 'react-router-dom';
 import logo from "../images/CCS.png";
 
 const StudentLogin = () => {
   const [studentNumber, setStudentNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [showModal, ssetShowModal] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -42,13 +40,6 @@ const StudentLogin = () => {
     }
   };
 
-  const shandleCreateAccountClick = () => {
-    ssetShowModal(true);
-  };
-
-  const shandleCloseModal = () => {
-    ssetShowModal(false);
-  };
 
   return (
     <div className="login-container" style={{ backgroundColor: "white" }}>
@@ -100,29 +91,6 @@ const StudentLogin = () => {
         </button>
       </form>
       <br />
-      <button
-        type="button"
-        className="mcreate-button"
-        onClick={shandleCreateAccountClick}
-      >
-        Create Account
-      </button>
-
-      {showModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={shandleCloseModal}>
-              &times;
-            </span>
-            <div className="modal-header">
-              <h2>Create Account</h2>
-            </div>
-            <div className="modal-body">
-              <StudentCreateAccount />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

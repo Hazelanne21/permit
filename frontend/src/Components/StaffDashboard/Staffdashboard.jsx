@@ -3,12 +3,16 @@ import { useNavigate } from "react-router-dom";
 import "./Staffdashboard.css";
 import logoImage from "../../images/CCS.png";
 import Subjects from "./subjects";
-import List from "./list";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import List from "./list";
+import StudentCreateAccount from "../StudentCreateAccount";
 import { jwtDecode } from "jwt-decode";
 
+
+
 const StaffDashboard = () => {
+  const [showModal, ssetShowModal] = useState(false);
   const [activeSection, setActiveSection] = useState("dashboard");
   const navigate = useNavigate();
   const [showUpdateAdministratorModal, setShowUpdateAdministratorModal] =
@@ -114,6 +118,16 @@ const toggleProfileModal = () => {
 
     navigate("/");
   };
+
+
+  const shandleCloseModal = () => {
+    ssetShowModal(false);
+  };
+  
+  const shandleCreateAccountClick = () => {
+    ssetShowModal(true);
+  };
+
   
   return (
     <div>
@@ -132,13 +146,20 @@ const toggleProfileModal = () => {
         <button onClick={() => handleSectionChange("dashboard")}>
           Dashboard
         </button>
-        <button onClick={() => handleSectionChange("Create")}>Create Account for Student</button>
+        <button onClick={shandleCreateAccountClick}> Create Account </button>
         <button onClick={() => handleSectionChange("subject")}>Subjects</button>
         <button onClick={() => handleSectionChange("list")}>Tuition Status</button>
       </nav>
 
       <div className="dashboard-container">
         {activeSection === "dashboard" && <h1>Welcome to the Dashboard, {decodedStaffName}!</h1>}
+
+        {activeSection === "StudentCreateAccount" && (
+          <div>
+            <StudentCreateAccount />
+          </div>
+        )}
+
         {activeSection === "subject" && (
           <div>
             <Subjects />
@@ -206,6 +227,22 @@ const toggleProfileModal = () => {
       </div>
     </div>
 )}
+
+{showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={shandleCloseModal}>
+              &times;
+            </span>
+            <div className="modal-header">
+              <h2>Student Account</h2>
+            </div>
+            <div className="modal-body">
+              <StudentCreateAccount />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
