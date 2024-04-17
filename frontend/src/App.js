@@ -27,7 +27,7 @@ const handleUserTypeSelect = (type) => {
   };
 
   return (
-    <div className="type-container"  style={{ background: "linear-gradient(to bottom, #d2fa9e, #0e9777)" }}>
+    <div className="type-container"  style={{ background: "linear-gradient(to bottom, #16a085, #f4d03f)" }}>
       <img
         src={logo}
         alt="Logo"

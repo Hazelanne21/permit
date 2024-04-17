@@ -8,7 +8,7 @@
   border: 1px solid #161616;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(to bottom, #e7ef88, #0e9777,  #042a06);
+  background: linear-gradient(to bottom, #f9f586, #96fbc4);
 }
 
 .login-heading {
@@ -48,7 +48,7 @@
 }
 
 .login-button {
-  background-color: #f0f053;
+  background: linear-gradient(to bottom, #0ba360, #3cba92);
   color: #fff;
   padding: 10px 100px;
   margin-left: 70px;
