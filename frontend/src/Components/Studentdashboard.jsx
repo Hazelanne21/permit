@@ -103,6 +103,21 @@ const StudentDashboard = () => {
         console.log("Toggling permit modal");
         setPermitModalOpen(!isPermitModalOpen);
     };
+
+    
+  const toggleCollapse = () => {
+    const navContainer = document.querySelector(".navdashboard-container");
+    const dashboardContainer = document.querySelector(".dashboard-container");
+  
+    navContainer.classList.toggle("collapsed");
+  
+    const isCollapsed = navContainer.classList.contains("collapsed");
+    if (isCollapsed) {
+      dashboardContainer.style.width = "calc(100% - 90px)"; 
+    } else {
+      dashboardContainer.style.width = "calc(100% - 450px)"; 
+    } 
+  };
     
     return (
         <div>
@@ -110,13 +125,18 @@ const StudentDashboard = () => {
                 <button className="dropbtn" onClick={toggleDropdown}>{decodedStudentName} <FontAwesomeIcon icon={faUser} /></button>
                 {isDropdownOpen && (
                     <div className="dropdown-content">
-                        <a href="#profile" onClick={toggleProfileModal}>Profile</a>
+                        <a href="#profile" onClick={toggleProfileModal}>Student</a>
                         <a href="#logout" onClick={handleLogout}>Logout</a>
                     </div>
                 )}
             </div>
 
             <nav className="navdashboard-container">
+                <div className="collapse-btn" onClick={toggleCollapse}>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    </div>
                 <img src={logoImage} alt="Logo" className="logo-image" />
                 <span className="logo-text">College of Computer Studies</span>
                 <button onClick={() => handleSectionChange('dashboard')}>Dashboard</button>
