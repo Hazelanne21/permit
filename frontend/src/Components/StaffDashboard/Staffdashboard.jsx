@@ -9,6 +9,7 @@ import { jwtDecode } from "jwt-decode";
 
 
 
+
 const StaffDashboard = () => {
   const [showModal, ssetShowModal] = useState(false);
   const [activeSection, setActiveSection] = useState("dashboard");
@@ -20,6 +21,7 @@ const StaffDashboard = () => {
   //eslint-disable-next-line
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isProfileModalOpen] = useState(false); 
+  const [announcement, setAnnouncement] = useState("");
 
   const [updateAdminFormData, setupdateAdminFormData] = useState({
     Staff_Name: "",
@@ -114,6 +116,14 @@ const toggleDropdown = () => {
     ssetShowModal(true);
   };
 
+
+
+  // Inside the StaffDashboard component
+const handleAnnouncementSubmit = () => {
+  console.log("Announcement submitted:", announcement);
+  setAnnouncement("");
+};
+
  
 
 
@@ -153,7 +163,7 @@ const toggleDropdown = () => {
         <img src={logoImage} alt="Logo" className="logo-image" />
         <span className="logo-text">College of Computer Studies</span>
         <button onClick={() => handleSectionChange("dashboard")}>
-          Dashboard
+          Announcement
         </button>
         <button onClick={shandleCreateAccountClick}> Student Account </button>
         <button onClick={() => handleSectionChange("subject")}>Subjects</button>
@@ -161,7 +171,27 @@ const toggleDropdown = () => {
       </nav>
 
       <div className="dashboard-container">
-        {activeSection === "dashboard" && <h1>Welcome to the Dashboard, {decodedStaffName}!</h1>}
+              {activeSection === "dashboard" && (
+          <div>
+            <h1>Welcome to the Dashboard, {decodedStaffName}!</h1>
+            <div className="Announcement-container">
+              <textarea
+                className="Announcement-bar"
+                placeholder="Enter Announcement..."
+                value={announcement}
+                onChange={(e) => setAnnouncement(e.target.value)} 
+              />
+             <button className="Announcement-submit-btn" onClick={handleAnnouncementSubmit}>Submit Announcement</button>
+            </div>
+            <div className="Previous-Announcements">
+      {/* Container for displaying previous announcements */}
+      <h2>Previous Announcements</h2>
+      {/* Previous announcements will go here */}
+    </div>
+  </div>
+
+        )}
+
 
         {activeSection === "StudentCreateAccount" && (
           <div>
