@@ -150,3 +150,173 @@ ul li {
         pointer-events: none;
     }
     
+
+
+
+
+/* Permit modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+  .permit-modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px;
+  }
+  
+  .permit-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .permit-close:hover,
+  .permit-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .permit-modal-content h2 {
+    margin-bottom: 20px;
+  }
+  
+  .permit-modal-content form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .permit-modal-content label {
+    margin-bottom: 10px;
+  }
+  
+  .permit-modal-content select {
+    margin-bottom: 20px;
+  }
+  
+  .permit-modal-content button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .permit-modal-content button:hover {
+    background-color: #45a049;
+  }
+  
+
+
+
+
+
+
+
+
+
+/* PROFILE MODAL  */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 1000; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.profile-modal-content {
+  position: relative; 
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  max-width: 400px;
+  width: 100%;
+}
+
+
+
+.profile-close {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
+  font-size: 30px;
+  color: #888;
+}
+.profile-modal-content form {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+}
+
+
+.student-submit-button {
+  width: 400px;
+}
+
+.profile-modal-content label {
+  margin-bottom: 8px;
+  height: 10px;
+}
+
+.profile-modal-content input {
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid red;
+  border-radius: 4px;
+  font-size: 6px;
+  height: 30px;
+}
+
+.profile-modal-content button {
+  padding: 10px 20px;
+  background-color: green;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.profile-modal-content button:hover {
+  background-color: darkgreen;
+}
+
+
+
+/* EYE ICON */
+
+.password-input-container {
+  position: relative;
+  width: 400px;
+}
+
+.password-input-container i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.password-input-container i:hover {
+  color: #007bff; /* Change color on hover if desired */
+}

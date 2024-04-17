@@ -166,16 +166,6 @@ const StudentCreateAccount = () => {
           </select>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="isIrregular">Is Irregular:</label>
-          <input
-            type="checkbox"
-            id="isIrregular"
-            checked={isIrregular}
-            onChange={(e) => setIsIrregular(e.target.checked)}
-          />
-        </div>
-
         <button
           type="submit"
           className={`create-button ${loading ? "disabled" : ""}`}

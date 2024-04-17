@@ -1,7 +1,7 @@
 /* DASHBOARD */
 .dashboard-container {
     width: 1100px;
-    height: 600px;
+    height: 650px;
     margin: 0;
     padding: 20px;
     border: 1px solid #ccc;
@@ -220,6 +220,7 @@
 }
 
 .umodal-content {
+  position: relative;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
@@ -231,8 +232,8 @@
 .uclose {
     color: #aaa;
     position: absolute;
-    top: 249px; 
-    right: 570px; 
+    top: 33px; 
+    right: 40px; 
     font-size: 30px;
     font-weight: bold;
     cursor: pointer;

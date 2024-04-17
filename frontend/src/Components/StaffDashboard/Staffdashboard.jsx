@@ -16,8 +16,6 @@ const StaffDashboard = () => {
   const [showUpdateAdministratorModal, setShowUpdateAdministratorModal] =
     useState(false);
   //eslint-disable-next-line
-  const [searchTerm, setSearchTerm] = useState("");
-  //eslint-disable-next-line
   const [staffInfo, setStaffInfo] = useState({});
   //eslint-disable-next-line
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -38,12 +36,7 @@ const StaffDashboard = () => {
     fetchStaffInfo();
   }, []);
 
-  //search button
-  //eslint-disable-next-line
-  const handleSearchInputChange = (e) => { 
-    setSearchTerm(e.target.value);
-  };
-
+  
   const handleSectionChange = (section) => {
     setActiveSection(section);
   };
@@ -128,18 +121,14 @@ const toggleDropdown = () => {
     const navContainer = document.querySelector(".navdashboard-container");
     const dashboardContainer = document.querySelector(".dashboard-container");
   
-    // Toggle the collapsed class on the nav container
     navContainer.classList.toggle("collapsed");
   
-    // Check if the nav container is collapsed
     const isCollapsed = navContainer.classList.contains("collapsed");
-  
-    // Adjust the width of the dashboard container based on the collapse state
     if (isCollapsed) {
-      dashboardContainer.style.width = "calc(100% - 80px)"; // Adjust width when collapsed
+      dashboardContainer.style.width = "calc(100% - 90px)"; 
     } else {
-      dashboardContainer.style.width = "calc(100% - 450px)"; // Adjust width when expanded
-    }
+      dashboardContainer.style.width = "calc(100% - 450px)"; 
+    } 
   };
   
   

@@ -10,7 +10,7 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="password"],
-.create-button {
+.student-create-button {
     width: 90%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -25,15 +25,15 @@ input[type="password"],
 }
 
 
-.create-button {
-    background-color: #4caf50;
+.student-create-button {
+    background-color: blue;
     color: #fff;
     cursor: pointer;
-    margin-left: -10px;
+    margin-left: -0px;
     
 }
 
-.create-button:disabled {
+.student-create-button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }
@@ -47,7 +47,8 @@ input[type="password"],
 .mqcreate-success-message {
     margin-top: 10px;
     text-align: center;
-    color: red;
+    color: green;
 }  
+
 
 
