@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Studentdashboard.css';
-import logoImage from '../images/CCS.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import './Studentdashboard.css';
+import logoImage from '../images/CCS.png';
 import { jwtDecode } from "jwt-decode";
 
 const StudentDashboard = () => {
@@ -15,74 +15,45 @@ const StudentDashboard = () => {
     const [isProfileModalOpen, setProfileModalOpen] = useState(false); 
     const [isDropdownOpen, setDropdownOpen] = useState(false); 
     const [isPermitModalOpen, setPermitModalOpen] = useState(false);
-    const [permitFormData, setPermitFormData] = useState({
-        examType: "",
-        semester: "",
-    });
+    const navigate = useNavigate(); 
 
-
-
-    
     const token = sessionStorage.getItem("token");
     const decodedStudentName = jwtDecode(token).name;
 
-    const navigate = useNavigate(); 
 
-    useEffect(() => {
-        fetchStudentInfo();
-        fetchPermits();
-    }, []);
 
-    const fetchStudentInfo = async () => {
-        // Fetch student info
-    };
 
-    const fetchPermits = async () => {
-        // Fetch permits
-    };
-
-    const handleSectionChange = (section) => {
-        setActiveSection(section);
-    };
-
+  
+    // LOGOUT
     const handleLogout = () => {
         sessionStorage.removeItem('token');
         navigate('/');
     };
 
 
+    // DROPDOWN PROFILE
     const toggleDropdown = () => {
         if (!isProfileModalOpen) {
             setDropdownOpen(!isDropdownOpen);
         }
     };
 
-    const [profileFormData, setProfileFormData] = useState({
-        password: "",
-        mobileNumber: "",
-        yearLevel: "",
+
+    // PERMIT
+    
+    const [permitFormData, setPermitFormData] = useState({
+        examType: "",
         semester: "",
-        showPassword: false // Initialize showPassword to false
     });
-    
-
-    const handleProfileInputChange = (e) => {
-        const { name, value } = e.target;
-        setProfileFormData({ ...profileFormData, [name]: value });
-    };
-    
-
-    const handleSubmitProfile = () => {
-        // Handle profile update submission
-        console.log("Profile data submitted:", profileFormData);
-        // Close the modal after submission
-        setProfileModalOpen(false);
-    };
-
 
     const handlePermitInputChange = (e) => {
         const { name, value } = e.target;
         setPermitFormData({ ...permitFormData, [name]: value });
+    };
+
+    const togglePermitModal = () => {
+        console.log("Toggling permit modal");
+        setPermitModalOpen(!isPermitModalOpen);
     };
 
     const handleSubmitPermit = () => {
@@ -93,18 +64,35 @@ const StudentDashboard = () => {
     };
 
 
+    // PROFILE MODAL
+    const [profileFormData, setProfileFormData] = useState({
+        password: "",
+        mobileNumber: "",
+        yearLevel: "",
+        semester: "",
+        showPassword: false // Initialize showPassword to false
+    });
+    
+    const handleProfileInputChange = (e) => {
+        const { name, value } = e.target;
+        setProfileFormData({ ...profileFormData, [name]: value });
+    };
+    
+    const handleSubmitProfile = () => {
+        // Handle profile update submission
+        console.log("Profile data submitted:", profileFormData);
+        // Close the modal after submission
+        setProfileModalOpen(false);
+    };
+
     const toggleProfileModal = () => {
         console.log("Toggling profile modal");
         setProfileModalOpen(!isProfileModalOpen);
         setDropdownOpen(false);
     };
     
-    const togglePermitModal = () => {
-        console.log("Toggling permit modal");
-        setPermitModalOpen(!isPermitModalOpen);
-    };
-
     
+    // COLLAPSE SIDE BAR
   const toggleCollapse = () => {
     const navContainer = document.querySelector(".navdashboard-container");
     const dashboardContainer = document.querySelector(".dashboard-container");
@@ -118,9 +106,31 @@ const StudentDashboard = () => {
       dashboardContainer.style.width = "calc(100% - 450px)"; 
     } 
   };
+
+    // SIDE BAR
+    const handleSectionChange = (section) => {
+        setActiveSection(section);
+    };
+
     
+
+     
+// FETCH STUDENT INFO & FETCH PERMIT
+    const fetchStudentInfo = async () => {
+    };
+
+    const fetchPermits = async () => {
+    };
+
+  useEffect(() => {
+    fetchStudentInfo();
+    fetchPermits();
+}, []);
+
+
     return (
         <div>
+            {/* DROPDOWN */}
             <div className={`dropdown ${isProfileModalOpen ? 'disabled-dropdown' : ''}`}>
                 <button className="dropbtn" onClick={toggleDropdown}>{decodedStudentName} <FontAwesomeIcon icon={faUser} /></button>
                 {isDropdownOpen && (
@@ -132,6 +142,7 @@ const StudentDashboard = () => {
             </div>
 
             <nav className="navdashboard-container">
+                {/* COLLAPSE SIDE BAR */}
                 <div className="collapse-btn" onClick={toggleCollapse}>
                     <span></span>
                     <span></span>
@@ -163,7 +174,7 @@ const StudentDashboard = () => {
                     </div>
                 )}
             </div>
-
+                {/* PROFILE MODAL */}
                {isProfileModalOpen && (
                 <div className="modal">
                     <div className="profile-modal-content">
@@ -175,8 +186,6 @@ const StudentDashboard = () => {
                                 <input type={profileFormData.showPassword ? "text" : "password"} name="password" value={profileFormData.password} onChange={handleProfileInputChange} />
                                 <i className={`fas ${profileFormData.showPassword ? "fa-eye-slash" : "fa-eye"}`} onClick={() => setProfileFormData({ ...profileFormData, showPassword: !profileFormData.showPassword })}></i>
                             </div>
-
-
                             <label>Mobile Number:</label>
                             <input type="text" name="mobileNumber" value={profileFormData.mobileNumber} onChange={handleProfileInputChange} />
                             <label>Year Level:</label>
@@ -189,15 +198,15 @@ const StudentDashboard = () => {
                 </div>
             )}
 
-            {/* Permit modal */}
+            {/* REQUEST PERMIT MODAL */}
             {isPermitModalOpen && (
                 <div className="modal">
                     <div className="permit-modal-content">
                         <span className="permit-close" onClick={togglePermitModal}>&times;</span>
                         <h2>Request Permit</h2>
                         <form onSubmit={handleSubmitPermit}>
-                            <label>Exam Type:</label>
-                            <select name="examType" value={permitFormData.examType} onChange={handlePermitInputChange}>
+                            <label>Exam:</label>
+                            <select name="examType" value={permitFormData.examType} onChange={handlePermitInputChange} required>
                                 <option value="">Select Exam Type</option>
                                 <option value="Prelim">Prelim</option>
                                 <option value="Midterm">Midterm</option>
@@ -205,7 +214,7 @@ const StudentDashboard = () => {
                                 <option value="Finals">Finals</option>
                             </select>
                             <label>Semester:</label>
-                            <select name="semester" value={permitFormData.semester} onChange={handlePermitInputChange}>
+                            <select name="semester" value={permitFormData.semester} onChange={handlePermitInputChange} required>
                                 <option value="">Select Semester</option>
                                 <option value="1">1st Semester</option>
                                 <option value="2">2nd Semester</option>
