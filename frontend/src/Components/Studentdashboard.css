@@ -245,3 +245,79 @@
 .password-input-container i:hover {
   color: #007bff; 
 }
+
+
+
+.download-icon {
+  cursor: pointer;
+  color: BLACK; 
+  margin-left: 10px; 
+  font-size: 17px;
+}
+
+
+
+.permit-example-content {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.permit-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.permit-example-content h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.permit-example-content p {
+  margin: 5px 0;
+}
+
+.permit-example-content ul {
+  padding-left: 20px;
+}
+
+.permit-example-content ul li {
+  margin-bottom: 5px;
+}
+
+.permit-example-content button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.permit-example-content button:hover {
+  background-color: #0056b3;
+}
+
+.modal-address {
+  display: flex;
+  font-size: 14px;
+  align-items: center;
+}
+
+.modal-address img {
+  margin-right: 30px;
+}
+.modal-logo {
+  width: 60px;
+  margin-top: 20px;
+  font-size: 100px;
+}

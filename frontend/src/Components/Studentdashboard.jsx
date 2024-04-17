@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faDownload } from "@fortawesome/free-solid-svg-icons";
 import './Studentdashboard.css';
 import logoImage from '../images/CCS.png';
+import Image from '../images/ncf.png';
 import { jwtDecode } from "jwt-decode";
+import axios from "axios";
 
 const StudentDashboard = () => {
     // eslint-disable-next-line
@@ -63,6 +65,13 @@ const StudentDashboard = () => {
         setPermitModalOpen(false);
     };
 
+    const [isPermitExampleOpen, setPermitExampleOpen] = useState(false);
+
+    const togglePermitExample = () => {
+        setPermitExampleOpen(!isPermitExampleOpen);
+    };
+
+    
 
     // PROFILE MODAL
     const [profileFormData, setProfileFormData] = useState({
@@ -90,6 +99,13 @@ const StudentDashboard = () => {
         setProfileModalOpen(!isProfileModalOpen);
         setDropdownOpen(false);
     };
+
+    const handleDownloadPermit = () => {
+        // Implement the logic to download the permit
+        console.log("Permit downloaded");
+    };
+    
+    
     
     
     // COLLAPSE SIDE BAR
@@ -120,8 +136,16 @@ const StudentDashboard = () => {
     };
 
     const fetchPermits = async () => {
+        try {
+            const response = await axios.get('/permits/getPermits');
+            setPermits(response.data);
+        } catch (error) {
+            console.error("Error fetching permits:", error);
+            // Handle error, such as showing an error message to the user
+        }
     };
 
+    
   useEffect(() => {
     fetchStudentInfo();
     fetchPermits();
@@ -151,7 +175,7 @@ const StudentDashboard = () => {
                 <img src={logoImage} alt="Logo" className="logo-image" />
                 <span className="logo-text">College of Computer Studies</span>
                 <button onClick={() => handleSectionChange('dashboard')}>Dashboard</button>
-                <button onClick={() => handleSectionChange('permits')}>Permits</button>
+                <button onClick={() => handleSectionChange('permits')}>Permits</button> 
             </nav>
 
             <div className="dashboard-container" style={{ textAlign: "center" }}>
@@ -160,20 +184,47 @@ const StudentDashboard = () => {
                 )}
                 {activeSection === 'permits' && (
                     <div>
-                        <h1>Permits</h1>
+                        <h1>Permits <FontAwesomeIcon icon={faDownload} className="download-icon" onClick={togglePermitExample} /></h1> 
                         <button onClick={togglePermitModal}>Request Permit</button>
-                        <ul>
-                            {permits.map((permit) => (
-                                <li key={permit._id}>
-                                    <p>Subject: {permit.Subject}</p>
-                                    <p>Section: {permit.Section}</p>
-                                    <p>Status: {permit.Status}</p>
-                                </li>
-                            ))}
-                        </ul>
                     </div>
                 )}
             </div>
+
+
+            {isPermitExampleOpen && (
+    <div className="modal">
+        <div className="permit-example-content">
+            <span className="permit-close" onClick={togglePermitExample}>&times;</span>
+            <div className="modal-address">
+                <img src={Image} alt="Logo" className="modal-logo" />
+                <div>
+                    <p className="address-text">Naga College Foundation</p>
+                    <p className="address-text">Naga City, Camarines Sur</p>
+                </div>
+            </div>
+            {permits.map((permit, index) => (
+                <div key={index}>
+                    <p>ID number of the student: {permit.Student_Number}</p>
+                    <p>Examination: {permit.Exam}</p>
+                    <p>Student's name: {permit.Student_Name}</p>
+                    <p>Course and level: {permit.Year}</p >
+                    <p>Semester: {permit.Semester}</p>
+                    <p>List of Subjects:</p>
+                    <ul>
+                        {permit.Subjects.map((subject, index) => (
+                            <li key={index}>{subject}</li>
+                        ))}
+                    </ul>
+                    <p>Sequence number: {permit.SequenceNumber}</p>
+                    <p>Released by: {permit.ReleasedBy}</p>
+                    <button onClick={handleDownloadPermit}>Download Permit</button>
+                </div>
+            ))}
+        </div>
+    </div>
+)}
+
+
                 {/* PROFILE MODAL */}
                {isProfileModalOpen && (
                 <div className="modal">
