@@ -75,7 +75,7 @@ body {
 .type-container {
   max-width: 400px;
   margin: auto;
-  padding: 100px;
+  padding: 140px;
   border: 2px solid black;
   border-radius: 8px;
   box-shadow: 0 5px 4px rgba(1, 1, 1, 3.1);
@@ -98,7 +98,7 @@ button {
   font-size: 18px;
   border: none;
   cursor: pointer;
-  background-color: #d8e874; 
+  background-color: #6cf765; 
   color: black;
   border-radius: 7px;
   transition: background-color 0.3s, transform 0.2s;
