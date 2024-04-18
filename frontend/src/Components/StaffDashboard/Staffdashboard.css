@@ -271,8 +271,8 @@ position: relative;
 .uclose {
   color: #aaa;
   position: absolute;
-  top: 33px; 
-  right: 40px; 
+  top: 19px; 
+  right: 25px; 
   font-size: 30px;
   font-weight: bold;
   cursor: pointer;
@@ -762,4 +762,38 @@ table th {
 
 .Students-info p {
   margin-top: 0;
+}
+
+
+/* instructor */
+.instructor-modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure modal appears above other content */
+}
+
+/* Modal content */
+.instructor-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Drop shadow effect */
+  max-width: 80%; /* Adjust as needed */
+  max-height: 80%; /* Adjust as needed */
+  overflow-y: auto; /* Enable scrolling if content exceeds modal height */
+}
+
+
+.instructorclose {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
 }
