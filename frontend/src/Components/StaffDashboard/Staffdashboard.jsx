@@ -173,7 +173,7 @@ const handleAnnouncementSubmit = () => {
       <div className="dashboard-container">
               {activeSection === "dashboard" && (
           <div>
-            <h1 style={{ fontFamily: 'Verdana', fontSize: '30px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5'}}>
+            <h1 style={{ fontFamily: 'Verdana', fontSize: '30px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5)', textAlign: 'center'}}>
     Welcome to the Dashboard, {decodedStaffName}!
                     </h1>
             <div className="Announcement-container">

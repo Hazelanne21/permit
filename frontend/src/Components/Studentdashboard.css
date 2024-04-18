@@ -340,16 +340,16 @@
 
 
 .Announcement-submit-btn {
-  background-color: #007bff; 
+  background-color: #82d08a; 
   color: #fff;
   border: none; 
-  padding: 10px 20px; 
+  padding: 10px 15px; 
   font-size: 16px; 
   cursor: pointer; 
   border-radius: 5px; 
 }
 
 .Announcement-submit-btn:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #8ed23b; /* Darker blue on hover */
 }
 
