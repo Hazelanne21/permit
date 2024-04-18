@@ -7,6 +7,11 @@ import List from "./list";
 import StudentCreateAccount from "../StudentCreateAccount";
 import { jwtDecode } from "jwt-decode";
 
+// eslint-disable-next-line
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// eslint-disable-next-line
+import { faBell, faUser, faMoneyCheckAlt, faBook } from '@fortawesome/free-solid-svg-icons';
+
 
 
 
@@ -154,21 +159,34 @@ const handleAnnouncementSubmit = () => {
                     </div>
                 )}
             </div>
-      <nav className="navdashboard-container">
-      <div className="collapse-btn" onClick={toggleCollapse}>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <img src={logoImage} alt="Logo" className="logo-image" />
-        <span className="logo-text">College of Computer Studies</span>
-        <button onClick={() => handleSectionChange("dashboard")}>
-          Announcement
-        </button>
-        <button onClick={shandleCreateAccountClick}> Student Account </button>
-        <button onClick={() => handleSectionChange("subject")}>Subjects</button>
-        <button onClick={() => handleSectionChange("list")}>Tuition Status</button>
+            <nav className="navdashboard-container">
+    <div className="collapse-btn" onClick={toggleCollapse}>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <img src={logoImage} alt="Logo" className="logo-image" />
+    <span className="logo-text">College of Computer Studies</span>
+    <button className="dashboard-button" onClick={() => handleSectionChange("dashboard")}>
+      <FontAwesomeIcon icon={faBell} className="button-icon" />
+      <span className="button-text">Announcement</span>
+    </button>
+
+      <button className="sa-button" onClick={shandleCreateAccountClick}>
+        <FontAwesomeIcon icon={faUser} className="sa-icon" />  
+        <span className="sa-text">Student Account </span>
+      </button>
+      <button className="sub-button" onClick={() => handleSectionChange("subject")}>
+        <FontAwesomeIcon icon={faBook} className="sub-icon" />  
+        <span className="sub-text">Subjects </span>
+      </button>
+      <button className="ts-button" onClick={() => handleSectionChange("list")}>
+        <FontAwesomeIcon icon={faMoneyCheckAlt} className="ts-icon" /> 
+        <span className="ts-text">Tuition Status </span>
+      </button>
+
       </nav>
+
 
       <div className="dashboard-container">
               {activeSection === "dashboard" && (

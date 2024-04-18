@@ -25,12 +25,13 @@
     overflow: hidden;
     transition: all 0.3s ease;
     width: 299px;
-    height: 858px;
+    height: 710px;
     margin: 0;
     padding: 20px;
     position: absolute;
-    top: -10px;
-    left: -10px;
+    top: 20px;
+    left: 30px;
+    border-radius: 30px;
 }
   
 .navdashboard-container.collapsed .logo-image,
@@ -49,22 +50,29 @@
     background-color: #C7F9CC; 
 }
 
+
 .navdashboard-container button {
-    display: block;
-    margin-bottom: 20px;
-    width: 100%;
-    padding: 10px;
-    background-color: white;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 100px;
-    
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: transparent;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
-.navdashboard-container button:last-child {
-    margin-bottom: 0;
+
+
+.navdashboard-container button {
+  margin-bottom: 20px; /* Add some space between buttons */
 }
+
+.navdashboard-container button:nth-child(4) {
+  margin-top: 190px; /* Add margin to the fourth button */
+}
+
+
+
 .collapse-btn {
     cursor: pointer;
     padding: 10px;
@@ -84,21 +92,22 @@
 /* CCS LOGO */
 .logo-image {
     position: absolute;
-    top: 78px; 
-    right: 279px; 
-    width: 40px; 
+    top: 88px; 
+    right: 119px; 
+    width: 100px; 
     height: auto; 
     z-index: 1000; 
 }
 
 .logo-text {
-    margin-left: 51px;
-    font-size: 15px;
+    margin-left: 5px;
+    font-size: 18px;
     font-weight: bold;
     color: #333; 
     font-family: 'Courier New'; 
     position: relative; 
-    top: 20px; 
+    top: 150px; 
+
 }
 
   
@@ -562,6 +571,75 @@
   }
 
 
+  /* icon */
 
+  .dashboard-button {
+    display: flex;
+    align-items: justify;
+    padding: 10px;
+    background-color: transparent;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .button-icon {
+    margin-right: 30px; 
+    font-size: 40px;
+  }
+  
+  .button-text {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+
+  .sa-button {
+    display: flex;
+    align-items: justify;
+    padding: 10px;
+    background-color: transparent;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  
+  .sa-icon {
+    margin-right: 10px; 
+    font-size: 40px;
+  }
+  
+  .sa-text {
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 12px;
+  }
+
+  .sub-icon {
+    margin-right: 70px; 
+    font-size: 40px;
+  }
+  
+  .sub-text {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 30px;
+  }
+
+
+  .ts-icon {
+    margin-right: 30px; 
+    font-size: 40px;
+  }
+  
+  .ts-text {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 10px;
+  }
 
 
