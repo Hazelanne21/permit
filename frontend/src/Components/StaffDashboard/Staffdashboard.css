@@ -1,59 +1,604 @@
 /* DASHBOARD */
 .dashboard-container {
-    width: 1100px;
-    height: 650px;
-    margin: 0;
-    padding: 20px;
-    border: 1px solid #ccc;
-    background-color: #FDFFB6;
-    border-radius: 30px;
-    box-shadow: 0 0 20px rgba(5, 5, 5, 5.2);
-    position: absolute;
-    top: 0;
-    right: 30px;
-    top: 90px;
+  width: 1100px;
+  height: 650px;
+  margin: 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #FDFFB6;
+  border-radius: 30px;
+  box-shadow: 0 0 20px rgba(5, 5, 5, 5.2);
+  position: absolute;
+  top: 0;
+  right: 30px;
+  top: 90px;
 }
 
 .nav-container {
-  display: flex;
+display: flex;
 }
 
 
 /* SIDEBAR */
 .navdashboard-container {
-    color: white;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    width: 299px;
-    height: 710px;
-    margin: 0;
-    padding: 20px;
-    position: absolute;
-    top: 20px;
-    left: 30px;
-    border-radius: 30px;
+  color: white;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  width: 299px;
+  height: 710px;
+  margin: 0;
+  padding: 20px;
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  border-radius: 30px;
 }
-  
+
 .navdashboard-container.collapsed .logo-image,
 .navdashboard-container.collapsed .logo-text,
 .navdashboard-container.collapsed button {
-  display: none;
+display: none;
 }
 
 .navdashboard-container.collapsed {
-    width: 80px; 
-    background-color: transparent; 
+  width: 80px; 
+  background-color: transparent; 
 }
 
 
 .navdashboard-container:not(.collapsed) {
-    background-color: #C7F9CC; 
+  background-color: #C7F9CC; 
 }
 
 
 .navdashboard-container button {
+display: block;
+width: 100%;
+padding: 10px;
+background-color: transparent;
+color: black;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
+
+.navdashboard-container button {
+margin-bottom: 20px; /* Add some space between buttons */
+}
+
+.navdashboard-container button:nth-child(4) {
+margin-top: 190px; /* Add margin to the fourth button */
+}
+
+
+
+.collapse-btn {
+  cursor: pointer;
+  padding: 10px;
+  margin-left: 10px;
+}
+
+.collapse-btn span {
   display: block;
+  background-color: black;
+  height: 3px;
+  width: 25px;
+  margin: 5px 0;
+}
+
+
+
+/* CCS LOGO */
+.logo-image {
+  position: absolute;
+  top: 88px; 
+  right: 119px; 
+  width: 100px; 
+  height: auto; 
+  z-index: 1000; 
+}
+
+.logo-text {
+  margin-left: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333; 
+  font-family: 'Courier New'; 
+  position: relative; 
+  top: 150px; 
+
+}
+
+
+
+/* SUBJECTS */
+.modal {
+  display: flex;
+  flex-wrap:wrap;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
   width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+}
+
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 430px;
+  right: 590px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+}
+
+.modal-content input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.modal-content button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 90%;
+  margin-left: 20px;
+  margin-top: 10px;
+  
+}
+
+.modal-content button:hover {
+  background-color: #45a049;
+}
+
+
+
+/* SEARCH SUBJECTS */
+.search-container {
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  width: 900px;
+  height: 35px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin-right: 10px;
+  border-color: #333;
+  font-size: 16px;
+}
+
+.search-button {
+  height: 40px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  border-color: black;
+  color: black;
+  font-size: 16px;
+  cursor: pointer;
+}
+.search-button:hover {
+  background-color:white;
+}
+
+
+
+/* ADMIN MODAL */
+.umodal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.umodal-content {
+position: relative;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+}
+
+.uclose {
+  color: #aaa;
+  position: absolute;
+  top: 33px; 
+  right: 40px; 
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.uclose:hover,
+.uclose:focus {
+  color: black;
+  text-decoration: none;
+}
+
+.umodal-content input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.umodal-content button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.umodal-content button:hover {
+  background-color: #45a049;
+}
+
+
+
+/* DROPDOWN MENU FOR YEAR AND SEMESTER */
+.modal-content select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M5 7l5 5 5-5z" fill="none" stroke="%23333" stroke-width="2" /></svg>'); /* Custom arrow icon */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 15px;
+  cursor: pointer;
+}
+
+.modal-content select:hover {
+  border-color: #aaa;
+}
+.modal-content select:focus {
+  outline: none;
+  border-color: #007bff; 
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+}
+
+
+
+/* ADMIN NAME DROPDOWN */
+.select-dropdown {
+  width: 400px; 
+  padding: 8px; 
+  font-size: 16px;
+  color: #333; 
+  background-color: #f4f4f4; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+}
+
+.select-dropdown option {
+  font-size: 14px; 
+  color: #333;
+  background-color: #fff; 
+}
+
+.dropdown {
+  position: absolute;
+  display: inline-block;
+  top: 20px; 
+  right: 100px;
+  z-index: 1000; 
+}
+
+.dropbtn {
+  background-color: #C7F9CC;
+  color: black;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 90px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropbtn::after {
+  content: '\25BE'; 
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+
+
+/*TUITION STATUS*/
+.smodal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+
+.smodal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+}
+
+.sclose {
+  color: #aaa;
+  position: absolute;
+  top: 260px;
+  right: 590px;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sclose:hover,
+.sclose:focus {
+  color: black;
+  text-decoration: none;
+}
+
+
+.smodal-content input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+
+.smodal-content button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px; 
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.smodal-content button:hover {
+  background-color: #45a049;
+}
+
+
+
+/* STUDENT STATUS HEADER */
+.StudentStatus {
+  margin: 20px;
+}
+
+.StudentStatus h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+
+
+/* STUDENT STATUS TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+
+
+/* STATUS ADD BUTTON */
+.StudentStatus-button {
+  background-color: transparent;
+  position: absolute;
+  left: 380px; 
+  top: 35px; 
+  color: black;
+  border: none;
+  border-radius: 100px;
+  padding: 8px 16px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.StudentStatus-button:hover {
+  background-color: transparent;
+}
+
+
+/* STATUS UPDATE BUTTON */
+.StudentStatus-button button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #007bff;
+}
+
+.StudentStatus-button button:hover {
+  color: #0056b3;
+}
+
+
+/* STATUS ADD MODAL */
+.smodal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.smodal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+}
+
+.sclose {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.sclose:hover,
+.sclose:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+
+/* LIST OF STUDENT */
+.list-delete-button {
+  background-color: transparent;
+  color: red;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.list-delete-button:hover {
+  background-color: rgb(166, 165, 165);
+}
+
+.list-update-button {
+  background-color: transparent;
+  color: #0056b3;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.list-update-button:hover {
+  background-color: rgb(166, 165, 165);
+}
+
+.table-container {
+  max-height: 400px; 
+  overflow-y: auto; 
+}
+
+
+/* icon */
+
+.dashboard-button {
+  display: flex;
+  align-items: justify;
+  padding: 10px;
+  background-color: transparent;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button-icon {
+  margin-right: 30px; 
+  font-size: 40px;
+}
+
+.button-text {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+
+.sa-button {
+  display: flex;
+  align-items: justify;
   padding: 10px;
   background-color: transparent;
   color: black;
@@ -63,583 +608,38 @@
 }
 
 
-.navdashboard-container button {
-  margin-bottom: 20px; /* Add some space between buttons */
+.sa-icon {
+  margin-right: 10px; 
+  font-size: 40px;
 }
 
-.navdashboard-container button:nth-child(4) {
-  margin-top: 190px; /* Add margin to the fourth button */
+.sa-text {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 12px;
 }
 
-
-
-.collapse-btn {
-    cursor: pointer;
-    padding: 10px;
-    margin-left: 10px;
-  }
-  
-  .collapse-btn span {
-    display: block;
-    background-color: black;
-    height: 3px;
-    width: 25px;
-    margin: 5px 0;
-  }
-
-
-
-/* CCS LOGO */
-.logo-image {
-    position: absolute;
-    top: 88px; 
-    right: 119px; 
-    width: 100px; 
-    height: auto; 
-    z-index: 1000; 
+.sub-icon {
+  margin-right: 70px; 
+  font-size: 40px;
 }
 
-.logo-text {
-    margin-left: 5px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333; 
-    font-family: 'Courier New'; 
-    position: relative; 
-    top: 150px; 
-
-}
-
-  
-
-/* SUBJECTS */
-.modal {
-    display: flex;
-    flex-wrap:wrap;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    width: 100%;
-}
-
-.close {
-    color: #aaa;
-    position: absolute;
-    top: 430px;
-    right: 590px;
-    font-size: 30px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-}
-
-.modal-content input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-.modal-content button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 90%;
-    margin-left: 20px;
-    margin-top: 10px;
-    
-}
-
-.modal-content button:hover {
-    background-color: #45a049;
+.sub-text {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 30px;
 }
 
 
-
-/* SEARCH SUBJECTS */
-.search-container {
-    margin-bottom: 20px;
+.ts-icon {
+  margin-right: 30px; 
+  font-size: 40px;
 }
 
-.search-bar {
-    width: 900px;
-    height: 35px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 5px 10px;
-    margin-right: 10px;
-    border-color: #333;
-    font-size: 16px;
+.ts-text {
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 10px;
 }
-
-.search-button {
-    height: 40px;
-    padding: 0 20px;
-    border: none;
-    border-radius: 5px;
-    background-color: white;
-    border-color: black;
-    color: black;
-    font-size: 16px;
-    cursor: pointer;
-}
-.search-button:hover {
-    background-color:white;
-}
-
-
-  
-/* ADMIN MODAL */
-.umodal {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    z-index: 2;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.umodal-content {
-  position: relative;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    width: 100%;
-}
-
-.uclose {
-    color: #aaa;
-    position: absolute;
-    top: 33px; 
-    right: 40px; 
-    font-size: 30px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.uclose:hover,
-.uclose:focus {
-    color: black;
-    text-decoration: none;
-}
-
-.umodal-content input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-.umodal-content button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.umodal-content button:hover {
-    background-color: #45a049;
-}
-
-
-
-/* DROPDOWN MENU FOR YEAR AND SEMESTER */
-.modal-content select {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    appearance: none;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M5 7l5 5 5-5z" fill="none" stroke="%23333" stroke-width="2" /></svg>'); /* Custom arrow icon */
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 15px;
-    cursor: pointer;
-}
-
-.modal-content select:hover {
-    border-color: #aaa;
-}
-.modal-content select:focus {
-    outline: none;
-    border-color: #007bff; 
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
-}
-
-
-
-/* ADMIN NAME DROPDOWN */
-.select-dropdown {
-    width: 400px; 
-    padding: 8px; 
-    font-size: 16px;
-    color: #333; 
-    background-color: #f4f4f4; 
-    border: 1px solid #ccc; 
-    border-radius: 4px; 
-  }
-  
-  .select-dropdown option {
-    font-size: 14px; 
-    color: #333;
-    background-color: #fff; 
-  }
-
-  .dropdown {
-    position: absolute;
-    display: inline-block;
-    top: 20px; 
-    right: 100px;
-    z-index: 1000; 
-}
-
-.dropbtn {
-    background-color: #C7F9CC;
-    color: black;
-    padding: 12px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 90px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropbtn::after {
-    content: '\25BE'; 
-    font-size: 12px;
-    margin-left: 5px;
-}
-
-
-
-/*TUITION STATUS*/
-.smodal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-
-.smodal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    width: 100%;
-}
-
-.sclose {
-    color: #aaa;
-    position: absolute;
-    top: 260px;
-    right: 590px;
-    font-size: 30px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.sclose:hover,
-.sclose:focus {
-    color: black;
-    text-decoration: none;
-}
-
-
-.smodal-content input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-
-.smodal-content button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px; 
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.smodal-content button:hover {
-    background-color: #45a049;
-}
-
-
-
-/* STUDENT STATUS HEADER */
-.StudentStatus {
-    margin: 20px;
-  }
-  
-  .StudentStatus h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-
-
-  /* STUDENT STATUS TABLE */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  table th, table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  table th {
-    background-color: #f2f2f2;
-  }
-
-
-
-/* STATUS ADD BUTTON */
-.StudentStatus-button {
-    background-color: transparent;
-    position: absolute;
-    left: 380px; 
-    top: 35px; 
-    color: black;
-    border: none;
-    border-radius: 100px;
-    padding: 8px 16px;
-    margin-left: 5px;
-    cursor: pointer;
-  }
-  
-  .StudentStatus-button:hover {
-    background-color: transparent;
-  }
-
-
-  /* STATUS UPDATE BUTTON */
-  .StudentStatus-button button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #007bff;
-  }
-  
-  .StudentStatus-button button:hover {
-    color: #0056b3;
-  }
-  
-
-  /* STATUS ADD MODAL */
-  .smodal {
-    display: block;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-  }
-  
-  .smodal-content {
-    background-color: #fefefe;
-    margin: 10% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
-  }
-  
-  .sclose {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .sclose:hover,
-  .sclose:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
-
-
-  /* LIST OF STUDENT */
-  .list-delete-button {
-    background-color: transparent;
-    color: red;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 16px;
-    margin-left: 5px;
-    cursor: pointer;
-  }
-  
-  .list-delete-button:hover {
-    background-color: rgb(166, 165, 165);
-  }
-
-.list-update-button {
-    background-color: transparent;
-    color: #0056b3;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 16px;
-    margin-left: 5px;
-    cursor: pointer;
-  }
-  
-  .list-update-button:hover {
-    background-color: rgb(166, 165, 165);
-  }
-
-  .table-container {
-    max-height: 400px; 
-    overflow-y: auto; 
-  }
-
-
-  /* icon */
-
-  .dashboard-button {
-    display: flex;
-    align-items: justify;
-    padding: 10px;
-    background-color: transparent;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .button-icon {
-    margin-right: 30px; 
-    font-size: 40px;
-  }
-  
-  .button-text {
-    font-size: 20px;
-    font-weight: bold;
-    margin-right: 10px;
-  }
-  
-
-  .sa-button {
-    display: flex;
-    align-items: justify;
-    padding: 10px;
-    background-color: transparent;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  
-  .sa-icon {
-    margin-right: 10px; 
-    font-size: 40px;
-  }
-  
-  .sa-text {
-    font-size: 20px;
-    font-weight: bold;
-    margin-left: 12px;
-  }
-
-  .sub-icon {
-    margin-right: 70px; 
-    font-size: 40px;
-  }
-  
-  .sub-text {
-    font-size: 20px;
-    font-weight: bold;
-    margin-right: 30px;
-  }
-
-
-  .ts-icon {
-    margin-right: 30px; 
-    font-size: 40px;
-  }
-  
-  .ts-text {
-    font-size: 20px;
-    font-weight: bold;
-    margin-right: 10px;
-  }
 
 

@@ -182,7 +182,7 @@ const StudentDashboard = () => {
             <div className="dashboard-container" style={{ textAlign: "center" }}>
             {activeSection === 'dashboard' && (
             <div>
-                <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5'}}>
+                <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>
                     Welcome to the Dashboard, {decodedStudentName}!
                     </h1>
                     </div>
