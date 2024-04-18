@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faDownload, faClipboardList, faChartBar, faInfoCircle  } from "@fortawesome/free-solid-svg-icons";
 import './Studentdashboard.css';
 import logoImage from '../images/CCS.png';
 import Image from '../images/ncf.png';
@@ -174,11 +174,11 @@ const StudentDashboard = () => {
                     </div>
                 <img src={logoImage} alt="Logo" className="logo-image" />
                 <span className="logo-text">College of Computer Studies</span>
-                <button className="dashboard-button" onClick={() => handleSectionChange('dashboard')} > Dashboard </button>
-                <button className="dashboard-button"onClick={() => handleSectionChange('permits')} > Permits </button>
-                <button className= "dashboard-button" onClick={() => handleSectionChange('student')} > Students </button>
+                <button className="dashboard-button" onClick={() => handleSectionChange('dashboard')} ><FontAwesomeIcon icon={faChartBar} /> Dashboard </button>
+                <button className="dashboard-button" onClick={() => handleSectionChange('permits')} ><FontAwesomeIcon icon={faClipboardList} /> Permits </button>
+                <button className= "dashboard-button" onClick={() => handleSectionChange('student')} > <FontAwesomeIcon icon={faInfoCircle} />  Students </button>
              </nav>
-
+             
             <div className="dashboard-container" style={{ textAlign: "center" }}>
             {activeSection === 'dashboard' && (
             <div>
