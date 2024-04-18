@@ -26,7 +26,6 @@ const StaffDashboard = () => {
   //eslint-disable-next-line
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isProfileModalOpen] = useState(false); 
-  const [announcement, setAnnouncement] = useState("");
 
   const [updateAdminFormData, setupdateAdminFormData] = useState({
     Staff_Name: "",
@@ -123,12 +122,6 @@ const toggleDropdown = () => {
 
 
 
-  // Inside the StaffDashboard component
-const handleAnnouncementSubmit = () => {
-  console.log("Announcement submitted:", announcement);
-  setAnnouncement("");
-};
-
  
 
 
@@ -189,28 +182,25 @@ const handleAnnouncementSubmit = () => {
 
 
       <div className="dashboard-container">
-              {activeSection === "dashboard" && (
+      {activeSection === "dashboard" && (
           <div>
             <h1>Welcome to the Dashboard, {decodedStaffName}!</h1>
-            <div className="Announcement-container">
-              <textarea
-                className="Announcement-bar"
-                placeholder="Enter Announcement..."
-                value={announcement}
-                onChange={(e) => setAnnouncement(e.target.value)} 
-              />
-             <button className="Announcement-submit-btn" onClick={handleAnnouncementSubmit}>Submit Announcement</button>
+              <div className="Instructors-info">
+                <h2>Instructors</h2>
+                {/* Insert dynamic content for instructor information here */}
+              </div>
+              {/* Container for courses offered */}
+              <div className="Courses-info">
+                <h2>Courses Offered</h2>
+                {/* Insert dynamic content for courses offered here */}
+              </div>
+              {/* Container for number of students */}
+              <div className="Students-info">
+                <h2>Number of Students</h2>
+                {/* Insert dynamic content for number of students here */}
+              </div>
             </div>
-            <div className="Previous-Announcements">
-      {/* Container for displaying previous announcements */}
-      <h2>Previous Announcements</h2>
-      {/* Previous announcements will go here */}
-    </div>
-  </div>
-
         )}
-
-
         {activeSection === "StudentCreateAccount" && (
           <div>
             <StudentCreateAccount />
