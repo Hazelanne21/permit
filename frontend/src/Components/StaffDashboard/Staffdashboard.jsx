@@ -162,18 +162,20 @@ const handleAnnouncementSubmit = () => {
         </div>
         <img src={logoImage} alt="Logo" className="logo-image" />
         <span className="logo-text">College of Computer Studies</span>
-        <button onClick={() => handleSectionChange("dashboard")}>
+        <button onClick={() => handleSectionChange("dashboard")} style={{fontFamily: 'Arial', fontSize: '20px', fontWeight: 'bold', color:'white', backgroundColor: '#344e41', border: 'none', padding: '10px 10px', borderRadius: '20px', boxShadow: '2px 2px 4px rgba(0,0,0,0.5)', cursor: 'pointer', outline: 'none'}}>
           Announcement
         </button>
-        <button onClick={shandleCreateAccountClick}> Student Account </button>
-        <button onClick={() => handleSectionChange("subject")}>Subjects</button>
-        <button onClick={() => handleSectionChange("list")}>Tuition Status</button>
+        <button onClick={shandleCreateAccountClick} style={{fontFamily: 'Arial', fontSize: '20px', fontWeight: 'bold', color:'white', backgroundColor: '#344e41', border: 'none', padding: '10px 10px', borderRadius: '20px', boxShadow: '2px 2px 4px rgba(0,0,0,0.5)', cursor: 'pointer', outline: 'none'}}> Student Account </button>
+        <button onClick={() => handleSectionChange("subject")}style={{fontFamily: 'Arial', fontSize: '20px', fontWeight: 'bold', color:'white', backgroundColor: '#344e41', border: 'none', padding: '10px 10px', borderRadius: '20px', boxShadow: '2px 2px 4px rgba(0,0,0,0.5)', cursor: 'pointer', outline: 'none'}}>Subjects</button>
+        <button onClick={() => handleSectionChange("list")} style={{fontFamily: 'Arial', fontSize: '20px', fontWeight: 'bold', color:'white', backgroundColor: '#344e41', border: 'none', padding: '10px 10px', borderRadius: '20px', boxShadow: '2px 2px 4px rgba(0,0,0,0.5)', cursor: 'pointer', outline: 'none'}}>Tuition Status</button>
       </nav>
 
       <div className="dashboard-container">
               {activeSection === "dashboard" && (
           <div>
-            <h1>Welcome to the Dashboard, {decodedStaffName}!</h1>
+            <h1 style={{ fontFamily: 'Verdana', fontSize: '30px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5'}}>
+    Welcome to the Dashboard, {decodedStaffName}!
+                    </h1>
             <div className="Announcement-container">
               <textarea
                 className="Announcement-bar"
