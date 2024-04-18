@@ -37,7 +37,7 @@ const handleUserTypeSelect = (type) => {
       <h1 style={{ marginLeft: "30px" }}>Exam Permit</h1>
       <div className="button-container">
         <button onClick={() => handleUserTypeSelect("student")}>STUDENT</button>
-        <button onClick={() => handleUserTypeSelect("staff")}>STAFF</button>
+        <button onClick={() => handleUserTypeSelect("staff")}>ADMIN</button>
       </div>
     </div>
   );

@@ -174,9 +174,9 @@ const StudentDashboard = () => {
                     </div>
                 <img src={logoImage} alt="Logo" className="logo-image" />
                 <span className="logo-text">College of Computer Studies</span>
-                <button onClick={() => handleSectionChange('dashboard')} style={{fontFamily: 'Arial', fontSize: '25px', fontWeight: 'bold', color: 'white', backgroundColor: '#344e41', border: 'none', padding: '10px 20px', borderRadius: '20px', boxShadow: '2px 2px 4px rgba(0,0,0,0.5)', cursor: 'pointer', outline: 'none' }} > Dashboard </button>
-                <button onClick={() => handleSectionChange('permits')} style={{fontFamily: 'Arial', fontSize: '25px', fontWeight: 'bold', color: 'white', backgroundColor: '#344e41', border: 'none', padding: '10px 20px', borderRadius: '20px', boxShadow: '2px 2px 4px rgba(0,0,0,0.5)', cursor: 'pointer', outline: 'none' }} > Permits </button>
-                <button onClick={() => handleSectionChange('student')} style={{fontFamily: 'Arial', fontSize: '25px', fontWeight: 'bold', color: 'white', backgroundColor: '#344e41', border: 'none', padding: '10px 20px', borderRadius: '20px', boxShadow: '2px 2px 4px rgba(0,0,0,0.5)', cursor: 'pointer', outline: 'none' }} > Students </button>
+                <button className="dashboard-button" onClick={() => handleSectionChange('dashboard')} > Dashboard </button>
+                <button className="dashboard-button"onClick={() => handleSectionChange('permits')} > Permits </button>
+                <button className= "dashboard-button" onClick={() => handleSectionChange('student')} > Students </button>
              </nav>
 
             <div className="dashboard-container" style={{ textAlign: "center" }}>
