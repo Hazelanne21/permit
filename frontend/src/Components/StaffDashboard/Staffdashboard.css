@@ -5,7 +5,7 @@
     margin: 0;
     padding: 20px;
     border: 1px solid #ccc;
-    background-color: white;
+    background-color: #FDFFB6;
     border-radius: 30px;
     box-shadow: 0 0 20px rgba(5, 5, 5, 5.2);
     position: absolute;
@@ -46,7 +46,7 @@
 
 
 .navdashboard-container:not(.collapsed) {
-    background-color: #f2f2f2; 
+    background-color: #C7F9CC; 
 }
 
 .navdashboard-container button {
@@ -324,8 +324,8 @@
 }
 
 .dropbtn {
-    background-color: green;
-    color: white;
+    background-color: #C7F9CC;
+    color: black;
     padding: 12px;
     font-size: 16px;
     border: none;

@@ -174,22 +174,32 @@ const StudentDashboard = () => {
                     </div>
                 <img src={logoImage} alt="Logo" className="logo-image" />
                 <span className="logo-text">College of Computer Studies</span>
-                <button onClick={() => handleSectionChange('dashboard')}>Dashboard</button>
-                <button onClick={() => handleSectionChange('permits')}>Permits</button> 
-            </nav>
+                <button onClick={() => handleSectionChange('dashboard')} style={{fontFamily: 'Arial', fontSize: '25px', fontWeight: 'bold', color: 'white', backgroundColor: '#344e41', border: 'none', padding: '10px 20px', borderRadius: '20px', boxShadow: '2px 2px 4px rgba(0,0,0,0.5)', cursor: 'pointer', outline: 'none' }} > Dashboard </button>
+                <button onClick={() => handleSectionChange('permits')} style={{fontFamily: 'Arial', fontSize: '25px', fontWeight: 'bold', color: 'white', backgroundColor: '#344e41', border: 'none', padding: '10px 20px', borderRadius: '20px', boxShadow: '2px 2px 4px rgba(0,0,0,0.5)', cursor: 'pointer', outline: 'none' }} > Permits </button>
+                <button onClick={() => handleSectionChange('student')} style={{fontFamily: 'Arial', fontSize: '25px', fontWeight: 'bold', color: 'white', backgroundColor: '#344e41', border: 'none', padding: '10px 20px', borderRadius: '20px', boxShadow: '2px 2px 4px rgba(0,0,0,0.5)', cursor: 'pointer', outline: 'none' }} > Students </button>
+             </nav>
 
             <div className="dashboard-container" style={{ textAlign: "center" }}>
-                {activeSection === 'dashboard' && (
-                    <h1>Welcome to the Dashboard, {decodedStudentName}!</h1>
+            {activeSection === 'dashboard' && (
+            <div>
+                <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5'}}>
+                    Welcome to the Dashboard, {decodedStudentName}!
+                    </h1>
+                    </div>
                 )}
+
+
                 {activeSection === 'permits' && (
                     <div>
                         <h1>Permits <FontAwesomeIcon icon={faDownload} className="download-icon" onClick={togglePermitExample} /></h1> 
                         <button onClick={togglePermitModal}>Request Permit</button>
                     </div>
                 )}
-            </div>
 
+                {activeSection === 'student' && (
+                    <h1>Update Student Info</h1>
+                )}
+            </div>
 
             {isPermitExampleOpen && (
     <div className="modal">
