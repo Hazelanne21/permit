@@ -94,14 +94,15 @@ body {
 }
 
 button {
-  padding: 12px 24px;
+  padding: 10px 20px;
   font-size: 18px;
   border: none;
   cursor: pointer;
-  background-color: white; 
+  background-color: #C7F9CC; 
   color: black;
-  border-radius: 5px;
+  border-radius: 7px;
   transition: background-color 0.3s, transform 0.2s;
+  margin-top: 5px;
 }
 
 button:hover {

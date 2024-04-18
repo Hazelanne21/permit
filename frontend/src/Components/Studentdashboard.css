@@ -70,10 +70,11 @@
   .permit-modal-content {
     background-color: #fefefe;
     margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
+    padding: 30px 20px;
+    border: 2px solid #5cff9b;
     width: 300px;
   }
+
   
   .permit-close {
     color: #aaa;
@@ -92,6 +93,7 @@
   
   .permit-modal-content h2 {
     margin-bottom: 20px;
+    text-align: center;
   }
   
   .permit-modal-content form {
@@ -109,7 +111,7 @@
   
   .permit-modal-content button {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #80ED99;
     color: white;
     border: none;
     cursor: pointer;
@@ -232,9 +234,9 @@
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #434242;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(67, 66, 66, 0.1);
 }
 
 .permit-close {
@@ -276,20 +278,19 @@
 
 .modal-address {
   display: flex;
-  font-size: 14px;
+  font-size: 20px;
   align-items: center;
+  margin-top: 10px;
 }
 
 .modal-address img {
-  margin-right: 30px;
+  margin-right: 20px;
 }
+
 .modal-logo {
   width: 60px;
-  margin-top: 20px;
-  font-size: 100px;
+  margin-top: 5px;
 }
-
-
 
 
 .dashboard-button {
