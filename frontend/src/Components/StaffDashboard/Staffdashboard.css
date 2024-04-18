@@ -1,11 +1,11 @@
 /* DASHBOARD */
 .dashboard-container {
   width: 1450px;
-  height: 650px;
+  height: 635px;
   margin: 0;
   padding: 20px;
   border: 1px solid #ccc;
-  background-color: #abf7b1;
+  background-color: #fffbcb;
   border-radius: 30px;
   box-shadow: 0 0 20px rgba(5, 5, 5, 5.2);
   position: absolute;
@@ -47,7 +47,7 @@ display: none;
 
 
 .navdashboard-container:not(.collapsed) {
-  background: linear-gradient(to bottom, #abf7b1, #39e75f);
+  background-color: #C7F9CC; 
 }
 
 
@@ -68,7 +68,7 @@ margin-bottom: 20px; /* Add some space between buttons */
 }
 
 .navdashboard-container button:nth-child(4) {
-margin-top: 190px; /* Add margin to the fourth button */
+margin-top: 230px; /* Add margin to the fourth button */
 }
 
 

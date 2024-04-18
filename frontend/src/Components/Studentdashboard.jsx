@@ -174,9 +174,9 @@ const StudentDashboard = () => {
                     </div>
                 <img src={logoImage} alt="Logo" className="logo-image" />
                 <span className="logo-text">College of Computer Studies</span>
-                <button className="dashboard-button" onClick={() => handleSectionChange('dashboard')} ><FontAwesomeIcon icon={faChartBar} /> Dashboard </button>
-                <button className="dashboard-button" onClick={() => handleSectionChange('permits')} ><FontAwesomeIcon icon={faClipboardList} /> Permits </button>
-                <button className= "dashboard-button" onClick={() => handleSectionChange('student')} > <FontAwesomeIcon icon={faInfoCircle} />  Students </button>
+                <button className="dashboard-button" onClick={() => handleSectionChange('dashboard')} style={{ backgroundColor: '#80ED99' }}><FontAwesomeIcon icon={faChartBar} /> Dashboard </button>
+                <button className="dashboard-button" onClick={() => handleSectionChange('permits')} style={{ backgroundColor: '#80ED99' }}><FontAwesomeIcon icon={faClipboardList} /> Permits </button>
+                <button className= "dashboard-button" onClick={() => handleSectionChange('student')} style={{ backgroundColor: '#80ED99' }}> <FontAwesomeIcon icon={faInfoCircle} />  Students </button>
              </nav>
              
             <div className="dashboard-container" style={{ textAlign: "center" }}>
@@ -191,13 +191,13 @@ const StudentDashboard = () => {
 
                 {activeSection === 'permits' && (
                     <div>
-                        <h1>Permits <FontAwesomeIcon icon={faDownload} className="download-icon" onClick={togglePermitExample} /></h1> 
+                        <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>Permits <FontAwesomeIcon icon={faDownload} className="download-icon" onClick={togglePermitExample} /></h1> 
                         <button onClick={togglePermitModal}>Request Permit</button>
                     </div>
                 )}
 
                 {activeSection === 'student' && (
-                    <h1>Update Student Info</h1>
+                    <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>Update Student Info</h1>
                 )}
             </div>
 
