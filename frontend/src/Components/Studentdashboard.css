@@ -57,7 +57,7 @@
 /* PERMIT MODAL */
 .modal {
     display: none;
-    position: fixed;
+    position: relative;
     z-index: 1;
     left: 0;
     top: 0;
@@ -79,6 +79,7 @@
     color: #aaa;
     float: right;
     font-size: 28px;
+    top: 100px;
     font-weight: bold;
   }
   
@@ -237,9 +238,8 @@
 }
 
 .permit-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 370px;
+  right: 830px;
   cursor: pointer;
 }
 
