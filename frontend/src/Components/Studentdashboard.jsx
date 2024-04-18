@@ -173,7 +173,7 @@ const StudentDashboard = () => {
                     <span></span>
                     </div>
                 <img src={logoImage} alt="Logo" className="logo-image" />
-                <span className="logo-text">College of Computer Studies</span>
+                <span className="logo-text" style={{ fontFamily: 'Verdana', fontSize: '18px', fontWeight: 'bold', color: 'black', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>College of Computer Studies</span>
                 <button className="dashboard-button" onClick={() => handleSectionChange('dashboard')} style={{ backgroundColor: '#80ED99' }}><FontAwesomeIcon icon={faChartBar} /> Dashboard </button>
                 <button className="dashboard-button" onClick={() => handleSectionChange('permits')} style={{ backgroundColor: '#80ED99' }}><FontAwesomeIcon icon={faClipboardList} /> Permits </button>
                 <button className= "dashboard-button" onClick={() => handleSectionChange('student')} style={{ backgroundColor: '#80ED99' }}> <FontAwesomeIcon icon={faInfoCircle} />  Students </button>
