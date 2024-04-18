@@ -203,7 +203,7 @@ const StudentDashboard = () => {
 
             {isPermitExampleOpen && (
     <div className="modal">
-        <div className="permit-example-content">
+        <div className="permit-content">
             <span className="permit-close" onClick={togglePermitExample}>&times;</span>
             <div className="modal-address">
                 <img src={Image} alt="Logo" className="modal-logo" />

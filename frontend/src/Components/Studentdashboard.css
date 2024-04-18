@@ -225,7 +225,7 @@
 
 
 
-.permit-example-content {
+.permit-content {
   position: relative;
   width: 100%;
   max-width: 600px;
@@ -243,24 +243,24 @@
   cursor: pointer;
 }
 
-.permit-example-content h2 {
+.permit-content h2 {
   font-size: 20px;
   margin-bottom: 15px;
 }
 
-.permit-example-content p {
+.permit-content p {
   margin: 5px 0;
 }
 
-.permit-example-content ul {
+.permit-content ul {
   padding-left: 20px;
 }
 
-.permit-example-content ul li {
+.permit-content ul li {
   margin-bottom: 5px;
 }
 
-.permit-example-content button {
+.permit-content button {
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -270,7 +270,7 @@
   transition: background-color 0.3s;
 }
 
-.permit-example-content button:hover {
+.permit-content button:hover {
   background-color: #0056b3;
 }
 
