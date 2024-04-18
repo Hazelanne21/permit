@@ -5,7 +5,7 @@
   margin: 0;
   padding: 20px;
   border: 1px solid #ccc;
-  background-color: #FDFFB6;
+  background-color: #abf7b1;
   border-radius: 30px;
   box-shadow: 0 0 20px rgba(5, 5, 5, 5.2);
   position: absolute;
@@ -21,7 +21,7 @@ display: flex;
 
 /* SIDEBAR */
 .navdashboard-container {
-  color: #344e41;
+  color: #83f28f;
   overflow: hidden;
   transition: all 0.3s ease;
   width: 299px;
@@ -111,6 +111,36 @@ margin-top: 190px; /* Add margin to the fourth button */
 }
 
 
+
+/* ANNOUNCMENT */
+.Announcement-container {
+  margin-top: 20px;
+}
+
+.Announcement-bar {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+
+.Announcement-submit-btn {
+  background-color: #82d08a; 
+  color: #fff;
+  border: none; 
+  padding: 10px 15px; 
+  font-size: 16px; 
+  cursor: pointer; 
+  border-radius: 5px; 
+}
+
+.Announcement-submit-btn:hover {
+  background-color: #8ed23b; /* Darker blue on hover */
+}
 
 /* SUBJECTS */
 .modal {
