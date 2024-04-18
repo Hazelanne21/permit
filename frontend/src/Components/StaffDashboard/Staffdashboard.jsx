@@ -159,21 +159,21 @@ const toggleDropdown = () => {
         <span></span>
     </div>
     <img src={logoImage} alt="Logo" className="logo-image" />
-    <span className="logo-text">College of Computer Studies</span>
-    <button className="dashboard-button" onClick={() => handleSectionChange("dashboard")}>
+    <span className="logo-text" style={{ fontFamily: 'Verdana', fontSize: '18px', fontWeight: 'bold', color: 'black', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>College of Computer Studies</span>
+    <button className="dashboard-button" onClick={() => handleSectionChange('dashboard')} style={{ backgroundColor: '#80ED99' }}>
       <FontAwesomeIcon icon={faBell} className="button-icon" />
       <span className="button-text">Announcement</span>
     </button>
 
-      <button className="sa-button" onClick={shandleCreateAccountClick}>
+      <button className="sa-button" onClick={shandleCreateAccountClick} style={{ backgroundColor: '#80ED99' }}>
         <FontAwesomeIcon icon={faUser} className="sa-icon" />  
         <span className="sa-text">Student Account </span>
       </button>
-      <button className="sub-button" onClick={() => handleSectionChange("subject")}>
+      <button className="sub-button" onClick={() => handleSectionChange("subject")} style={{ backgroundColor: '#80ED99' }}>
         <FontAwesomeIcon icon={faBook} className="sub-icon" />  
         <span className="sub-text">Subjects </span>
       </button>
-      <button className="ts-button" onClick={() => handleSectionChange("list")}>
+      <button className="ts-button" onClick={() => handleSectionChange("list")} style={{ backgroundColor: '#80ED99' }}>
         <FontAwesomeIcon icon={faMoneyCheckAlt} className="ts-icon" /> 
         <span className="ts-text">Tuition Status </span>
       </button>
@@ -181,10 +181,12 @@ const toggleDropdown = () => {
       </nav>
 
 
-      <div className="dashboard-container">
-      {activeSection === "dashboard" && (
-          <div>
-            <h1>Welcome to the Dashboard, {decodedStaffName}!</h1>
+      <div className="dashboard-container" style={{ textAlign: "center" }}>
+            {activeSection === 'dashboard' && (
+            <div>
+                <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>
+                    Welcome to the Dashboard, {decodedStaffName}!
+                    </h1>
               <div className="Instructors-info">
                 <h2>Instructors</h2>
                 {/* Insert dynamic content for instructor information here */}

@@ -1,17 +1,17 @@
 /* DASHBOARD */
 .dashboard-container {
   width: 1450px;
-  height: 635px;
-  margin: 0;
+  height: 600px;
+  margin: 5px;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid #252424;
   background-color: #fffbcb;
   border-radius: 30px;
   box-shadow: 0 0 20px rgba(5, 5, 5, 5.2);
   position: absolute;
   top: 0;
-  right: 30px;
-  top: 90px;
+  right: 10px;
+  top: 100px;
 }
 
 .nav-container {
@@ -64,11 +64,11 @@ cursor: pointer;
 
 
 .navdashboard-container button {
-margin-bottom: 20px; /* Add some space between buttons */
+margin-bottom: 25px; /* Add some space between buttons */
 }
 
 .navdashboard-container button:nth-child(4) {
-margin-top: 230px; /* Add margin to the fourth button */
+margin-top: 220px; /* Add margin to the fourth button */
 }
 
 
@@ -657,9 +657,8 @@ table th {
 .sub-text {
   font-size: 20px;
   font-weight: bold;
-  margin-right: 30px;
+  margin-right: 25px;
 }
-
 
 .ts-icon {
   margin-right: 30px; 
