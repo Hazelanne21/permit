@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faDownload, faClipboardList, faChartBar, faInfoCircle  } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faDownload, faClipboardList, faChartBar, faInfoCircle, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import './Studentdashboard.css';
 import logoImage from '../images/CCS.png';
 import Image from '../images/ncf.png';
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
+import Ai from '../images/Aii.png';
 
 const StudentDashboard = () => {
     // eslint-disable-next-line
@@ -176,17 +177,25 @@ const StudentDashboard = () => {
                 <span className="logo-text" style={{ fontFamily: 'Verdana', fontSize: '18px', fontWeight: 'bold', color: 'black', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>College of Computer Studies</span>
                 <button className="dashboard-button" onClick={() => handleSectionChange('dashboard')} style={{ backgroundColor: '#80ED99' }}><FontAwesomeIcon icon={faChartBar} /> Dashboard </button>
                 <button className="dashboard-button" onClick={() => handleSectionChange('permits')} style={{ backgroundColor: '#80ED99' }}><FontAwesomeIcon icon={faClipboardList} /> Permits </button>
-                <button className= "dashboard-button" onClick={() => handleSectionChange('student')} style={{ backgroundColor: '#80ED99' }}> <FontAwesomeIcon icon={faInfoCircle} />  Students </button>
+                <button className= "dashboard-button" onClick={() => handleSectionChange('student')} style={{ backgroundColor: '#80ED99'}}> <FontAwesomeIcon icon={faInfoCircle} />  Students </button>
+                <button onClick={handleLogout} style={{ marginTop: '190px' }}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
              </nav>
              
             <div className="dashboard-container" style={{ textAlign: "center" }}>
+            
             {activeSection === 'dashboard' && (
             <div>
-                <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>
+                {/* <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>
                     Welcome to the Dashboard, {decodedStudentName}!
-                    </h1>
-                    </div>
-                )}
+                    </h1> */}
+                    <div style={{ backgroundColor: '#FDFFB6', borderRadius: '20px', padding: '100px', marginRight: '20px' }}>
+                    <h2 style={{ fontFamily: 'Verdana', fontSize: '20px', fontWeight: 'bold', color: '#344e41' }}>
+                      Welcome to the Dashboard, {decodedStudentName}!
+                    </h2>
+                    <img src={Ai} alt="jpg" style={{ maxWidth: '200px', borderRadius: '20px', marginLeft: '20px' }} />
+                </div>
+             </div>
+            )}
 
 
                 {activeSection === 'permits' && (
@@ -196,9 +205,29 @@ const StudentDashboard = () => {
                     </div>
                 )}
 
-                {activeSection === 'student' && (
-                    <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>Update Student Info</h1>
-                )}
+{activeSection === 'student' && (
+    <div>
+        <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>Update Student Info</h1>
+        
+        <form style={{ maxWidth: '400px', margin: '0 auto' }}>
+             <label style={{ display: 'block', marginTop: '10px' }}>Password:</label>
+             <input type="password" name="password" style={{ width: '100%', padding: '8px', marginBottom: '15px', borderRadius: '10px'}} />
+
+             <label style={{ display: 'block', marginBottom: '10px'}}>Mobile Number:</label>
+             <input type="tel" name="mobileNumber" style={{ width: '95%', padding: '8px', marginBottom: '15px', borderRadius: '10px'}} />
+
+             <label style={{ display: 'block', marginBottom: '10px' }}>Year Level:</label>
+             <input type="text" name="yearLevel" style={{ width: '100%', padding: '8px', marginBottom: '15px', borderRadius: '10px' }} />
+
+             <label style={{ display: 'block', marginBottom: '10px' }}>Semester:</label>
+             <input type="text" name="semester" style={{ width: '100%', padding: '8px', marginBottom: '15px', borderRadius: '10px'}} />
+            
+             <button type="submit" style={{ marginTop: '30px', width: '70%', padding: '10px', backgroundColor: '#344e41', color: 'white', border: 'none', borderRadius: '10px' }}>Submit</button>
+        </form>
+
+    </div>
+)}
+
             </div>
 
             {isPermitExampleOpen && (
