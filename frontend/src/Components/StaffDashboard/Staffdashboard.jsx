@@ -348,6 +348,7 @@ const handlePhotoAdminSelection = (event) => {
           <button className="sa-button" onClick={shandleCreateAccountClick}><FontAwesomeIcon icon={faUser} className="sa-icon" />  <span className="sa-text">Student Account </span></button>
           <button className="sub-button" onClick={() => handleSectionChange("subject")}><FontAwesomeIcon icon={faBook} className="sub-icon" />  <span className="sub-text">Subjects </span></button>
           <button className="ts-button" onClick={() => handleSectionChange("list")}><FontAwesomeIcon icon={faMoneyCheckAlt} className="ts-icon" />  <span className="ts-text">Tuition Status </span></button>
+          <button className="ts-button"  onClick={handleOpenUpdateAdministratorModal}><FontAwesomeIcon icon={faUser} className="ts-icon" /> Admin</button>
           <button onClick={handleLogout} className="logout-button"><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
         </nav>
 
@@ -429,13 +430,6 @@ const handlePhotoAdminSelection = (event) => {
                 </span>
                 <h2>Update Administrator Information</h2>
                 <form onSubmit={handleSubmitUpdateAdministrator}>
-                  <label>Staff Name:</label>
-                  <input
-                    type="text"
-                    name="Staff_Name"
-                    value={updateAdminFormData.Staff_Name}
-                    onChange={handleUpdateAdminInputChange}
-                  />
                   <label>Email:</label>
                   <input
                     type="text"

@@ -68,7 +68,7 @@ margin-bottom: 25px; /* Add some space between buttons */
 }
 
 .navdashboard-container button:nth-child(4) {
-margin-top: 220px; /* Add margin to the fourth button */
+margin-top: 160px; /* Add margin to the fourth button */
 }
 
 
@@ -92,7 +92,7 @@ margin-top: 220px; /* Add margin to the fourth button */
 /* CCS LOGO */
 .logo-image {
   position: absolute;
-  top: 88px; 
+  top: 78px; 
   right: 119px; 
   width: 100px; 
   height: auto; 
@@ -102,7 +102,7 @@ margin-top: 220px; /* Add margin to the fourth button */
 .logo-text {
   margin-left: 5px;
   position: relative; 
-  top: 150px; 
+  top: 130px; 
   font-family: Verdana;
   font-size: 18px;
   font-weight: bold;
@@ -110,8 +110,6 @@ margin-top: 220px; /* Add margin to the fourth button */
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 
 }
-
-
 
 
 
