@@ -101,14 +101,18 @@ margin-top: 220px; /* Add margin to the fourth button */
 
 .logo-text {
   margin-left: 5px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333; 
-  font-family: 'Courier New'; 
   position: relative; 
   top: 150px; 
+  font-family: Verdana;
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 
 }
+
+
+
 
 
 
