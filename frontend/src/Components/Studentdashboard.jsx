@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown, faUser, faDownload, faClipboardList, faChartBar, faInfoCircle, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faDownload, faAngleDown, faUser, faClipboardList, faChartBar, faInfoCircle, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import './Studentdashboard.css';
 import logoImage from '../images/CCS.png';
 import Image from '../images/ncf.png';
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import Ai from '../images/ROBOT.gif';
+import Permit from './Permit';
 
 const StudentDashboard = () => {
     // eslint-disable-next-line
@@ -234,12 +235,22 @@ const handlePhotoSelection = (event) => {
             )}
 
 
-                {activeSection === 'permits' && (
-                    <div>
-                        <h1 className= "headerpermit">Permits <FontAwesomeIcon icon={faDownload} className="download-icon" onClick={togglePermitExample} /></h1> 
+                        {activeSection === 'permits' && (
+                        <div className="permits-section">
+                        <h1 className="headerpermit">Permits <FontAwesomeIcon icon={faDownload} className="download-icon" onClick={togglePermitExample} /></h1>
                         <button onClick={togglePermitModal}>Request Permit</button>
-                    </div>
-                )}
+
+                        <div className="permit-container">
+
+                            {permits.map((permit, index) => (
+
+                            <Permit key={index} permit={permit} />
+
+                            ))}
+
+                        </div>
+                        </div>
+                        )}
                         {activeSection === 'student' && (
                         <div className="student-section">
                               <h2 className= "headerstudent">Update Student Information</h2>
