@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./StudentCreateAccount.css";
+import Swal from 'sweetalert2';
 
 
 const StudentCreateAccount = () => {
@@ -29,6 +30,18 @@ const StudentCreateAccount = () => {
     setLoading(true);
     setError(null);
     setSuccess(false);
+    const studentNumberRegex = /^\d{2}-\d{5}$/;
+
+    if (!studentNumber.match(studentNumberRegex)) {
+      // Display error message using SweetAlert if the format is incorrect
+      Swal.fire({
+        icon: 'error',
+        title: 'Invalid Student Number',
+        text: 'Student Number should be in the format XX-XXXXX.',
+      });
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await axios.post("students/register", {
@@ -51,9 +64,23 @@ const StudentCreateAccount = () => {
         setYearLevelId("");
         setSemesterId("");
         setIsIrregular(false);
+        // Display success message using SweetAlert
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Account created successfully!',
+        }).then(() => {
+          setTimeout(() => {
+          }, 1000); // Close the modal after 1 second
+        });
       }
     } catch (error) {
-      setError("Something went wrong. Please try again later.");
+      // Display error message using SweetAlert
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Incorrect Gbox or Mobile Number Format.',
+      });
     } finally {
       setLoading(false);
     }
@@ -175,9 +202,6 @@ const StudentCreateAccount = () => {
         </button>
 
         {error && <p className="mqcreate-error-message">{error}</p>}
-        {success && (
-          <p className="mqcreate-success-message">Account created successfully!</p>
-        )}
       </form>
     </div>
   );
