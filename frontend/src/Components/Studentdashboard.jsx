@@ -179,13 +179,11 @@ const StudentDashboard = () => {
             
             {activeSection === 'dashboard' && (
             <div>
-                    <div style={{ backgroundColor: '#FDFFB6', borderRadius: '20px', padding: '100px', marginRight: '20px' }}>
-                    <h2 style={{ fontFamily: 'Verdana', fontSize: '20px', fontWeight: 'bold', color: '#344e41' }}>
+                    <h2 className='h2'>
                       Welcome to the Dashboard, {decodedStudentName}!
                     </h2>
-                    <img src={Ai} alt="jpg" style={{ Width: '1000px', borderRadius: '20px', marginLeft: '20px' }} />
+                    <img className="d-image" src={Ai} alt="jpg" />
                 </div>
-             </div>
             )}
 
 
