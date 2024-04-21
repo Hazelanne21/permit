@@ -8,6 +8,7 @@ import StudentCreateAccount from "../StudentCreateAccount";
 import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt, faAngleDown, faTrash, faAdd, faBell, faUser, faMoneyCheckAlt, faBook } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 const StaffDashboard = () => {
   const [showModal, setShowModal] = useState(false);
@@ -188,6 +189,7 @@ useEffect(() => {
     console.log("Number of Students:", numberOfStudents);
     setStudentsModalOpen(false);
   };
+  
 
   const handleSectionChange = (section) => {
     setActiveSection(section);
@@ -225,6 +227,12 @@ useEffect(() => {
       if (response.ok) {
         console.log("Administrator updated successfully");
         handleCloseUpdateAdministratorModal();
+        // Display success message using SweetAlert
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Administrator updated successfully',
+        });
       } else {
         console.error("Failed to update Administrator");
       }
@@ -232,6 +240,7 @@ useEffect(() => {
       console.error("Error updating administrator:", error);
     }
   };
+  
 
   const fetchStaffInfo = async () => {
     try {
