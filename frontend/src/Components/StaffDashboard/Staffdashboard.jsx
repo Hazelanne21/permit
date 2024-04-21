@@ -61,14 +61,6 @@ const StaffDashboard = () => {
 
 
 
-  // eslint-disable-next-line 
-  const handleSaveInstructorToLocalStorage = (newInstructor) => {
-    const updatedInstructors = [...instructors, newInstructor];
-    setInstructors(updatedInstructors);
-    localStorage.setItem("instructors", JSON.stringify(updatedInstructors));
-  };
-
-
 
   const [instructors, setInstructors] = useState(() => {
     const storedInstructors = localStorage.getItem("instructors");
@@ -78,32 +70,63 @@ const StaffDashboard = () => {
   
 
   const handleSaveInstructor = () => {
-    // Construct the new instructor object
+    const existingInstructor = instructors.find(
+      (instructor) => instructor.name === instructorInput.name
+    );
+  
+    if (existingInstructor) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Instructor already exists!',
+      });
+      return;
+    }
     const newInstructor = {
       name: instructorInput.name,
       position: instructorInput.position
     };
   
-    // Update the list of instructors
     const updatedInstructors = [...instructors, newInstructor];
     setInstructors(updatedInstructors);
   
-    // Save to local storage
     localStorage.setItem("instructors", JSON.stringify(updatedInstructors));
   
-    // Close the modal
     setIShowModal(false);
+  
+    Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: 'Instructor saved successfully',
+    });
   };
+  
 
 
   const handleDeleteInstructor = (index) => {
-    const updatedInstructors = [...instructors];
-    updatedInstructors.splice(index, 1); // Remove the instructor at the specified index
-    setInstructors(updatedInstructors); // Update the state
-  
-    // Update local storage
-    localStorage.setItem("instructors", JSON.stringify(updatedInstructors));
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You are about to delete this instructor. This action cannot be undone.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const updatedInstructors = [...instructors];
+        updatedInstructors.splice(index, 1);
+        setInstructors(updatedInstructors);
+        localStorage.setItem("instructors", JSON.stringify(updatedInstructors));
+        Swal.fire(
+          'Deleted!',
+          'The instructor has been deleted.',
+          'success'
+        );
+      }
+    });
   };
+  
   
   
 
@@ -134,30 +157,57 @@ const StaffDashboard = () => {
 // COURSE
 const [courses, setCourses] = useState([]);
 
+
+
 const handleSaveCourse = () => {
-  // Construct the new course object
+  const isCourseExist = courses.some(course => course.name === courseInput.name);
+  if (isCourseExist) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'This course already exists!',
+    });
+    return; // Stop execution if the course already exists
+  }
   const newCourse = {
     name: courseInput.name
   };
-
-  // Update the list of courses
   setCourses([...courses, newCourse]);
-
-  // Save to local storage
   localStorage.setItem("courses", JSON.stringify([...courses, newCourse]));
-
-  // Close the modal
   setCourseModalOpen(false);
+
+  Swal.fire({
+    icon: 'success',
+    title: 'Success!',
+    text: 'Course saved successfully',
+  });
 };
+
 
 const handleDeleteCourse = (index) => {
-  const updatedCourses = [...courses];
-  updatedCourses.splice(index, 1); // Remove the course at the specified index
-  setCourses(updatedCourses); // Update the state
-
-  // Update local storage
-  localStorage.setItem("courses", JSON.stringify(updatedCourses));
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'You are about to delete this course. This action cannot be undone.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const updatedCourses = [...courses];
+      updatedCourses.splice(index, 1);
+      setCourses(updatedCourses);
+      localStorage.setItem("courses", JSON.stringify(updatedCourses));
+      Swal.fire(
+        'Deleted!',
+        'The course has been deleted.',
+        'success'
+      );
+    }
+  });
 };
+
 
 
 useEffect(() => {
@@ -170,7 +220,6 @@ useEffect(() => {
 
   // STUDENTS
   const [studentsModalOpen, setStudentsModalOpen] = useState(false);
-  const [numberOfStudents, setNumberOfStudents] = useState("");
 
   const handleOpenStudentsModal = () => {
     setStudentsModalOpen(true);
@@ -180,20 +229,54 @@ useEffect(() => {
     setStudentsModalOpen(false);
   };
 
-  const handleStudentsInputChange = (e) => {
-    const { value } = e.target;
-    setNumberOfStudents(value);
-  };
-
-  const handleSaveNumberOfStudents = () => {
-    console.log("Number of Students:", numberOfStudents);
-    setStudentsModalOpen(false);
-  };
-  
 
   const handleSectionChange = (section) => {
     setActiveSection(section);
   };
+
+
+
+
+
+  // Inside the StaffDashboard component
+
+// Initialize state for the number of students
+const [numberOfStudents, setNumberOfStudents] = useState("");
+
+const handleSaveNumberOfStudents = () => {
+  // Convert the number of students to a number
+  const numberOfStudentsInt = parseInt(numberOfStudents, 10);
+
+  // Check if numberOfStudentsInt is a valid number
+  if (!isNaN(numberOfStudentsInt)) {
+    // Save the number of students to localStorage
+    localStorage.setItem("numberOfStudents", numberOfStudentsInt);
+    // Close the modal
+    setStudentsModalOpen(false);
+  } else {
+    // Display an error message if the input is not a valid number
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Please enter a valid number for the number of students!',
+    });
+  }
+};
+
+
+// Function to handle changes in the number of students input
+const handleStudentsInputChange = (e) => {
+  // Update the state with the input value
+  setNumberOfStudents(e.target.value);
+};
+
+useEffect(() => {
+  const storedNumberOfStudents = localStorage.getItem("numberOfStudents");
+  if (storedNumberOfStudents) {
+    setNumberOfStudents(storedNumberOfStudents);
+  }
+}, []);
+
 
   const toggleDropdown = () => {
     if (!isProfileModalOpen) {
@@ -357,7 +440,7 @@ const handlePhotoAdminSelection = (event) => {
           <button className="sa-button" onClick={shandleCreateAccountClick}><FontAwesomeIcon icon={faUser} className="sa-icon" />  <span className="sa-text">Student Account </span></button>
           <button className="sub-button" onClick={() => handleSectionChange("subject")}><FontAwesomeIcon icon={faBook} className="sub-icon" />  <span className="sub-text">Subjects </span></button>
           <button className="ts-button" onClick={() => handleSectionChange("list")}><FontAwesomeIcon icon={faMoneyCheckAlt} className="ts-icon" />  <span className="ts-text">Tuition Status </span></button>
-          <button className="ts-button"  onClick={handleOpenUpdateAdministratorModal}><FontAwesomeIcon icon={faUser} className="ts-icon" /> Admin</button>
+          <button className="ad-button"  onClick={handleOpenUpdateAdministratorModal}><FontAwesomeIcon icon={faUser} className="ts-icon" /> Admin</button>
           <button onClick={handleLogout} className="logout-button"><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
         </nav>
 

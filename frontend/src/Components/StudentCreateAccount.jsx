@@ -12,7 +12,7 @@ const StudentCreateAccount = () => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
+  const [setSuccess] = useState(false);
   const [yearLevelId, setYearLevelId] = useState("");
   const [semesterId, setSemesterId] = useState("");
   const [isIrregular, setIsIrregular] = useState(false);
