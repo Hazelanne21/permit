@@ -7,7 +7,7 @@ import logoImage from '../images/CCS.png';
 import Image from '../images/ncf.png';
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-import Ai from '../images/Aii.png';
+import Ai from '../images/ROBOT.gif';
 
 const StudentDashboard = () => {
     // eslint-disable-next-line
@@ -158,12 +158,6 @@ const StudentDashboard = () => {
             {/* DROPDOWN */}
             <div className={`dropdown ${isProfileModalOpen ? 'disabled-dropdown' : ''}`}>
                 <button className="dropbtn" onClick={toggleDropdown}>{decodedStudentName} <FontAwesomeIcon icon={faUser} /></button>
-                {isDropdownOpen && (
-                    <div className="dropdown-content">
-                        <a href="#profile" onClick={toggleProfileModal}>Student</a>
-                        <a href="#logout" onClick={handleLogout}>Logout</a>
-                    </div>
-                )}
             </div>
 
             <nav className="navdashboard-container">
@@ -185,14 +179,11 @@ const StudentDashboard = () => {
             
             {activeSection === 'dashboard' && (
             <div>
-                {/* <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>
-                    Welcome to the Dashboard, {decodedStudentName}!
-                    </h1> */}
                     <div style={{ backgroundColor: '#FDFFB6', borderRadius: '20px', padding: '100px', marginRight: '20px' }}>
                     <h2 style={{ fontFamily: 'Verdana', fontSize: '20px', fontWeight: 'bold', color: '#344e41' }}>
                       Welcome to the Dashboard, {decodedStudentName}!
                     </h2>
-                    <img src={Ai} alt="jpg" style={{ maxWidth: '200px', borderRadius: '20px', marginLeft: '20px' }} />
+                    <img src={Ai} alt="jpg" style={{ Width: '1000px', borderRadius: '20px', marginLeft: '20px' }} />
                 </div>
              </div>
             )}

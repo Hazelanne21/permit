@@ -703,7 +703,6 @@ table th {
 }
 
 
-
 .Instructors-info {
   background-color: white;
   padding: 20px;
@@ -722,6 +721,18 @@ table th {
 .Instructors-info p {
   margin-top: 0;
 }
+
+/* INSTRUCTOR */
+.delete-icon {
+  cursor: pointer;
+  color: red;
+  margin-left: 25px;
+}
+
+.delete-icon:hover {
+  color: darkred; /* Change the color when hovering over the delete icon */
+}
+
 
 
 .Courses-info {

@@ -2,50 +2,7 @@
 
 
 /* STUDENT NAME DROPDOWN */
-.dropdown {
-    position: absolute;
-    display: inline-block;
-    top: 20px; 
-    right: 100px;
-    z-index: 1000; 
-}
 
-.dropbtn {
-    background-color: green;
-    color: #C7F9CC;
-    padding: 12px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 90px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropbtn::after {
-    content: '\25BE'; 
-    font-size: 12px;
-    margin-left: 5px;
-}
-
-    
     .disabled-dropdown {
         pointer-events: none;
     }
@@ -53,6 +10,55 @@
 
 
 
+
+
+    .dropdown .dropbtn {
+      background-color: lightgreen;
+      color: black;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      margin-top: 8px;
+      font-family: Verdana, sans-serif;
+      position: relative;
+  }
+  
+  .dropdown .dropbtn:focus {
+      outline: none;
+  }
+  
+  .dropdown .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      right: 0;
+  }
+  
+  .dropdown .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+  }
+  
+  .dropdown .dropdown-content a:hover {
+      background-color: #ddd;
+  }
+  
+  .dropdown:hover .dropdown-content {
+      display: block;
+  }
+  
+  /* Remove the arrow */
+  .dropdown .dropbtn::after {
+      display: none;
+  }
+  
+  
 
 /* PERMIT MODAL */
 .modal {
