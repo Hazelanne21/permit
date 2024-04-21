@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faDownload, faClipboardList, faChartBar, faInfoCircle, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faUser, faDownload, faClipboardList, faChartBar, faInfoCircle, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import './Studentdashboard.css';
 import logoImage from '../images/CCS.png';
 import Image from '../images/ncf.png';
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-import Ai from '../images/Aii.png';
+import Ai from '../images/ROBOT.gif';
 
 const StudentDashboard = () => {
     // eslint-disable-next-line
@@ -153,18 +153,59 @@ const StudentDashboard = () => {
 }, []);
 
 
+// PROFILE
+const [isPhotoSelectionOpen, setPhotoSelectionOpen] = useState(false);
+const togglePhotoSelection = () => {
+    setPhotoSelectionOpen(!isPhotoSelectionOpen);
+}
+
+
+    const storedPhoto = localStorage.getItem('selectedPhoto');
+    const [selectedPhoto, setSelectedPhoto] = useState(storedPhoto);
+
+    useEffect(() => {
+   
+        if (selectedPhoto) {
+            localStorage.setItem('selectedPhoto', selectedPhoto);
+        }
+    }, [selectedPhoto]);
+
+
+const handlePhotoSelection = (event) => {
+    const file = event.target.files[0]; 
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            setSelectedPhoto(reader.result);
+        };
+        reader.readAsDataURL(file); 
+        console.error("No file selected.");
+    }
+};
+
+    
+  
     return (
         <div>
             {/* DROPDOWN */}
             <div className={`dropdown ${isProfileModalOpen ? 'disabled-dropdown' : ''}`}>
-                <button className="dropbtn" onClick={toggleDropdown}>{decodedStudentName} <FontAwesomeIcon icon={faUser} /></button>
-                {isDropdownOpen && (
+                <button className="dropbtn" onClick={toggleDropdown}>
+                    {selectedPhoto ? (
+                            <img src={selectedPhoto} alt="Selected" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                    ) : (
+                        <>
+                            {decodedStudentName} <FontAwesomeIcon icon={faUser} />
+                        </>
+                    )}
+                    <FontAwesomeIcon icon={faAngleDown} onClick={togglePhotoSelection} />
+                </button>
+                {isPhotoSelectionOpen && (
                     <div className="dropdown-content">
-                        <a href="#profile" onClick={toggleProfileModal}>Student</a>
-                        <a href="#logout" onClick={handleLogout}>Logout</a>
+                        <input type="file" accept="image/*" onChange={handlePhotoSelection} />
                     </div>
                 )}
             </div>
+
 
             <nav className="navdashboard-container">
                 {/* COLLAPSE SIDE BAR */}
@@ -174,10 +215,10 @@ const StudentDashboard = () => {
                     <span></span>
                     </div>
                 <img src={logoImage} alt="Logo" className="logo-image" />
-                <span className="logo-text" style={{ fontFamily: 'Verdana', fontSize: '18px', fontWeight: 'bold', color: 'black', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>College of Computer Studies</span>
-                <button className="dashboard-button" onClick={() => handleSectionChange('dashboard')} style={{ backgroundColor: '#80ED99' }}><FontAwesomeIcon icon={faChartBar} /> Dashboard </button>
-                <button className="dashboard-button" onClick={() => handleSectionChange('permits')} style={{ backgroundColor: '#80ED99' }}><FontAwesomeIcon icon={faClipboardList} /> Permits </button>
-                <button className= "dashboard-button" onClick={() => handleSectionChange('student')} style={{ backgroundColor: '#80ED99'}}> <FontAwesomeIcon icon={faInfoCircle} />  Students </button>
+                <span className="logo-text">College of Computer Studies</span>
+                <button className="dashboard-button" onClick={() => handleSectionChange('dashboard')} ><FontAwesomeIcon icon={faChartBar} /> Dashboard </button>
+                <button className="dashboard-button" onClick={() => handleSectionChange('permits')}><FontAwesomeIcon icon={faClipboardList} /> Permits </button>
+                <button className= "dashboard-button" onClick={() => handleSectionChange('student')}> <FontAwesomeIcon icon={faInfoCircle} />  Students </button>
                 <button onClick={handleLogout} style={{ marginTop: '190px' }}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
              </nav>
              
@@ -188,45 +229,54 @@ const StudentDashboard = () => {
                 {/* <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>
                     Welcome to the Dashboard, {decodedStudentName}!
                     </h1> */}
-                    <div style={{ backgroundColor: '#FDFFB6', borderRadius: '20px', padding: '90px', marginRight: '10px' }}>
+                    <div style={{ backgroundColor: '#FDFFB6', borderRadius: '20px', padding: '100px', marginRight: '20px' }}>
                     <h2 style={{ fontFamily: 'Verdana', fontSize: '20px', fontWeight: 'bold', color: '#344e41' }}>
                       Welcome to the Dashboard, {decodedStudentName}!
                     </h2>
-                    <img src={Ai} alt="jpg" style={{ maxWidth: '200px', borderRadius: '20px', marginLeft: '20px' }} />
+                    <img className="-image" src={Ai} alt="jpg" style={{ Width: '1000px', borderRadius: '20px', marginLeft: '20px' }} />
                 </div>
-             </div>
             )}
 
 
                 {activeSection === 'permits' && (
                     <div>
-                        <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>Permits <FontAwesomeIcon icon={faDownload} className="download-icon" onClick={togglePermitExample} /></h1> 
+                        <h1 className= "headerpermit">Permits <FontAwesomeIcon icon={faDownload} className="download-icon" onClick={togglePermitExample} /></h1> 
                         <button onClick={togglePermitModal}>Request Permit</button>
                     </div>
                 )}
+                        {activeSection === 'student' && (
+                        <div className="student-section">
+                              <h2 className= "headerstudent">Update Student Information</h2>
+                            
+                            <form>
+                            <label className="student-label">Password:</label>
+                            <input type="pass" name="password" className="student-input" />
 
-{activeSection === 'student' && (
-    <div>
-        <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>Update Student Info</h1>
-        
-        <form style={{ maxWidth: '400px', margin: '0 auto' }}>
-             <label style={{ display: 'block', marginTop: '10px' }}>Password:</label>
-             <input type="password" name="password" style={{ width: '100%', padding: '8px', marginBottom: '15px', borderRadius: '10px'}} />
+                            <label className="student-label">Mobile Number:</label>
+                            <input type="tel" name="mobileNumber" className="student-input" />
 
-             <label style={{ display: 'block', marginBottom: '10px'}}>Mobile Number:</label>
-             <input type="tel" name="mobileNumber" style={{ width: '95%', padding: '8px', marginBottom: '15px', borderRadius: '10px'}} />
+                            <label className="student-label">Year Level:</label>
+                            <select name="yearLevel" className="student-input2">
+                                <option value="">Select Year Level</option>
+                                <option value="1">1st Year</option>
+                                <option value="2">2nd Year</option>
+                                <option value="3">3rd Year</option>
+                                <option value="4">4th Year</option>
+                            </select>
 
-             <label style={{ display: 'block', marginBottom: '10px' }}>Year Level:</label>
-             <input type="text" name="yearLevel" style={{ width: '100%', padding: '8px', marginBottom: '15px', borderRadius: '10px' }} />
+                            <label className="student-label">Semester:</label>
+                            <select name="semester" className="student-input2">
+                                <option value="">Select Semester</option>
+                                <option value="1">1st Semester</option>
+                                <option value="2">2nd Semester</option>
+                                <option value="3">Summer</option>
+                            </select>
+                            
+                            <button type="submit" className="student-submit-button">Submit</button>
+                            </form>
+                        </div>
+                        )}
 
-             <label style={{ display: 'block', marginBottom: '10px' }}>Semester:</label>
-             <input type="text" name="semester" style={{ width: '100%', padding: '8px', marginBottom: '15px', borderRadius: '10px'}} />
-            
-             <button type="submit" style={{ marginTop: '30px', width: '70%', padding: '10px', backgroundColor: '#344e41', color: 'white', border: 'none', borderRadius: '10px' }}>Submit</button>
-        </form>
-
-    </div>
-)}
 
             </div>
 

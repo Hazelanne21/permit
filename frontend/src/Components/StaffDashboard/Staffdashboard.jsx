@@ -6,29 +6,20 @@ import Subjects from "./subjects";
 import List from "./list";
 import StudentCreateAccount from "../StudentCreateAccount";
 import { jwtDecode } from "jwt-decode";
-
-// eslint-disable-next-line
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // eslint-disable-next-line
-import { faAdd, faBell, faUser, faMoneyCheckAlt, faBook, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
+import { faAdd, faBell, faUser, faMoneyCheckAlt, faBook } from '@fortawesome/free-solid-svg-icons';
 
 const StaffDashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const [activeSection, setActiveSection] = useState("dashboard");
   const navigate = useNavigate();
   const [showUpdateAdministratorModal, setShowUpdateAdministratorModal] = useState(false);
-   // eslint-disable-next-line
+  // eslint-disable-next-line 
   const [staffInfo, setStaffInfo] = useState({});
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isProfileModalOpen] = useState(false); 
-  const [updateAdminFormData, setUpdateAdminFormData] = useState({
-    Staff_Name: "",
-    Email: "",
-    Password: "",
-  });
-  const [ishowModal, setIShowModal] = useState(false);
-   // eslint-disable-next-line
-  const [instructorInfo, setInstructorInfo] = useState(null);
+ 
 
   // Decode the token
   const token = sessionStorage.getItem("token");
@@ -39,47 +30,165 @@ const StaffDashboard = () => {
     fetchStaffInfo();
   }, []);
 
-  const handleOpenModal = (instructor) => {
-    setInstructorInfo(instructor);
-    setIShowModal(true);
-  };
- // eslint-disable-next-line
-  const handleCloseModal = () => {
-    setIShowModal(false);
-    setShowModal(false);
-  };
+  const [updateAdminFormData, setUpdateAdminFormData] = useState({
+    Staff_Name: "",
+    Email: "",
+    Password: "",
+  });
 
-
-
-
+  // INSTRUCTOR
+  const [ishowModal, setIShowModal] = useState(false);
   const [instructorInput, setInstructorInput] = useState({
     name: "",
     position: "",
   });
 
+  const handleOpenModal = (instructor) => {
+    setIShowModal(true);
+  };
 
-
-
-
-
-  
+  // eslint-disable-next-line 
+  const handleCloseModal = () => {
+    setIShowModal(false);
+    setShowModal(false);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInstructorInput({ ...instructorInput, [name]: value });
   };
 
+
+
+
+  // eslint-disable-next-line 
+  const handleSaveInstructorToLocalStorage = (newInstructor) => {
+    const updatedInstructors = [...instructors, newInstructor];
+    setInstructors(updatedInstructors);
+    localStorage.setItem("instructors", JSON.stringify(updatedInstructors));
+  };
+
+
+
+  const [instructors, setInstructors] = useState(() => {
+    const storedInstructors = localStorage.getItem("instructors");
+    return storedInstructors ? JSON.parse(storedInstructors) : [];
+  });
+
+  
+
   const handleSaveInstructor = () => {
-    // Handle saving the instructor input data
-    console.log("Instructor Name:", instructorInput.name);
-    console.log("Instructor Position:", instructorInput.position);
-    // You can perform further actions here, like sending the data to the server
-    // or updating state variables.
-    // For now, let's just close the modal after saving.
+    // Construct the new instructor object
+    const newInstructor = {
+      name: instructorInput.name,
+      position: instructorInput.position
+    };
+  
+    // Update the list of instructors
+    const updatedInstructors = [...instructors, newInstructor];
+    setInstructors(updatedInstructors);
+  
+    // Save to local storage
+    localStorage.setItem("instructors", JSON.stringify(updatedInstructors));
+  
+    // Close the modal
     setIShowModal(false);
   };
 
 
+  const handleDeleteInstructor = (index) => {
+    const updatedInstructors = [...instructors];
+    updatedInstructors.splice(index, 1); // Remove the instructor at the specified index
+    setInstructors(updatedInstructors); // Update the state
+  
+    // Update local storage
+    localStorage.setItem("instructors", JSON.stringify(updatedInstructors));
+  };
+  
+  
+
+  // COURSE
+  const [courseModalOpen, setCourseModalOpen] = useState(false);
+  const [courseInput, setCourseInput] = useState({
+    name: "",
+  });
+
+  const handleOpenCourseModal = () => {
+    setCourseModalOpen(true);
+  };
+
+  const handleCloseCourseModal = () => {
+    setCourseModalOpen(false);
+  };
+
+  const handleCourseInputChange = (e) => {
+    const { name, value } = e.target;
+    setCourseInput({ ...courseInput, [name]: value });
+  };
+
+
+
+
+  // Inside the StaffDashboard component
+
+// COURSE
+const [courses, setCourses] = useState([]);
+
+const handleSaveCourse = () => {
+  // Construct the new course object
+  const newCourse = {
+    name: courseInput.name
+  };
+
+  // Update the list of courses
+  setCourses([...courses, newCourse]);
+
+  // Save to local storage
+  localStorage.setItem("courses", JSON.stringify([...courses, newCourse]));
+
+  // Close the modal
+  setCourseModalOpen(false);
+};
+
+const handleDeleteCourse = (index) => {
+  const updatedCourses = [...courses];
+  updatedCourses.splice(index, 1); // Remove the course at the specified index
+  setCourses(updatedCourses); // Update the state
+
+  // Update local storage
+  localStorage.setItem("courses", JSON.stringify(updatedCourses));
+};
+
+
+useEffect(() => {
+  const storedCourses = localStorage.getItem("courses");
+  if (storedCourses) {
+    setCourses(JSON.parse(storedCourses));
+  }
+}, []);
+
+
+  // STUDENTS
+  const [studentsModalOpen, setStudentsModalOpen] = useState(false);
+  const [numberOfStudents, setNumberOfStudents] = useState("");
+
+  const handleOpenStudentsModal = () => {
+    setStudentsModalOpen(true);
+  };
+
+  const handleCloseStudentsModal = () => {
+    setStudentsModalOpen(false);
+  };
+
+  const handleStudentsInputChange = (e) => {
+    const { value } = e.target;
+    setNumberOfStudents(value);
+  };
+
+  const handleSaveNumberOfStudents = () => {
+    console.log("Number of Students:", numberOfStudents);
+    setStudentsModalOpen(false);
+  };
 
   const handleSectionChange = (section) => {
     setActiveSection(section);
@@ -141,6 +250,7 @@ const StaffDashboard = () => {
     }
   };
 
+  // eslint-disable-next-line 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     navigate("/");
@@ -169,18 +279,64 @@ const StaffDashboard = () => {
     } 
   };
 
+
+
+
+  // PROFILE
+const [isPhotoAdminSelectionOpen, setPhotoSelectionOpen] = useState(false);
+const togglePhotoAdminSelection = (event) => {
+  event.stopPropagation();
+  setPhotoSelectionOpen((prev) => !prev); // Toggle the state
+}
+
+
+    const storedPhoto = localStorage.getItem('AdminselectedPhoto');
+    const [AdminselectedPhoto, setSelectedPhoto] = useState(storedPhoto);
+
+    useEffect(() => {
+   
+        if (AdminselectedPhoto) {
+            localStorage.setItem('AdminselectedPhoto', AdminselectedPhoto);
+        }
+    }, [AdminselectedPhoto]);
+
+
+const handlePhotoAdminSelection = (event) => {
+    const file = event.target.files[0]; 
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            setSelectedPhoto(reader.result);
+        };
+        reader.readAsDataURL(file); 
+        console.error("No file selected.");
+    }
+};
+
   return (
     <div>
       <div className="nav-container">
         <div className={`dropdown ${isProfileModalOpen ? 'disabled-dropdown' : ''}`}>
-          <button className="dropbtn" onClick={toggleDropdown}>{decodedStaffName}</button>
-          {isDropdownOpen && (
-            <div className="dropdown-content">
-              <a href="#admin" onClick={handleOpenUpdateAdministratorModal}>Admin</a>
-              <a href="#logout" onClick={handleLogout}>Logout</a>
+          <button className="admin-dropbtn" onClick={toggleDropdown}>
+          {AdminselectedPhoto ? (
+                            <img src={AdminselectedPhoto} alt="Selected" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                    ) : (
+                        <>
+                        <FontAwesomeIcon icon={faUser} />   {decodedStaffName}
+                        </>
+                    )}
+                    <FontAwesomeIcon icon={faAngleDown}  onClick={togglePhotoAdminSelection} />  
+                </button>
+                {isPhotoAdminSelectionOpen && (
+    <div className="admin-dropdown-content visible">
+        <input type="file" accept="image/*" onChange={handlePhotoAdminSelection} />
+    </div>
+)}
+
+
             </div>
-          )}
-        </div>
+
+
         <nav className="navdashboard-container">
           <div className="collapse-btn" onClick={toggleCollapse}>
             <span></span>
@@ -189,11 +345,22 @@ const StaffDashboard = () => {
           </div>
           <img src={logoImage} alt="Logo" className="logo-image" />
           <span className="logo-text">College of Computer Studies</span>
-          <button className="dashboard-button" onClick={() => handleSectionChange("dashboard")}><FontAwesomeIcon icon={faBell} className="button-icon" /><span className="button-text">Announcement</span></button>
-          <button className="sa-button" onClick={shandleCreateAccountClick}><FontAwesomeIcon icon={faUser} className="sa-icon" /> <span className="sa-text">Student Account </span></button>
-          <button className="sub-button" onClick={() => handleSectionChange("subject")}><FontAwesomeIcon icon={faBook} className="sub-icon" />  <span className="sub-text">Subjects </span></button>
-          <button className="ts-button" onClick={() => handleSectionChange("list")}><FontAwesomeIcon icon={faMoneyCheckAlt} className="ts-icon" /> <span className="ts-text">Tuition Status </span></button>
-          <button onClick={handleLogout} style={{ marginTop: '80px' }}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
+          <button className="dashboard-button" onClick={() => handleSectionChange("dashboard")}>
+            <FontAwesomeIcon icon={faBell} className="button-icon" />
+            <span className="button-text">Announcement</span>
+          </button>
+          <button className="sa-button" onClick={shandleCreateAccountClick}>
+            <FontAwesomeIcon icon={faUser} className="sa-icon" />  
+            <span className="sa-text">Student Account </span>
+          </button>
+          <button className="sub-button" onClick={() => handleSectionChange("subject")}>
+            <FontAwesomeIcon icon={faBook} className="sub-icon" />  
+            <span className="sub-text">Subjects </span>
+          </button>
+          <button className="ts-button" onClick={() => handleSectionChange("list")}>
+            <FontAwesomeIcon icon={faMoneyCheckAlt} className="ts-icon" /> 
+            <span className="ts-text">Tuition Status </span>
+          </button>
         </nav>
 
         <div className="dashboard-container">
@@ -201,28 +368,51 @@ const StaffDashboard = () => {
             <div>
               <h1>Welcome to the Dashboard, {decodedStaffName}!</h1>
               <div className="Instructors-info">
-                <h2>Instructors   <FontAwesomeIcon
-                  icon={faAdd}
-                  className="info-icon"
-                  onClick={() => handleOpenModal("instructors")}
-                /></h2>
-              </div>
-              {/* Container for courses offered */}
-              <div className="Courses-info">
-                <h2>Courses Offered   <FontAwesomeIcon
-                  icon={faAdd}
-                  className="info-icon"
-                  onClick={() => handleOpenModal("courses")}
-                /></h2>
-              </div>
-              {/* Container for number of students */}
-              <div className="Students-info">
-                <h2>Number of Students       <FontAwesomeIcon
-                  icon={faAdd}
-                  className="info-icon"
-                  onClick={() => handleOpenModal("students")}
-                /></h2>
-              </div>
+              <h2>Instructors   <FontAwesomeIcon
+                icon={faAdd}
+                className="info-icon"
+                onClick={() => handleOpenModal("instructors")}
+              /></h2>
+              <ul>
+                {instructors.map((instructor, index) => (
+                  <li key={index}>{instructor.name} - {instructor.position}
+                   <FontAwesomeIcon
+                icon={faTrash}
+                className="delete-icon"
+                onClick={() => handleDeleteInstructor(index)}
+              />
+      </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="Courses-info">
+      <h2>Courses Offered   <FontAwesomeIcon
+        icon={faAdd}
+        className="info-icon"
+        onClick={handleOpenCourseModal}
+      /></h2>
+      <ul>
+        {courses.map((course, index) => (
+          <li key={index}>{course.name}
+            <FontAwesomeIcon
+              icon={faTrash}
+              className="delete-icon"
+              onClick={() => handleDeleteCourse(index)}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+
+            <div className="Students-info">
+              <h2>Number of Students       
+                <FontAwesomeIcon
+                icon={faAdd}
+                className="info-icon"
+                onClick={handleOpenStudentsModal}
+              /></h2>
+            </div>
             </div>
           )}
           {activeSection === "StudentCreateAccount" && (
@@ -251,13 +441,6 @@ const StaffDashboard = () => {
                 </span>
                 <h2>Update Administrator Information</h2>
                 <form onSubmit={handleSubmitUpdateAdministrator}>
-                  <label>Staff Name:</label>
-                  <input
-                    type="text"
-                    name="Staff_Name"
-                    value={updateAdminFormData.Staff_Name}
-                    onChange={handleUpdateAdminInputChange}
-                  />
                   <label>Email:</label>
                   <input
                     type="text"
@@ -290,42 +473,91 @@ const StaffDashboard = () => {
           </div>
         )}
 
- {ishowModal && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="close" onClick={shandleCloseModal}>
-              &times;
-            </span>
-            <div className="modal-header">
-              <h2>Instructor Information</h2>
+        {ishowModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={shandleCloseModal}>
+                &times;
+              </span>
+              <div className="modal-header">
+                <h2>Instructor Information</h2>
+              </div>
+              <div className="modal-body">
+              <div>
+              <label>Name:</label>
+              <input
+                type="text"
+                name="name"
+                value={instructorInput.name}
+                onChange={handleInputChange} required
+              />
             </div>
-            <div className="modal-body">
-              <div>
-                <label>Name:</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={instructorInput.name}
-                  onChange={handleInputChange}
-                  required
-                />
+
+                <div>
+                  <label>Position:</label>
+                  <input
+                    type="text"
+                    name="position"
+                    value={instructorInput.position}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <button onClick={handleSaveInstructor}>Save</button>
               </div>
-              <div>
-                <label>Position:</label>
-                <input
-                  type="text"
-                  name="position"
-                  value={instructorInput.position}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <button onClick={handleSaveInstructor}>Save</button>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
+        {courseModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={handleCloseCourseModal}>&times;</span>
+              <div className="modal-header">
+                <h2>Course Information</h2>
+              </div>
+              <div className="modal-body">
+                <div>
+                  <label>Course Name:</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={courseInput.name}
+                    onChange={handleCourseInputChange}
+                    required
+                  />
 
+                  
+                </div>
+                {/* Add further input fields for course information as needed */}
+                <button onClick={handleSaveCourse}>Save</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {studentsModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={handleCloseStudentsModal}>&times;</span>
+              <div className="modal-header">
+                <h2>Number of Students</h2>
+              </div>
+              <div className="modal-body">
+                <div>
+                  <label>Number of Students:</label>
+                  <input
+                    type="text"
+                    value={numberOfStudents}
+                    onChange={handleStudentsInputChange}
+                    required
+                  />
+                </div>
+                {/* Add further input fields for students information as needed */}
+                <button onClick={handleSaveNumberOfStudents}>Save</button>
+              </div>
+            </div>
+          </div>
+        )}
 
         {showModal && (
           <div className="modal">
