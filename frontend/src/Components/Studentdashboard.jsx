@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faDownload, faClipboardList, faChartBar, faInfoCircle, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faUser, faDownload, faClipboardList, faChartBar, faInfoCircle, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import './Studentdashboard.css';
 import logoImage from '../images/CCS.png';
 import Image from '../images/ncf.png';
@@ -153,12 +153,59 @@ const StudentDashboard = () => {
 }, []);
 
 
+// PROFILE
+const [isPhotoSelectionOpen, setPhotoSelectionOpen] = useState(false);
+const togglePhotoSelection = () => {
+    setPhotoSelectionOpen(!isPhotoSelectionOpen);
+}
+
+
+    const storedPhoto = localStorage.getItem('selectedPhoto');
+    const [selectedPhoto, setSelectedPhoto] = useState(storedPhoto);
+
+    useEffect(() => {
+   
+        if (selectedPhoto) {
+            localStorage.setItem('selectedPhoto', selectedPhoto);
+        }
+    }, [selectedPhoto]);
+
+
+const handlePhotoSelection = (event) => {
+    const file = event.target.files[0]; 
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            setSelectedPhoto(reader.result);
+        };
+        reader.readAsDataURL(file); 
+        console.error("No file selected.");
+    }
+};
+
+    
+  
     return (
         <div>
             {/* DROPDOWN */}
             <div className={`dropdown ${isProfileModalOpen ? 'disabled-dropdown' : ''}`}>
-                <button className="dropbtn" onClick={toggleDropdown}>{decodedStudentName} <FontAwesomeIcon icon={faUser} /></button>
+                <button className="dropbtn" onClick={toggleDropdown}>
+                    {selectedPhoto ? (
+                            <img src={selectedPhoto} alt="Selected" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                    ) : (
+                        <>
+                            {decodedStudentName} <FontAwesomeIcon icon={faUser} />
+                        </>
+                    )}
+                    <FontAwesomeIcon icon={faAngleDown} onClick={togglePhotoSelection} />
+                </button>
+                {isPhotoSelectionOpen && (
+                    <div className="dropdown-content">
+                        <input type="file" accept="image/*" onChange={handlePhotoSelection} />
+                    </div>
+                )}
             </div>
+
 
             <nav className="navdashboard-container">
                 {/* COLLAPSE SIDE BAR */}
@@ -182,7 +229,7 @@ const StudentDashboard = () => {
                     <h2 className='h2'>
                       Welcome to the Dashboard, {decodedStudentName}!
                     </h2>
-                    <img className="d-image" src={Ai} alt="jpg" />
+                    <img className="-image" src={Ai} alt="jpg" style={{ Width: '1000px', borderRadius: '20px', marginLeft: '20px' }} />
                 </div>
             )}
 

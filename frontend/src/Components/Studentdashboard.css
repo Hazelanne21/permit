@@ -50,14 +50,15 @@
 
 
     .dropdown .dropbtn {
-      background-color: lightgreen;
+      background-color: transparent;
       color: black;
       font-size: 16px;
       border: none;
       cursor: pointer;
       padding: 14px 16px;
-      margin-top: 8px;
-      font-family: Verdana, sans-serif;
+      margin-top: -19px;
+      left: 50px;
+      font-family: Verdana;
       position: relative;
   }
   
