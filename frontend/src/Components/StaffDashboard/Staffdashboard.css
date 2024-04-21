@@ -631,14 +631,17 @@ table th {
 
 
 .sa-button {
-  display: flex;
-  align-items: justify;
-  padding: 10px;
-  background-color: transparent;
-  color: black;
+  font-family: 'Arial';
+  font-size: 25px;
+  font-weight: bold;
+  color: #80ED99;
+  background-color: #80ED99;
   border: none;
-  border-radius: 5px;
+  padding: 10px 20px;
+  border-radius: 30px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   cursor: pointer;
+  outline: none;
 }
 
 
@@ -653,6 +656,21 @@ table th {
   margin-left: 12px;
 }
 
+
+.sub-button {
+  font-family: 'Arial';
+  font-size: 25px;
+  font-weight: bold;
+  color: #80ED99;
+  background-color: #80ED99;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  outline: none;
+}
+
 .sub-icon {
   margin-right: 70px; 
   font-size: 40px;
@@ -662,6 +680,21 @@ table th {
   font-size: 20px;
   font-weight: bold;
   margin-right: 25px;
+}
+
+
+.ts-button {
+  font-family: 'Arial';
+  font-size: 25px;
+  font-weight: bold;
+  color: #80ED99;
+  background-color: #80ED99;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  outline: none;
 }
 
 .ts-icon {
