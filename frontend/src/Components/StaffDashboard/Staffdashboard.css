@@ -850,3 +850,21 @@ table th {
   right: 10px;
   cursor: pointer;
 }
+
+
+
+.logout-button {
+  background-color: #fff; 
+  border: 1px solid #ccc; 
+  color: #333; 
+  padding: 10px 20px; 
+  font-size: 16px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease, color 0.3s ease; 
+  margin-top: 50px
+}
+
+.logout-button:hover {
+  background-color: #f2f2f2; 
+  color: #000; 
+}
