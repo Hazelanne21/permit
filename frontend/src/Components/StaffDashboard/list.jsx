@@ -10,8 +10,6 @@ const StudentStatus = () => {
   const [studentStatuses, setStudentStatuses] = useState([]);
   const token = sessionStorage.getItem("token");
   const [showUpdateStatusModal, setShowUpdateStatusModal] = useState(false);
-  // eslint-disable-next-line
-  const [errorMessage, setErrorMessage] = useState('');
 
   let Staff_ID = "";
 
@@ -64,22 +62,14 @@ const StudentStatus = () => {
   const handleSubmitStatus = async (e) => {
     e.preventDefault();
     try {
-      // Check if the student account exists before submitting the status
-      const studentExistsResponse = await axios.get(`/students/checkStudentExists/${statusFormData.Student_Number}`);
-      if (!studentExistsResponse.data.exists) {
-        setErrorMessage("Student account does not exist.");
-        return; // Exit the function early if student account does not exist
-      }
-  
-      // If student account exists, proceed with submitting the status
       const response = await axios.post(
         "/tuitions/createTuitionList",
-        { tuitionList: [statusFormData] }
+        { tuitionList: [statusFormData] } // Wrap statusFormData in an array and assign it to the tuitionList field
       );
       if (response.status === 201) {
         console.log("Status created successfully");
         const newStatus = response.data;
-        setStudentStatuses([...studentStatuses, newStatus]);
+        setStudentStatuses([...studentStatuses, newStatus]); // Update statuses state with the new status
         handleCloseCreateStatusModal();
       } else {
         console.error("Failed to create status");
@@ -88,7 +78,7 @@ const StudentStatus = () => {
       console.error("Error creating status:", error.message);
     }
   };
-  
+
   useEffect(() => {
     const fetchTuitionList = async () => {
       try {
@@ -329,4 +319,3 @@ const StudentStatus = () => {
   );
 };
 export default StudentStatus;
- 
