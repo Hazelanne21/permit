@@ -7,7 +7,7 @@ import List from "./list";
 import StudentCreateAccount from "../StudentCreateAccount";
 import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faAdd, faBell, faUser, faMoneyCheckAlt, faBook } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faTrash, faAdd, faBell, faUser, faMoneyCheckAlt, faBook } from '@fortawesome/free-solid-svg-icons';
 
 const StaffDashboard = () => {
   const [showModal, setShowModal] = useState(false);
@@ -249,6 +249,7 @@ useEffect(() => {
     }
   };
 
+  // eslint-disable-next-line 
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     navigate("/");
@@ -277,18 +278,64 @@ useEffect(() => {
     } 
   };
 
+
+
+
+  // PROFILE
+const [isPhotoAdminSelectionOpen, setPhotoSelectionOpen] = useState(false);
+const togglePhotoAdminSelection = (event) => {
+  event.stopPropagation();
+  setPhotoSelectionOpen((prev) => !prev); // Toggle the state
+}
+
+
+    const storedPhoto = localStorage.getItem('AdminselectedPhoto');
+    const [AdminselectedPhoto, setSelectedPhoto] = useState(storedPhoto);
+
+    useEffect(() => {
+   
+        if (AdminselectedPhoto) {
+            localStorage.setItem('AdminselectedPhoto', AdminselectedPhoto);
+        }
+    }, [AdminselectedPhoto]);
+
+
+const handlePhotoAdminSelection = (event) => {
+    const file = event.target.files[0]; 
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            setSelectedPhoto(reader.result);
+        };
+        reader.readAsDataURL(file); 
+        console.error("No file selected.");
+    }
+};
+
   return (
     <div>
       <div className="nav-container">
         <div className={`dropdown ${isProfileModalOpen ? 'disabled-dropdown' : ''}`}>
-          <button className="dropbtn" onClick={toggleDropdown}>{decodedStaffName}</button>
-          {isDropdownOpen && (
-            <div className="dropdown-content">
-              <a href="#admin" onClick={handleOpenUpdateAdministratorModal}>Admin</a>
-              <a href="#logout" onClick={handleLogout}>Logout</a>
+          <button className="admin-dropbtn" onClick={toggleDropdown}>
+          {AdminselectedPhoto ? (
+                            <img src={AdminselectedPhoto} alt="Selected" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+                    ) : (
+                        <>
+                        <FontAwesomeIcon icon={faUser} />   {decodedStaffName}
+                        </>
+                    )}
+                    <FontAwesomeIcon icon={faAngleDown}  onClick={togglePhotoAdminSelection} />  
+                </button>
+                {isPhotoAdminSelectionOpen && (
+    <div className="admin-dropdown-content visible">
+        <input type="file" accept="image/*" onChange={handlePhotoAdminSelection} />
+    </div>
+)}
+
+
             </div>
-          )}
-        </div>
+
+
         <nav className="navdashboard-container">
           <div className="collapse-btn" onClick={toggleCollapse}>
             <span></span>

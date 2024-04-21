@@ -342,21 +342,6 @@ position: relative;
 
 
 /* ADMIN NAME DROPDOWN */
-.select-dropdown {
-  width: 400px; 
-  padding: 8px; 
-  font-size: 16px;
-  color: #333; 
-  background-color: #f4f4f4; 
-  border: 1px solid #ccc; 
-  border-radius: 4px; 
-}
-
-.select-dropdown option {
-  font-size: 14px; 
-  color: #333;
-  background-color: #fff; 
-}
 
 .dropdown {
   position: absolute;
@@ -366,14 +351,35 @@ position: relative;
   z-index: 1000; 
 }
 
-.dropbtn {
-  background-color: #C7F9CC;
+
+
+.dropdown .admin-dropbtn {
+  background-color: transparent;
   color: black;
-  padding: 12px;
   font-size: 16px;
   border: none;
   cursor: pointer;
+  padding: 14px 16px;
+  margin-top: -19px;
+  left: 50px;
+  font-family: Verdana;
+  position: relative;
 }
+
+.admin-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.admin-dropdown-content.visible {
+  display: block; /* Change from 'fixed' to 'block' */
+}
+
+
 
 .dropdown-content {
   display: none;
