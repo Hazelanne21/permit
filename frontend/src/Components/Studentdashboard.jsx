@@ -7,7 +7,8 @@ import logoImage from '../images/CCS.png';
 import Image from '../images/ncf.png';
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-import Ai from '../images/ROBOT.gif';
+import tiger from '../images/rawr.png'
+
 
 const StudentDashboard = () => {
     // eslint-disable-next-line
@@ -219,24 +220,50 @@ const handlePhotoSelection = (event) => {
                 <button className="dashboard-button" onClick={() => handleSectionChange('dashboard')} ><FontAwesomeIcon icon={faChartBar} /> Dashboard </button>
                 <button className="dashboard-button" onClick={() => handleSectionChange('permits')}><FontAwesomeIcon icon={faClipboardList} /> Permits </button>
                 <button className= "dashboard-button" onClick={() => handleSectionChange('student')}> <FontAwesomeIcon icon={faInfoCircle} />  Students </button>
-                <button onClick={handleLogout} style={{ marginTop: '190px' }}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
+                <button onClick={handleLogout} style={{ marginTop: '200px' }}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
              </nav>
              
             <div className="dashboard-container" style={{ textAlign: "center" }}>
             
             {activeSection === 'dashboard' && (
             <div>
-                {/* <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>
-                    Welcome to the Dashboard, {decodedStudentName}!
-                    </h1> */}
-                    <div style={{ backgroundColor: '#FDFFB6', borderRadius: '20px', padding: '100px', marginRight: '20px' }}>
-                    <h2 style={{ fontFamily: 'Verdana', fontSize: '20px', fontWeight: 'bold', color: '#344e41' }}>
+                    <div style={{ backgroundColor: '#FDFFB6', borderRadius: '40px', padding: '50px', marginRight: '20px', display: 'flex', alignItems: 'center' }}>
+                    <h2 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41'}}>
                       Welcome to the Dashboard, {decodedStudentName}!
                     </h2>
-                    <img className="-image" src={Ai} alt="jpg" style={{ Width: '1000px', borderRadius: '20px', marginLeft: '20px' }} />
+                    <img className="-image" src={tiger} alt="jpg" style={{ width: '180px', borderRadius: '10px', marginLeft: '200px' }} />
                 </div>
-            )}
+            </div>
+            )}  
 
+           <div style={{ display: 'flex', flexDirection: 'column', marginTop: '30px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', marginRight: '100px', marginLeft: '100px'}}>
+                <div style={{ fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
+                    <h3>Prelim</h3>
+                    <p>2nd Semester</p>
+                    <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
+                </div>
+                <div style={{ fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
+                        <h3>Midterm</h3>
+                        <p>2nd Semester</p>
+                        <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
+                        </div>
+                    </div>
+                    
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginRight: '100px', marginLeft: '100px'}}>
+                        <div style={{fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
+                            <h3>Semi Finals</h3>
+                            <p>2nd Semester</p>
+                            <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
+                            </div>
+                    <div style={{ fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
+                        <h3>Finals</h3>
+                        <p>2nd Semester</p>
+                        <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
                 {activeSection === 'permits' && (
                     <div>
@@ -276,9 +303,6 @@ const handlePhotoSelection = (event) => {
                             </form>
                         </div>
                         )}
-
-
-            </div>
 
             {isPermitExampleOpen && (
     <div className="modal">

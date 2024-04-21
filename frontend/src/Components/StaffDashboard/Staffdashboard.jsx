@@ -8,7 +8,7 @@ import StudentCreateAccount from "../StudentCreateAccount";
 import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // eslint-disable-next-line
-import { faAdd, faBell, faUser, faMoneyCheckAlt, faBook } from '@fortawesome/free-solid-svg-icons';
+import { faAdd, faBell, faUser, faMoneyCheckAlt, faBook, faAngleDown, faTrash} from '@fortawesome/free-solid-svg-icons';
 
 const StaffDashboard = () => {
   const [showModal, setShowModal] = useState(false);
