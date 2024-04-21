@@ -188,7 +188,7 @@ const StudentDashboard = () => {
                 {/* <h1 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41', textShadow: '2px 2px 4px rgba(0,0,0,0.5)'}}>
                     Welcome to the Dashboard, {decodedStudentName}!
                     </h1> */}
-                    <div style={{ backgroundColor: '#FDFFB6', borderRadius: '20px', padding: '100px', marginRight: '20px' }}>
+                    <div style={{ backgroundColor: '#FDFFB6', borderRadius: '20px', padding: '90px', marginRight: '10px' }}>
                     <h2 style={{ fontFamily: 'Verdana', fontSize: '20px', fontWeight: 'bold', color: '#344e41' }}>
                       Welcome to the Dashboard, {decodedStudentName}!
                     </h2>

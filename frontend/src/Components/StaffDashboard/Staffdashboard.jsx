@@ -10,7 +10,7 @@ import { jwtDecode } from "jwt-decode";
 // eslint-disable-next-line
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // eslint-disable-next-line
-import { faAdd, faBell, faUser, faMoneyCheckAlt, faBook } from '@fortawesome/free-solid-svg-icons';
+import { faAdd, faBell, faUser, faMoneyCheckAlt, faBook, faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
 
 const StaffDashboard = () => {
   const [showModal, setShowModal] = useState(false);
@@ -189,22 +189,11 @@ const StaffDashboard = () => {
           </div>
           <img src={logoImage} alt="Logo" className="logo-image" />
           <span className="logo-text">College of Computer Studies</span>
-          <button className="dashboard-button" onClick={() => handleSectionChange("dashboard")}>
-            <FontAwesomeIcon icon={faBell} className="button-icon" />
-            <span className="button-text">Announcement</span>
-          </button>
-          <button className="sa-button" onClick={shandleCreateAccountClick}>
-            <FontAwesomeIcon icon={faUser} className="sa-icon" />  
-            <span className="sa-text">Student Account </span>
-          </button>
-          <button className="sub-button" onClick={() => handleSectionChange("subject")}>
-            <FontAwesomeIcon icon={faBook} className="sub-icon" />  
-            <span className="sub-text">Subjects </span>
-          </button>
-          <button className="ts-button" onClick={() => handleSectionChange("list")}>
-            <FontAwesomeIcon icon={faMoneyCheckAlt} className="ts-icon" /> 
-            <span className="ts-text">Tuition Status </span>
-          </button>
+          <button className="dashboard-button" onClick={() => handleSectionChange("dashboard")}><FontAwesomeIcon icon={faBell} className="button-icon" /><span className="button-text">Announcement</span></button>
+          <button className="sa-button" onClick={shandleCreateAccountClick}><FontAwesomeIcon icon={faUser} className="sa-icon" /> <span className="sa-text">Student Account </span></button>
+          <button className="sub-button" onClick={() => handleSectionChange("subject")}><FontAwesomeIcon icon={faBook} className="sub-icon" />  <span className="sub-text">Subjects </span></button>
+          <button className="ts-button" onClick={() => handleSectionChange("list")}><FontAwesomeIcon icon={faMoneyCheckAlt} className="ts-icon" /> <span className="ts-text">Tuition Status </span></button>
+          <button onClick={handleLogout} style={{ marginTop: '80px' }}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
         </nav>
 
         <div className="dashboard-container">
