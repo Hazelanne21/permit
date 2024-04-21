@@ -21,14 +21,7 @@ const StaffDashboard = () => {
   const [staffInfo, setStaffInfo] = useState({});
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isProfileModalOpen] = useState(false); 
-  const [updateAdminFormData, setUpdateAdminFormData] = useState({
-    Staff_Name: "",
-    Email: "",
-    Password: "",
-  });
-  const [ishowModal, setIShowModal] = useState(false);
-   // eslint-disable-next-line
-  const [instructorInfo, setInstructorInfo] = useState(null);
+ 
 
   // Decode the token
   const token = sessionStorage.getItem("token");
@@ -38,6 +31,24 @@ const StaffDashboard = () => {
   useEffect(() => {
     fetchStaffInfo();
   }, []);
+
+
+  const [updateAdminFormData, setUpdateAdminFormData] = useState({
+    Staff_Name: "",
+    Email: "",
+    Password: "",
+  });
+
+  // INSTRUCTOR
+  const [ishowModal, setIShowModal] = useState(false);
+   // eslint-disable-next-line
+  const [instructorInfo, setInstructorInfo] = useState(null);
+
+
+  const [instructorInput, setInstructorInput] = useState({
+    name: "",
+    position: "",
+  });
 
   const handleOpenModal = (instructor) => {
     setInstructorInfo(instructor);
@@ -49,13 +60,27 @@ const StaffDashboard = () => {
     setShowModal(false);
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setInstructorInput({ ...instructorInput, [name]: value });
+  };
 
+  const handleSaveInstructor = () => {
+    // Construct the new instructor object
+    const newInstructor = {
+      name: instructorInput.name,
+      position: instructorInput.position
+    };
+  
+    // Update the list of instructors
+    setInstructors([...instructors, newInstructor]);
+  
+    // Close the modal
+    setIShowModal(false);
+  };
+  
+  const [instructors, setInstructors] = useState([]);
 
-
-  const [instructorInput, setInstructorInput] = useState({
-    name: "",
-    position: "",
-  });
 
 
 
@@ -63,21 +88,66 @@ const StaffDashboard = () => {
 
 
   
+// COURSE
+const [courseModalOpen, setCourseModalOpen] = useState(false);
+const [courseInput, setCourseInput] = useState({
+  name: "",
+});
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setInstructorInput({ ...instructorInput, [name]: value });
+const handleOpenCourseModal = () => {
+  setCourseModalOpen(true);
+};
+
+const handleCloseCourseModal = () => {
+  setCourseModalOpen(false);
+};
+
+const handleCourseInputChange = (e) => {
+  const { name, value } = e.target;
+  setCourseInput({ ...courseInput, [name]: value });
+};
+
+
+// Inside the StaffDashboard component
+
+const [courses, setCourses] = useState([]);
+
+const handleSaveCourse = () => {
+  // Construct the new course object
+  const newCourse = {
+    name: courseInput.name
   };
 
-  const handleSaveInstructor = () => {
-    // Handle saving the instructor input data
-    console.log("Instructor Name:", instructorInput.name);
-    console.log("Instructor Position:", instructorInput.position);
-    // You can perform further actions here, like sending the data to the server
-    // or updating state variables.
-    // For now, let's just close the modal after saving.
-    setIShowModal(false);
-  };
+  // Update the list of courses
+  setCourses([...courses, newCourse]);
+
+  // Close the modal
+  setCourseModalOpen(false);
+};
+
+
+// STUDENTS
+const [studentsModalOpen, setStudentsModalOpen] = useState(false);
+const [numberOfStudents, setNumberOfStudents] = useState("");
+
+const handleOpenStudentsModal = () => {
+  setStudentsModalOpen(true);
+};
+
+const handleCloseStudentsModal = () => {
+  setStudentsModalOpen(false);
+};
+
+const handleStudentsInputChange = (e) => {
+  const { value } = e.target;
+  setNumberOfStudents(value);
+};
+
+const handleSaveNumberOfStudents = () => {
+  console.log("Number of Students:", numberOfStudents);
+  setStudentsModalOpen(false);
+};
+
 
 
 
@@ -191,7 +261,7 @@ const StaffDashboard = () => {
           <span className="logo-text">College of Computer Studies</span>
           <button className="dashboard-button" onClick={() => handleSectionChange("dashboard")}>
             <FontAwesomeIcon icon={faBell} className="button-icon" />
-            <span className="button-text">Announcement</span>
+            <span className="button-text">Dashboard</span>
           </button>
           <button className="sa-button" onClick={shandleCreateAccountClick}>
             <FontAwesomeIcon icon={faUser} className="sa-icon" />  
@@ -212,28 +282,38 @@ const StaffDashboard = () => {
             <div>
               <h1>Welcome to the Dashboard, {decodedStaffName}!</h1>
               <div className="Instructors-info">
-                <h2>Instructors   <FontAwesomeIcon
-                  icon={faAdd}
-                  className="info-icon"
-                  onClick={() => handleOpenModal("instructors")}
-                /></h2>
-              </div>
-              {/* Container for courses offered */}
-              <div className="Courses-info">
-                <h2>Courses Offered   <FontAwesomeIcon
-                  icon={faAdd}
-                  className="info-icon"
-                  onClick={() => handleOpenModal("courses")}
-                /></h2>
-              </div>
-              {/* Container for number of students */}
-              <div className="Students-info">
-                <h2>Number of Students       <FontAwesomeIcon
-                  icon={faAdd}
-                  className="info-icon"
-                  onClick={() => handleOpenModal("students")}
-                /></h2>
-              </div>
+              <h2>Instructors   <FontAwesomeIcon
+                icon={faAdd}
+                className="info-icon"
+                onClick={() => handleOpenModal("instructors")}
+              /></h2>
+              <ul>
+                {instructors.map((instructor, index) => (
+                  <li key={index}>{instructor.name} - {instructor.position}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="Courses-info">
+            <h2>Courses Offered   <FontAwesomeIcon
+              icon={faAdd}
+              className="info-icon"
+              onClick={handleOpenCourseModal}
+            /></h2>
+            <ul>
+              {courses.map((course, index) => (
+                <li key={index}>{course.name}</li>
+              ))}
+            </ul>
+          </div>
+            <div className="Students-info">
+              <h2>Number of Students       
+                <FontAwesomeIcon
+                icon={faAdd}
+                className="info-icon"
+                onClick={handleOpenStudentsModal}
+              /></h2>
+            </div>
             </div>
           )}
           {activeSection === "StudentCreateAccount" && (
@@ -334,8 +414,58 @@ const StaffDashboard = () => {
             </div>
           </div>
         </div>
-      )}
+              )}
 
+
+        {courseModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={handleCloseCourseModal}>&times;</span>
+              <div className="modal-header">
+                <h2>Course Information</h2>
+              </div>
+              <div className="modal-body">
+                <div>
+                  <label>Course Name:</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={courseInput.name}
+                    onChange={handleCourseInputChange}
+                    required
+                  />
+                </div>
+                {/* Add further input fields for course information as needed */}
+                <button onClick={handleSaveCourse}>Save</button>
+              </div>
+            </div>
+          </div>
+        )}
+
+
+        {studentsModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="close" onClick={handleCloseStudentsModal}>&times;</span>
+              <div className="modal-header">
+                <h2>Number of Students</h2>
+              </div>
+              <div className="modal-body">
+                <div>
+                  <label>Number of Students:</label>
+                  <input
+                    type="text"
+                    value={numberOfStudents}
+                    onChange={handleStudentsInputChange}
+                    required
+                  />
+                </div>
+                {/* Add further input fields for students information as needed */}
+                <button onClick={handleSaveNumberOfStudents}>Save</button>
+              </div>
+            </div>
+          </div>
+        )}
 
 
         {showModal && (
