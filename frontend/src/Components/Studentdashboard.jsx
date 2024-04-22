@@ -8,6 +8,7 @@ import Image from '../images/ncf.png';
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import tiger from '../images/rawr.png';
+import Permit from './Permit';
 
 const StudentDashboard = () => {
     // eslint-disable-next-line
