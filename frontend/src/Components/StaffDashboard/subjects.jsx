@@ -4,12 +4,13 @@ import { faPlus, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./Staffdashboard.css"; 
 import "./subjects.css"; 
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 
 const Subjects = () => {
   const [subjects, setSubjects] = useState([]);
   const [showCreateSubjectModal, setShowCreateSubjectModal] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [ setShowSuccessModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   //eslint-disable-next-line
   const [searchResults, setSearchResults] = useState([]);
@@ -53,6 +54,18 @@ const Subjects = () => {
   // CREATE SUBJECTS
   const handleSubmitSubject = async (e) => {
     e.preventDefault();
+
+
+    const subjectCodeRegex = /^[A-Z0-9_]+$/;
+  if (!subjectFormData.Subject_Code.match(subjectCodeRegex)) {
+    // Display a warning message if the input contains invalid characters
+    Swal.fire({
+      icon: 'warning',
+      title: 'Invalid Subject Code',
+      text: 'Subject code can only contain uppercase letters, numbers, and underscores (_). Please enter a valid subject code.',
+    });
+    return;
+  }
     const existingSubject = subjects.find(
       (subject) => subject.Subject_Code === subjectFormData.Subject_Code
     );
@@ -75,12 +88,39 @@ const Subjects = () => {
         setSubjects([...subjects, newSubject]);
         setShowCreateSubjectModal(false);
         setErrorMessage("");
+        // Display success message using SweetAlert
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Subject created successfully',
+        });
       } else {
         console.error("Failed to create subject");
+        // Display error message using SweetAlert
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Failed to create subject. Please try again later.',
+        });
       }
     } catch (error) {
       console.error("Error creating subject:", error);
-      setErrorMessage("Failed to Create Subject");
+      // Check for network-related errors
+      if (!navigator.onLine) {
+        // If offline, display a specific error message
+        Swal.fire({
+          icon: 'error',
+          title: 'Connection Error',
+          text: 'You are offline. Please check your internet connection and try again.',
+        });
+      } else {
+        // If other error, display a generic error message
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Subject already exists.',
+        });
+      }
     }
   };
 
@@ -160,6 +200,17 @@ const Subjects = () => {
   // UPDATE SUBJECTS
   const handleSubmitUpdateSubject = async (e) => {
     e.preventDefault();
+
+    const subjectCodeRegex = /^[A-Z0-9_]+$/;
+    if (!updateSubjectFormData.Subject_Code.match(subjectCodeRegex)) {
+      // Display a warning message if the input contains invalid characters
+      Swal.fire({
+        icon: 'warning',
+        title: 'Invalid Subject Code',
+        text: 'Subject code can only contain uppercase letters, numbers, and underscores (_). Please enter a valid subject code.',
+      });
+      return;
+    }
     try {
       const response = await axios.put(
         `/subjects/updateSubject/${updateSubjectFormData.Subject_ID}`,
@@ -170,16 +221,44 @@ const Subjects = () => {
         fetchSubjects(); // Fetch the subjects again to update the list
         setShowUpdateSubjectModal(false); // Close the update modal
         setErrorMessage(""); // Clear any error messages
+        // Display success message using SweetAlert
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Subject updated successfully',
+        });
       } else {
         console.error("Failed to update subject");
         setErrorMessage("Failed to Update Subject");
+        // Display error message using SweetAlert
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Failed to update subject. Please try again later.',
+        });
       }
     } catch (error) {
       console.error("Error updating subject:", error.message);
       setErrorMessage("Failed to Update Subject");
+      // Check for network-related errors
+      if (!navigator.onLine) {
+        // If offline, display a specific error message
+        Swal.fire({
+          icon: 'error',
+          title: 'Connection Error',
+          text: 'You are offline. Please check your internet connection and try again.',
+        });
+      } else {
+        // If other error, display a generic error message
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Failed to update subject. Please try again later.',
+        });
+      }
     }
   };
-
+  
   const handleUpdateSubject = (subject) => {
     setUpdateSubjectFormData({
       ...subject,
@@ -199,23 +278,70 @@ const Subjects = () => {
 
   // DELETE SUBJECTS
   const handleDeleteSubject = async (subjectId) => {
-    try {
-      const response = await axios.delete(
-        `/subjects/deleteSubject/${subjectId}`
-      );
-      if (response.status === 200) {
-        console.log("Subject deleted successfully");
-        fetchSubjects();
-        setShowSuccessModal(true);
-        setTimeout(() => setShowSuccessModal(false), 2000); // Close the success modal after 2 seconds
-      } else {
-        console.error("Failed to delete subject");
+    // Display a confirmation dialog using SweetAlert
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this subject!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          // If confirmed, make the delete request
+          const response = await axios.delete(`/subjects/deleteSubject/${subjectId}`);
+          if (response.status === 200) {
+            console.log("Subject deleted successfully");
+            fetchSubjects();
+            setShowSuccessModal(true);
+            setTimeout(() => setShowSuccessModal(false), 2000); // Close the success modal after 2 seconds
+            // Display success message using SweetAlert
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'An error occurred while deleting the subject. Please try again later.',
+            });
+          } else {
+            console.error("Failed to delete subject");
+            // Display error message using SweetAlert
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Failed to delete subject. Please try again later.',
+            });
+          }
+        } catch (error) {
+          console.error("Error deleting subject:", error);
+          // Check for network-related errors
+          if (!navigator.onLine) {
+            // If offline, display a specific error message
+            Swal.fire({
+              icon: 'error',
+              title: 'Connection Error',
+              text: 'You are offline. Please check your internet connection and try again.',
+            });
+          } else {
+            // If other error, display a generic error message
+            Swal.fire({
+              icon: 'success',
+              title: 'Subject Deleted!',
+              text: 'The subject has been successfully deleted.',
+            });
+          }
+        }
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        // If the user cancels the deletion
+        Swal.fire({
+          icon: 'info',
+          title: 'Deletion Cancelled',
+          text: 'Deleting the subject was cancelled.',
+        });
       }
-    } catch (error) {
-      console.error("Error deleting subject:", error);
-    }
+    });
   };
-
+  
 
 
   
@@ -242,14 +368,6 @@ const Subjects = () => {
         </button>
 
         {errorMessage && <p className="error-message">{errorMessage}</p>}
-        {/* Success Modal */}
-        {showSuccessModal && (
-          <div className="modal">
-            <div className="modal-content success-modal">
-              <h2>Deleted successfully</h2>
-            </div>
-          </div>
-        )}
         <div className="table-container"> 
         {searchResults.length > 0 && (
   <p className="search-results">Search results for: {searchTerm}</p>

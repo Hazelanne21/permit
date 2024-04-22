@@ -729,6 +729,32 @@ table th {
   margin-right: 10px;
 }
 
+.ad-button {
+  font-family: 'Arial';
+  font-size: 24px;
+  font-weight: bold;
+  color: #80ED99;
+  background-color: #80ED99;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  outline: none;
+}
+
+.ad-icon {
+  margin-right: 30px; 
+  font-size: 40px;
+}
+
+.ad-text {
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+
 
 
 
@@ -767,7 +793,7 @@ table th {
   border-radius: 20px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   width: 30%; 
-  margin-left: 700px;
+  margin-left: 100px;
   margin-top: 50px;
   text-align: center;
 }
@@ -799,8 +825,8 @@ table th {
   border-radius: 20px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   width: 30%; 
-  margin-left: 100px;
-  margin-top: -99px;
+  margin-left: 600px;
+  margin-top: -139px;
   text-align: center;
 }
 
@@ -819,8 +845,8 @@ table th {
   border-radius: 20px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   width: 30%; 
-  margin-left: 100px;
-  margin-top: 150px;
+  margin-left: 600px;
+  margin-top: 120px;
   text-align: center;
 }
 
