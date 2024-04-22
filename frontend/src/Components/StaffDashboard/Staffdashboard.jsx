@@ -8,6 +8,7 @@ import StudentCreateAccount from "../StudentCreateAccount";
 import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt, faAngleDown, faTrash, faAdd, faBell, faUser, faMoneyCheckAlt, faBook } from '@fortawesome/free-solid-svg-icons';
+import Swal from "sweetalert2";
 
 const StaffDashboard = () => {
   const [showModal, setShowModal] = useState(false);
