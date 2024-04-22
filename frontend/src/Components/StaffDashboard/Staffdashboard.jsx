@@ -8,7 +8,7 @@ import StudentCreateAccount from "../StudentCreateAccount";
 import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt, faAngleDown, faTrash, faAdd, faBell, faUser, faMoneyCheckAlt, faBook } from '@fortawesome/free-solid-svg-icons';
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 const StaffDashboard = () => {
   const [showModal, setShowModal] = useState(false);
@@ -440,7 +440,7 @@ const handlePhotoAdminSelection = (event) => {
           <button className="sa-button" onClick={shandleCreateAccountClick}><FontAwesomeIcon icon={faUser} className="sa-icon" />  <span className="sa-text">Student Account </span></button>
           <button className="sub-button" onClick={() => handleSectionChange("subject")}><FontAwesomeIcon icon={faBook} className="sub-icon" />  <span className="sub-text">Subjects </span></button>
           <button className="ts-button" onClick={() => handleSectionChange("list")}><FontAwesomeIcon icon={faMoneyCheckAlt} className="ts-icon" />  <span className="ts-text">Tuition Status </span></button>
-          <button className="ad-button"  onClick={handleOpenUpdateAdministratorModal}><FontAwesomeIcon icon={faUser} className="ts-icon" /> Admin</button>
+          <button className="ts-button"  onClick={handleOpenUpdateAdministratorModal}><FontAwesomeIcon icon={faUser} className="ts-icon" /> Admin</button>
           <button onClick={handleLogout} className="logout-button"><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
         </nav>
 
