@@ -4,14 +4,14 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { jwtDecode } from "jwt-decode";
+import Swal from 'sweetalert2';
+
 
 const StudentStatus = () => {
   const [showCreateStatusModal, setShowCreateStatusModal] = useState(false);
   const [studentStatuses, setStudentStatuses] = useState([]);
   const token = sessionStorage.getItem("token");
   const [showUpdateStatusModal, setShowUpdateStatusModal] = useState(false);
-  // eslint-disable-next-line
-  const [errorMessage, setErrorMessage] = useState('');
 
   let Staff_ID = "";
 
@@ -48,47 +48,125 @@ const StudentStatus = () => {
   };
   
   const handleDeleteStatus = async (studentNumber) => {
-    try {
-      const response = await axios.delete("/tuitions/deleteTuitionList", { data: { Student_Number: studentNumber } });
-      if (response.status === 200) {
-        console.log("Status deleted successfully");
-        setStudentStatuses(studentStatuses.filter(status => status.student_number !== studentNumber));
-      } else {
-        console.error("Failed to delete status");
+    // Display a confirmation dialog before deleting
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to delete this student status?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.delete("/tuitions/deleteTuitionList", { data: { Student_Number: studentNumber } });
+          if (response.status === 200) {
+            console.log("Status deleted successfully");
+            setStudentStatuses(studentStatuses.filter(status => status.student_number !== studentNumber));
+            // Display success message using SweetAlert
+            Swal.fire({
+              icon: 'success',
+              title: 'Success!',
+              text: 'Student tuition status deleted successfully',
+            });
+          } else {
+            console.error("Failed to delete status");
+          }
+        } catch (error) {
+          console.error("Error deleting status:", error.message);
+          // Display error message using SweetAlert
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Failed to delete student tuition status. Please try again later.',
+          });
+        }
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        // If user cancels, show a message
+        Swal.fire({
+          title: 'Cancelled',
+          text: 'Student tuition status deletion has been cancelled',
+          icon: 'info'
+        });
       }
-    } catch (error) {
-      console.error("Error deleting status:", error.message);
-    }
+    });
   };
+  
 
   const handleSubmitStatus = async (e) => {
     e.preventDefault();
-    try {
-      // Check if the student account exists before submitting the status
-      const studentExistsResponse = await axios.get(`/students/checkStudentExists/${statusFormData.Student_Number}`);
-      if (!studentExistsResponse.data.exists) {
-        setErrorMessage("Student account does not exist.");
-        return; // Exit the function early if student account does not exist
-      }
+    
+    const studentNumberRegex = /^[0-9-]+$/;
+  if (!statusFormData.Student_Number.match(studentNumberRegex)) {
+    // Display a warning message if the input contains invalid characters
+    Swal.fire({
+      icon: 'warning',
+      title: 'Invalid Input',
+      text: 'Student number can only contain numbers and dashes (-). Please enter a valid student number.',
+    });
+    return;
+  }
   
-      // If student account exists, proceed with submitting the status
+     const existingStudent = studentStatuses.find(status => status.student_number === statusFormData.Student_Number);
+  if (existingStudent) {
+    // Display a warning message if the student number already exists
+    Swal.fire({
+      icon: 'warning',
+      title: 'Oops...',
+      text: 'A tuition status for this student already exists.',
+    });
+    return; // Stop further execution
+  }
+  
+    try {
       const response = await axios.post(
         "/tuitions/createTuitionList",
         { tuitionList: [statusFormData] }
       );
+      
       if (response.status === 201) {
         console.log("Status created successfully");
         const newStatus = response.data;
         setStudentStatuses([...studentStatuses, newStatus]);
         handleCloseCreateStatusModal();
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Student tuition status created successfully',
+        });
       } else {
         console.error("Failed to create status");
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Failed to create student tuition status. Please try again later.',
+        });
       }
     } catch (error) {
       console.error("Error creating status:", error.message);
+      
+      // Check if the error message indicates that the student does not exist
+      if (error.response && error.response.status === 404 && error.response.data && error.response.data.error === "Student not found") {
+        // Display a specific error message for student not found
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'The student does not exist. Please enter a valid student number.',
+        });
+      } else {
+        // Display a generic error message for other errors
+        Swal.fire({
+          icon: 'error',
+          title: 'Connection Error',
+          text: 'Failed to connect to the server. Please check your internet connection and try again.',
+        });
+      }
     }
   };
   
+  
+
   useEffect(() => {
     const fetchTuitionList = async () => {
       try {
@@ -112,14 +190,70 @@ const StudentStatus = () => {
   
   const handleUpdateSubmitStatus = async (e) => {
     e.preventDefault();
-    try {
-      await handleUpdateStatus(statusFormData);
-      console.log("Status updated successfully");
-      handleCloseUpdateStatusModal();
-    } catch (error) {
-      console.error("Error updating status:", error.message);
+    
+
+    const studentNumberRegex = /^[0-9-]+$/;
+    if (!statusFormData.Student_Number.match(studentNumberRegex)) {
+      // Display a warning message if the input contains invalid characters
+      Swal.fire({
+        icon: 'warning',
+        title: 'Invalid Input',
+        text: 'Student number can only contain numbers and dashes (-). Please enter a valid student number.',
+      });
+      return;
     }
+
+    // Display a confirmation dialog
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to update this student tuition status?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, update it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await handleUpdateStatus(statusFormData);
+          console.log("Status updated successfully");
+          handleCloseUpdateStatusModal();
+          // Display success message using SweetAlert
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Student tuition status updated successfully',
+          });
+        } catch (error) {
+          console.error("Error updating status:", error.message);
+          // Display error message using SweetAlert
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Failed to update student tuition status. Please try again later.',
+          });
+        }
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        // If user cancels, show a message
+        Swal.fire({
+          title: 'Cancelled',
+          text: 'Student tuition status update has been cancelled',
+          icon: 'info'
+        });
+      }
+    });
   };
+  
+  // Handle network-related errors
+  window.addEventListener('offline', () => {
+    Swal.fire({
+      icon: 'error',
+      title: 'Connection Error',
+      text: 'You are offline. Please check your internet connection and try again.',
+    });
+  });
+  
+  
 
   const handleUpdateStatus = async (statusFormData) => {
     try {
@@ -260,7 +394,7 @@ const StudentStatus = () => {
             </span>
             <h2>Update Student Tuition Status</h2>
             <form onSubmit={handleUpdateSubmitStatus}>
-              <label>Student Number:</label>
+            <label>Student Number:</label>
               <input
                 type="text"
                 name="Student_Number"
@@ -329,4 +463,3 @@ const StudentStatus = () => {
   );
 };
 export default StudentStatus;
- 
