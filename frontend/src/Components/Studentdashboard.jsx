@@ -1,405 +1,568 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDownload, faAngleDown, faUser, faClipboardList, faChartBar, faInfoCircle, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import './Studentdashboard.css';
-import logoImage from '../images/CCS.png';
-import Image from '../images/ncf.png';
+import {
+  faAngleDown,
+  faUser,
+  faClipboardList,
+  faChartBar,
+  faInfoCircle,
+  faSignOutAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import "./Studentdashboard.css";
+import logoImage from "../images/CCS.png";
+import Image from "../images/ncf.png";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-import tiger from '../images/rawr.png';
-import Permit from './Permit';
+import tiger from "../images/rawr.png";
 
 const StudentDashboard = () => {
-    // eslint-disable-next-line
-    const [studentInfo, setStudentInfo] = useState(null);
-    // eslint-disable-next-line
-    const [permits, setPermits] = useState([]);
-    const [activeSection, setActiveSection] = useState('dashboard');
-    const [isProfileModalOpen, setProfileModalOpen] = useState(false); 
-    const [isDropdownOpen, setDropdownOpen] = useState(false); 
-    const [isPermitModalOpen, setPermitModalOpen] = useState(false);
-    const navigate = useNavigate(); 
+  // eslint-disable-next-line
+  const [studentInfo, setStudentInfo] = useState(null);
+  // eslint-disable-next-line
+  const [permits, setPermits] = useState([]);
+  const [activeSection, setActiveSection] = useState("dashboard");
+  const [isProfileModalOpen, setProfileModalOpen] = useState(false);
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [isPermitModalOpen, setPermitModalOpen] = useState(false);
+  const navigate = useNavigate();
 
-    const token = sessionStorage.getItem("token");
-    const decodedStudentName = jwtDecode(token).name;
+  const token = sessionStorage.getItem("token");
+  const decodedStudentName = jwtDecode(token).name;
 
+  // LOGOUT
+  const handleLogout = () => {
+    sessionStorage.removeItem("token");
+    navigate("/");
+  };
 
+  // DROPDOWN PROFILE
+  const toggleDropdown = () => {
+    if (!isProfileModalOpen) {
+      setDropdownOpen(!isDropdownOpen);
+    }
+  };
 
+  // PERMIT
 
-  
-    // LOGOUT
-    const handleLogout = () => {
-        sessionStorage.removeItem('token');
-        navigate('/');
-    };
+  const [permitFormData, setPermitFormData] = useState({
+    examType: "",
+    semester: "",
+  });
 
+  const handlePermitInputChange = (e) => {
+    const { name, value } = e.target;
+    setPermitFormData({ ...permitFormData, [name]: value });
+  };
 
-    // DROPDOWN PROFILE
-    const toggleDropdown = () => {
-        if (!isProfileModalOpen) {
-            setDropdownOpen(!isDropdownOpen);
-        }
-    };
+  const togglePermitModal = () => {
+    console.log("Toggling permit modal");
+    setPermitModalOpen(!isPermitModalOpen);
+  };
 
+  const handleSubmitPermit = () => {
+    // Handle permit submission
+    console.log("Permit submitted:", permitFormData);
+    // Close the modal after submission
+    setPermitModalOpen(false);
+  };
 
-    // PERMIT
-    
-    const [permitFormData, setPermitFormData] = useState({
-        examType: "",
-        semester: "",
-    });
+  const [isPermitExampleOpen, setPermitExampleOpen] = useState(false);
 
-    const handlePermitInputChange = (e) => {
-        const { name, value } = e.target;
-        setPermitFormData({ ...permitFormData, [name]: value });
-    };
+  const togglePermitExample = () => {
+    setPermitExampleOpen(!isPermitExampleOpen);
+  };
 
-    const togglePermitModal = () => {
-        console.log("Toggling permit modal");
-        setPermitModalOpen(!isPermitModalOpen);
-    };
+  // PROFILE MODAL
+  const [profileFormData, setProfileFormData] = useState({
+    password: "",
+    mobileNumber: "",
+    yearLevel: "",
+    semester: "",
+    showPassword: false, // Initialize showPassword to false
+  });
 
-    const handleSubmitPermit = () => {
-        // Handle permit submission
-        console.log("Permit submitted:", permitFormData);
-        // Close the modal after submission
-        setPermitModalOpen(false);
-    };
+  const handleProfileInputChange = (e) => {
+    const { name, value } = e.target;
+    setProfileFormData({ ...profileFormData, [name]: value });
+  };
 
-    const [isPermitExampleOpen, setPermitExampleOpen] = useState(false);
+  const handleSubmitProfile = () => {
+    // Handle profile update submission
+    console.log("Profile data submitted:", profileFormData);
+    // Close the modal after submission
+    setProfileModalOpen(false);
+  };
 
-    const togglePermitExample = () => {
-        setPermitExampleOpen(!isPermitExampleOpen);
-    };
+  const toggleProfileModal = () => {
+    console.log("Toggling profile modal");
+    setProfileModalOpen(!isProfileModalOpen);
+    setDropdownOpen(false);
+  };
 
-    
+  const handleDownloadPermit = () => {
+    // Implement the logic to download the permit
+    console.log("Permit downloaded");
+  };
 
-    // PROFILE MODAL
-    const [profileFormData, setProfileFormData] = useState({
-        password: "",
-        mobileNumber: "",
-        yearLevel: "",
-        semester: "",
-        showPassword: false // Initialize showPassword to false
-    });
-    
-    const handleProfileInputChange = (e) => {
-        const { name, value } = e.target;
-        setProfileFormData({ ...profileFormData, [name]: value });
-    };
-    
-    const handleSubmitProfile = () => {
-        // Handle profile update submission
-        console.log("Profile data submitted:", profileFormData);
-        // Close the modal after submission
-        setProfileModalOpen(false);
-    };
-
-    const toggleProfileModal = () => {
-        console.log("Toggling profile modal");
-        setProfileModalOpen(!isProfileModalOpen);
-        setDropdownOpen(false);
-    };
-
-    const handleDownloadPermit = () => {
-        // Implement the logic to download the permit
-        console.log("Permit downloaded");
-    };
-    
-    
-    
-    
-    // COLLAPSE SIDE BAR
+  // COLLAPSE SIDE BAR
   const toggleCollapse = () => {
     const navContainer = document.querySelector(".navdashboard-container");
     const dashboardContainer = document.querySelector(".dashboard-container");
-  
+
     navContainer.classList.toggle("collapsed");
-  
+
     const isCollapsed = navContainer.classList.contains("collapsed");
     if (isCollapsed) {
-      dashboardContainer.style.width = "calc(100% - 90px)"; 
+      dashboardContainer.style.width = "calc(100% - 90px)";
     } else {
-      dashboardContainer.style.width = "calc(100% - 450px)"; 
-    } 
+      dashboardContainer.style.width = "calc(100% - 450px)";
+    }
   };
 
-    // SIDE BAR
-    const handleSectionChange = (section) => {
-        setActiveSection(section);
-    };
+  // SIDE BAR
+  const handleSectionChange = (section) => {
+    setActiveSection(section);
+  };
 
-    
+  // FETCH STUDENT INFO & FETCH PERMIT
+  const fetchStudentInfo = async () => {};
 
-     
-// FETCH STUDENT INFO & FETCH PERMIT
-    const fetchStudentInfo = async () => {
-    };
+  const fetchPermits = async () => {
+    try {
+      const response = await axios.get("/permits/getPermits");
+      setPermits(response.data);
+    } catch (error) {
+      console.error("Error fetching permits:", error);
+      // Handle error, such as showing an error message to the user
+    }
+  };
 
-    const fetchPermits = async () => {
-        try {
-            const response = await axios.get('/permits/getPermits');
-            setPermits(response.data);
-        } catch (error) {
-            console.error("Error fetching permits:", error);
-            // Handle error, such as showing an error message to the user
-        }
-    };
-
-    
   useEffect(() => {
     fetchStudentInfo();
     fetchPermits();
-}, []);
+  }, []);
 
-
-// PROFILE
-const [isPhotoSelectionOpen, setPhotoSelectionOpen] = useState(false);
-const togglePhotoSelection = () => {
+  // PROFILE
+  const [isPhotoSelectionOpen, setPhotoSelectionOpen] = useState(false);
+  const togglePhotoSelection = () => {
     setPhotoSelectionOpen(!isPhotoSelectionOpen);
-}
+  };
 
+  const storedPhoto = localStorage.getItem("selectedPhoto");
+  const [selectedPhoto, setSelectedPhoto] = useState(storedPhoto);
 
-    const storedPhoto = localStorage.getItem('selectedPhoto');
-    const [selectedPhoto, setSelectedPhoto] = useState(storedPhoto);
-
-    useEffect(() => {
-   
-        if (selectedPhoto) {
-            localStorage.setItem('selectedPhoto', selectedPhoto);
-        }
-    }, [selectedPhoto]);
-
-
-const handlePhotoSelection = (event) => {
-    const file = event.target.files[0]; 
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            setSelectedPhoto(reader.result);
-        };
-        reader.readAsDataURL(file); 
-        console.error("No file selected.");
+  useEffect(() => {
+    if (selectedPhoto) {
+      localStorage.setItem("selectedPhoto", selectedPhoto);
     }
-};
+  }, [selectedPhoto]);
 
-    
-  
-    return (
-        <div>
-            {/* DROPDOWN */}
-            <div className={`dropdown ${isProfileModalOpen ? 'disabled-dropdown' : ''}`}>
-                <button className="dropbtn" onClick={toggleDropdown}>
-                    {selectedPhoto ? (
-                            <img src={selectedPhoto} alt="Selected" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
-                    ) : (
-                        <>
-                            {decodedStudentName} <FontAwesomeIcon icon={faUser} />
-                        </>
-                    )}
-                    <FontAwesomeIcon icon={faAngleDown} onClick={togglePhotoSelection} />
-                </button>
-                {isPhotoSelectionOpen && (
-                    <div className="dropdown-content">
-                        <input type="file" accept="image/*" onChange={handlePhotoSelection} />
-                    </div>
-                )}
-            </div>
+  const handlePhotoSelection = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setSelectedPhoto(reader.result);
+      };
+      reader.readAsDataURL(file);
+      console.error("No file selected.");
+    }
+  };
 
+  return (
+    <div>
+      {/* DROPDOWN */}
+      <div
+        className={`dropdown ${isProfileModalOpen ? "disabled-dropdown" : ""}`}
+      >
+        <button className="dropbtn" onClick={toggleDropdown}>
+          {selectedPhoto ? (
+            <img
+              src={selectedPhoto}
+              alt="Selected"
+              style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+            />
+          ) : (
+            <>
+              {decodedStudentName} <FontAwesomeIcon icon={faUser} />
+            </>
+          )}
+          <FontAwesomeIcon icon={faAngleDown} onClick={togglePhotoSelection} />
+        </button>
+        {isPhotoSelectionOpen && (
+          <div className="dropdown-content">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoSelection}
+            />
+          </div>
+        )}
+      </div>
 
-            <nav className="navdashboard-container">
-                {/* COLLAPSE SIDE BAR */}
-                <div className="collapse-btn" onClick={toggleCollapse}>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    </div>
-                <img src={logoImage} alt="Logo" className="logo-image" />
-                <span className="logo-text">College of Computer Studies</span>
-                <button className="dashboard-button" onClick={() => handleSectionChange('dashboard')} ><FontAwesomeIcon icon={faChartBar} /> Dashboard </button>
-                <button className="dashboard-button" onClick={() => handleSectionChange('permits')}><FontAwesomeIcon icon={faClipboardList} /> Permits </button>
-                <button className= "dashboard-button" onClick={() => handleSectionChange('student')}> <FontAwesomeIcon icon={faInfoCircle} />  Students </button>
-                <button onClick={handleLogout} style={{ marginTop: '200px' }}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
-             </nav>
-             
-            <div className="dashboard-container" style={{ textAlign: "center" }}>
-            
-            {activeSection === 'dashboard' && (
-            <div>
-                    <div style={{ backgroundColor: '#FDFFB6', borderRadius: '40px', padding: '50px', marginRight: '20px', display: 'flex', alignItems: 'center' }}>
-                    <h2 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41'}}>
-                      Welcome to the Dashboard, {decodedStudentName}!
-                    </h2>
-                    <img className="-image" src={tiger} alt="jpg" style={{ width: '180px', borderRadius: '10px', marginLeft: '200px' }} />
-                </div>
-            </div>
-            )}  
-
-           <div style={{ display: 'flex', flexDirection: 'column', marginTop: '30px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', marginRight: '100px', marginLeft: '100px'}}>
-                <div style={{ fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
-                    <h3>Prelim</h3>
-                    <p>2nd Semester</p>
-                    <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
-                </div>
-                <div style={{ fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
-                        <h3>Midterm</h3>
-                        <p>2nd Semester</p>
-                        <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
-                        </div>
-                    </div>
-                    
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginRight: '100px', marginLeft: '100px'}}>
-                        <div style={{fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
-                            <h3>Semi Finals</h3>
-                            <p>2nd Semester</p>
-                            <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
-                            </div>
-                    <div style={{ fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
-                        <h3>Finals</h3>
-                        <p>2nd Semester</p>
-                        <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
-                    </div>
-                </div>
-            </div>
+      <nav className="navdashboard-container">
+        {/* COLLAPSE SIDE BAR */}
+        <div className="collapse-btn" onClick={toggleCollapse}>
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-                        {activeSection === 'permits' && (
-                        <div className="permits-section">
-                        <h1 className="headerpermit">Permits <FontAwesomeIcon icon={faDownload} className="download-icon" onClick={togglePermitExample} /></h1>
-                        <button onClick={togglePermitModal}>Request Permit</button>
+        <img src={logoImage} alt="Logo" className="logo-image" />
+        <span className="logo-text">College of Computer Studies</span>
+        <button
+          className="dashboard-button"
+          onClick={() => handleSectionChange("dashboard")}
+        >
+          <FontAwesomeIcon icon={faChartBar} /> Dashboard{" "}
+        </button>
+        <button
+          className="dashboard-button"
+          onClick={() => handleSectionChange("permits")}
+        >
+          <FontAwesomeIcon icon={faClipboardList} /> Permits{" "}
+        </button>
+        <button
+          className="dashboard-button"
+          onClick={() => handleSectionChange("student")}
+        >
+          {" "}
+          <FontAwesomeIcon icon={faInfoCircle} /> Students{" "}
+        </button>
+        <button onClick={handleLogout} style={{ marginTop: "200px" }}>
+          <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+        </button>
+      </nav>
 
-                        <div className="permit-container">
+      <div className="dashboard-container" style={{ textAlign: "center" }}>
+        {activeSection === "dashboard" && (
+          <div>
+            <div
+              style={{
+                backgroundColor: "#FDFFB6",
+                borderRadius: "40px",
+                padding: "50px",
+                marginRight: "20px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <h2
+                style={{
+                  fontFamily: "Verdana",
+                  fontSize: "40px",
+                  fontWeight: "bold",
+                  color: "#344e41",
+                }}
+              >
+                Welcome to the Dashboard, {decodedStudentName}!
+              </h2>
+              <img
+                className="-image"
+                src={tiger}
+                alt="jpg"
+                style={{
+                  width: "180px",
+                  borderRadius: "10px",
+                  marginLeft: "200px",
+                }}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+      {activeSection === "permits" && (
+        <div className="permits-section">
+          <h1 className="headerpermit">Permits</h1>
+          <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginRight: "100px",
+                marginLeft: "100px",
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "Verdana",
+                  backgroundColor: "#E58C8C",
+                  borderRadius: "10px",
+                  padding: "20px",
+                  width: "300px",
+                  zIndex: "1",
+                }}
+              >
+                <h3>Prelim</h3>
+                <p>2nd Semester</p>
+                <button
+                  style={{
+                    backgroundColor: "#D0A2F7",
+                    color: "white",
+                    padding: "5px 10px",
+                    border: "none",
+                    borderRadius: "5px",
+                    marginToptop: "-10px",
+                  }}
+                >
+                  View
+                </button>
+              </div>
+              <div
+                style={{
+                  fontFamily: "Verdana",
+                  backgroundColor: "#E58C8C",
+                  borderRadius: "10px",
+                  padding: "20px",
+                  width: "300px",
+                  zIndex: "1",
+                }}
+              >
+                <h3>Midterm</h3>
+                <p>2nd Semester</p>
+                <button
+                  style={{
+                    backgroundColor: "#D0A2F7",
+                    color: "white",
+                    padding: "5px 10px",
+                    border: "none",
+                    borderRadius: "5px",
+                  }}
+                >
+                  View
+                </button>
+              </div>
+            </div>
 
-                            {permits.map((permit, index) => (
 
-                            <Permit key={index} permit={permit} />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginRight: "100px",
+                marginLeft: "100px",
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "Verdana",
+                  backgroundColor: "#E58C8C",
+                  borderRadius: "10px",
+                  padding: "20px",
+                  width: "300px",
+                  zIndex: "1",
+                }}
+              >
+                <h3>Semi Finals</h3>
+                <p>2nd Semester</p>
+                <button
+                  style={{
+                    backgroundColor: "#D0A2F7",
+                    color: "white",
+                    padding: "5px 10px",
+                    border: "none",
+                    borderRadius: "5px",
+                  }}
+                >
+                  View
+                </button>
+              </div>
+              <div
+                style={{
+                  fontFamily: "Verdana",
+                  backgroundColor: "#E58C8C",
+                  borderRadius: "10px",
+                  padding: "20px",
+                  width: "300px",
+                  zIndex: "1",
+                }}
+              >
+                <h3>Finals</h3>
+                <p>2nd Semester</p>
+                <button
+                  style={{
+                    backgroundColor: "#D0A2F7",
+                    color: "white",
+                    padding: "5px 10px",
+                    border: "none",
+                    borderRadius: "5px",
+                  }}
+                >
+                  View
+                </button>
+              </div>
+            </div>
+          </div>
+        
+      )}
+      {activeSection === "student" && (
+        <div className="student-section">
+          <h2 className="headerstudent">Update Student Information</h2>
 
-                            ))}
+          <form>
+            <label className="student-label">Password:</label>
+            <input type="pass" name="password" className="student-input" />
 
-                        </div>
-                        </div>
-                        )}
-                        {activeSection === 'student' && (
-                        <div className="student-section">
-                              <h2 className= "headerstudent">Update Student Information</h2>
-                            
-                            <form>
-                            <label className="student-label">Password:</label>
-                            <input type="pass" name="password" className="student-input" />
+            <label className="student-label">Mobile Number:</label>
+            <input type="tel" name="mobileNumber" className="student-input" />
 
-                            <label className="student-label">Mobile Number:</label>
-                            <input type="tel" name="mobileNumber" className="student-input" />
+            <label className="student-label">Year Level:</label>
+            <select name="yearLevel" className="student-input2">
+              <option value="">Select Year Level</option>
+              <option value="1">1st Year</option>
+              <option value="2">2nd Year</option>
+              <option value="3">3rd Year</option>
+              <option value="4">4th Year</option>
+            </select>
 
-                            <label className="student-label">Year Level:</label>
-                            <select name="yearLevel" className="student-input2">
-                                <option value="">Select Year Level</option>
-                                <option value="1">1st Year</option>
-                                <option value="2">2nd Year</option>
-                                <option value="3">3rd Year</option>
-                                <option value="4">4th Year</option>
-                            </select>
+            <label className="student-label">Semester:</label>
+            <select name="semester" className="student-input2">
+              <option value="">Select Semester</option>
+              <option value="1">1st Semester</option>
+              <option value="2">2nd Semester</option>
+              <option value="3">Summer</option>
+            </select>
 
-                            <label className="student-label">Semester:</label>
-                            <select name="semester" className="student-input2">
-                                <option value="">Select Semester</option>
-                                <option value="1">1st Semester</option>
-                                <option value="2">2nd Semester</option>
-                                <option value="3">Summer</option>
-                            </select>
-                            
-                            <button type="submit" className="student-submit-button">Submit</button>
-                            </form>
-                        </div>
-                        )}
+            <button type="submit" className="student-submit-button">
+              Submit
+            </button>
+          </form>
+        </div>
+      )}
 
-            {isPermitExampleOpen && (
-    <div className="modal">
-        <div className="permit-content">
-            <span className="permit-close" onClick={togglePermitExample}>&times;</span>
+      {isPermitExampleOpen && (
+        <div className="modal">
+          <div className="permit-content">
+            <span className="permit-close" onClick={togglePermitExample}>
+              &times;
+            </span>
             <div className="modal-address">
-                <img src={Image} alt="Logo" className="modal-logo" />
-                <div>
-                    <p className="address-text">Naga College Foundation</p>
-                    <p className="address-text">Naga City, Camarines Sur</p>
-                </div>
+              <img src={Image} alt="Logo" className="modal-logo" />
+              <div>
+                <p className="address-text">Naga College Foundation</p>
+                <p className="address-text">Naga City, Camarines Sur</p>
+              </div>
             </div>
             {permits.map((permit, index) => (
-                <div key={index}>
-                    <p>ID number of the student: {permit.Student_Number}</p>
-                    <p>Examination: {permit.Exam}</p>
-                    <p>Student's name: {permit.Student_Name}</p>
-                    <p>Course and level: {permit.Year}</p >
-                    <p>Semester: {permit.Semester}</p>
-                    <p>List of Subjects:</p>
-                    <ul>
-                        {permit.Subjects.map((subject, index) => (
-                            <li key={index}>{subject}</li>
-                        ))}
-                    </ul>
-                    <p>Sequence number: {permit.SequenceNumber}</p>
-                    <p>Released by: {permit.ReleasedBy}</p>
-                    <button onClick={handleDownloadPermit}>Download Permit</button>
-                </div>
+              <div key={index}>
+                <p>ID number of the student: {permit.Student_Number}</p>
+                <p>Examination: {permit.Exam}</p>
+                <p>Student's name: {permit.Student_Name}</p>
+                <p>Course and level: {permit.Year}</p>
+                <p>Semester: {permit.Semester}</p>
+                <p>List of Subjects:</p>
+                <ul>
+                  {permit.Subjects.map((subject, index) => (
+                    <li key={index}>{subject}</li>
+                  ))}
+                </ul>
+                <p>Sequence number: {permit.SequenceNumber}</p>
+                <p>Released by: {permit.ReleasedBy}</p>
+                <button onClick={handleDownloadPermit}>Download Permit</button>
+              </div>
             ))}
+          </div>
         </div>
+      )}
+
+      {/* PROFILE MODAL */}
+      {isProfileModalOpen && (
+        <div className="modal">
+          <div className="profile-modal-content">
+            <span className="profile-close" onClick={toggleProfileModal}>
+              &times;
+            </span>
+            <h2>Update Student Information</h2>
+            <form onSubmit={handleSubmitProfile}>
+              <label>Password:</label>
+              <div className="password-input-container">
+                <input
+                  type={profileFormData.showPassword ? "text" : "password"}
+                  name="password"
+                  value={profileFormData.password}
+                  onChange={handleProfileInputChange}
+                />
+                <i
+                  className={`fas ${
+                    profileFormData.showPassword ? "fa-eye-slash" : "fa-eye"
+                  }`}
+                  onClick={() =>
+                    setProfileFormData({
+                      ...profileFormData,
+                      showPassword: !profileFormData.showPassword,
+                    })
+                  }
+                ></i>
+              </div>
+              <label>Mobile Number:</label>
+              <input
+                type="text"
+                name="mobileNumber"
+                value={profileFormData.mobileNumber}
+                onChange={handleProfileInputChange}
+              />
+              <label>Year Level:</label>
+              <input
+                type="text"
+                name="yearLevel"
+                value={profileFormData.yearLevel}
+                onChange={handleProfileInputChange}
+              />
+              <label>Semester:</label>
+              <input
+                type="text"
+                name="semester"
+                value={profileFormData.semester}
+                onChange={handleProfileInputChange}
+              />
+              <button className="student-submit-button" type="submit">
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* REQUEST PERMIT MODAL */}
+      {isPermitModalOpen && (
+        <div className="modal">
+          <div className="permit-modal-content">
+            <span className="permit-close" onClick={togglePermitModal}>
+              &times;
+            </span>
+            <h2>Request Permit</h2>
+            <form onSubmit={handleSubmitPermit}>
+              <label>Exam:</label>
+              <select
+                name="examType"
+                value={permitFormData.examType}
+                onChange={handlePermitInputChange}
+                required
+              >
+                <option value="">Select Exam Type</option>
+                <option value="Prelim">Prelim</option>
+                <option value="Midterm">Midterm</option>
+                <option value="Semifinals">Semifinals</option>
+                <option value="Finals">Finals</option>
+              </select>
+              <label>Semester:</label>
+              <select
+                name="semester"
+                value={permitFormData.semester}
+                onChange={handlePermitInputChange}
+                required
+              >
+                <option value="">Select Semester</option>
+                <option value="1">1st Semester</option>
+                <option value="2">2nd Semester</option>
+                <option value="3">Summer</option>
+              </select>
+              <button type="submit">Submit</button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
-)}
-
-
-                {/* PROFILE MODAL */}
-               {isProfileModalOpen && (
-                <div className="modal">
-                    <div className="profile-modal-content">
-                        <span className="profile-close" onClick={toggleProfileModal}>&times;</span>
-                        <h2>Update Student Information</h2>
-                        <form onSubmit={handleSubmitProfile}>
-                        <label>Password:</label>
-                            <div className="password-input-container">
-                                <input type={profileFormData.showPassword ? "text" : "password"} name="password" value={profileFormData.password} onChange={handleProfileInputChange} />
-                                <i className={`fas ${profileFormData.showPassword ? "fa-eye-slash" : "fa-eye"}`} onClick={() => setProfileFormData({ ...profileFormData, showPassword: !profileFormData.showPassword })}></i>
-                            </div>
-                            <label>Mobile Number:</label>
-                            <input type="text" name="mobileNumber" value={profileFormData.mobileNumber} onChange={handleProfileInputChange} />
-                            <label>Year Level:</label>
-                            <input type="text" name="yearLevel" value={profileFormData.yearLevel} onChange={handleProfileInputChange} />
-                            <label>Semester:</label>
-                            <input type="text" name="semester" value={profileFormData.semester} onChange={handleProfileInputChange} />
-                            <button className="student-submit-button" type="submit">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            )}
-
-            {/* REQUEST PERMIT MODAL */}
-            {isPermitModalOpen && (
-                <div className="modal">
-                    <div className="permit-modal-content">
-                        <span className="permit-close" onClick={togglePermitModal}>&times;</span>
-                        <h2>Request Permit</h2>
-                        <form onSubmit={handleSubmitPermit}>
-                            <label>Exam:</label>
-                            <select name="examType" value={permitFormData.examType} onChange={handlePermitInputChange} required>
-                                <option value="">Select Exam Type</option>
-                                <option value="Prelim">Prelim</option>
-                                <option value="Midterm">Midterm</option>
-                                <option value="Semifinals">Semifinals</option>
-                                <option value="Finals">Finals</option>
-                            </select>
-                            <label>Semester:</label>
-                            <select name="semester" value={permitFormData.semester} onChange={handlePermitInputChange} required>
-                                <option value="">Select Semester</option>
-                                <option value="1">1st Semester</option>
-                                <option value="2">2nd Semester</option>
-                                <option value="3">Summer</option>
-                            </select>
-                            <button type="submit">Submit</button>
-                        </form>
-                    </div>
-                </div>
-            )}
-        </div>
-    );
+  );
 };
 
 export default StudentDashboard;
