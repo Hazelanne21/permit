@@ -166,6 +166,8 @@ const StudentDashboard = () => {
   
 
   
+
+  
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 const [isPhotoSelectionOpen, setPhotoSelectionOpen] = useState(false);
 
@@ -208,7 +210,7 @@ const togglePhotoSelection = () => {
    type="file"
    accept="image/*"
    onChange={handlePhotoSelection}
-   style={{ display: "none" }} // Hide the input element
+   style={{ display: "none" }} 
   />
 </div>
 )}

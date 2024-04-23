@@ -7,19 +7,28 @@ import List from "./list";
 import StudentCreateAccount from "../StudentCreateAccount";
 import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt, faAngleDown, faTrash, faAdd, faBell, faUser, faMoneyCheckAlt, faBook } from '@fortawesome/free-solid-svg-icons';
-import Swal from 'sweetalert2';
+import {
+  faSignOutAlt,
+  faAngleDown,
+  faTrash,
+  faAdd,
+  faBell,
+  faUser,
+  faMoneyCheckAlt,
+  faBook,
+} from "@fortawesome/free-solid-svg-icons";
+import Swal from "sweetalert2";
 
 const StaffDashboard = () => {
   const [showModal, setShowModal] = useState(false);
   const [activeSection, setActiveSection] = useState("dashboard");
   const navigate = useNavigate();
-  const [showUpdateAdministratorModal, setShowUpdateAdministratorModal] = useState(false);
-  // eslint-disable-next-line 
+  const [showUpdateAdministratorModal, setShowUpdateAdministratorModal] =
+    useState(false);
+  // eslint-disable-next-line
   const [staffInfo, setStaffInfo] = useState({});
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-  const [isProfileModalOpen] = useState(false); 
- 
+  const [isProfileModalOpen] = useState(false);
 
   // Decode the token
   const token = sessionStorage.getItem("token");
@@ -47,7 +56,7 @@ const StaffDashboard = () => {
     setIShowModal(true);
   };
 
-  // eslint-disable-next-line 
+  // eslint-disable-next-line
   const handleCloseModal = () => {
     setIShowModal(false);
     setShowModal(false);
@@ -58,77 +67,62 @@ const StaffDashboard = () => {
     setInstructorInput({ ...instructorInput, [name]: value });
   };
 
-
-
-
-
   const [instructors, setInstructors] = useState(() => {
     const storedInstructors = localStorage.getItem("instructors");
     return storedInstructors ? JSON.parse(storedInstructors) : [];
   });
 
-  
-
   const handleSaveInstructor = () => {
     const existingInstructor = instructors.find(
       (instructor) => instructor.name === instructorInput.name
     );
-  
+
     if (existingInstructor) {
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Instructor already exists!',
+        icon: "error",
+        title: "Oops...",
+        text: "Instructor already exists!",
       });
       return;
     }
     const newInstructor = {
       name: instructorInput.name,
-      position: instructorInput.position
+      position: instructorInput.position,
     };
-  
+
     const updatedInstructors = [...instructors, newInstructor];
     setInstructors(updatedInstructors);
-  
+
     localStorage.setItem("instructors", JSON.stringify(updatedInstructors));
-  
+
     setIShowModal(false);
-  
+
     Swal.fire({
-      icon: 'success',
-      title: 'Success!',
-      text: 'Instructor saved successfully',
+      icon: "success",
+      title: "Success!",
+      text: "Instructor saved successfully",
     });
   };
-  
-
 
   const handleDeleteInstructor = (index) => {
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'You are about to delete this instructor. This action cannot be undone.',
-      icon: 'warning',
+      title: "Are you sure?",
+      text: "You are about to delete this instructor. This action cannot be undone.",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
         const updatedInstructors = [...instructors];
         updatedInstructors.splice(index, 1);
         setInstructors(updatedInstructors);
         localStorage.setItem("instructors", JSON.stringify(updatedInstructors));
-        Swal.fire(
-          'Deleted!',
-          'The instructor has been deleted.',
-          'success'
-        );
+        Swal.fire("Deleted!", "The instructor has been deleted.", "success");
       }
     });
   };
-  
-  
-  
 
   // COURSE
   const [courseModalOpen, setCourseModalOpen] = useState(false);
@@ -149,74 +143,63 @@ const StaffDashboard = () => {
     setCourseInput({ ...courseInput, [name]: value });
   };
 
-
-
-
   // Inside the StaffDashboard component
 
-// COURSE
-const [courses, setCourses] = useState([]);
+  // COURSE
+  const [courses, setCourses] = useState([]);
 
-
-
-const handleSaveCourse = () => {
-  const isCourseExist = courses.some(course => course.name === courseInput.name);
-  if (isCourseExist) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'This course already exists!',
-    });
-    return; // Stop execution if the course already exists
-  }
-  const newCourse = {
-    name: courseInput.name
-  };
-  setCourses([...courses, newCourse]);
-  localStorage.setItem("courses", JSON.stringify([...courses, newCourse]));
-  setCourseModalOpen(false);
-
-  Swal.fire({
-    icon: 'success',
-    title: 'Success!',
-    text: 'Course saved successfully',
-  });
-};
-
-
-const handleDeleteCourse = (index) => {
-  Swal.fire({
-    title: 'Are you sure?',
-    text: 'You are about to delete this course. This action cannot be undone.',
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Yes, delete it!'
-  }).then((result) => {
-    if (result.isConfirmed) {
-      const updatedCourses = [...courses];
-      updatedCourses.splice(index, 1);
-      setCourses(updatedCourses);
-      localStorage.setItem("courses", JSON.stringify(updatedCourses));
-      Swal.fire(
-        'Deleted!',
-        'The course has been deleted.',
-        'success'
-      );
+  const handleSaveCourse = () => {
+    const isCourseExist = courses.some(
+      (course) => course.name === courseInput.name
+    );
+    if (isCourseExist) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "This course already exists!",
+      });
+      return; // Stop execution if the course already exists
     }
-  });
-};
+    const newCourse = {
+      name: courseInput.name,
+    };
+    setCourses([...courses, newCourse]);
+    localStorage.setItem("courses", JSON.stringify([...courses, newCourse]));
+    setCourseModalOpen(false);
 
+    Swal.fire({
+      icon: "success",
+      title: "Success!",
+      text: "Course saved successfully",
+    });
+  };
 
+  const handleDeleteCourse = (index) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You are about to delete this course. This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const updatedCourses = [...courses];
+        updatedCourses.splice(index, 1);
+        setCourses(updatedCourses);
+        localStorage.setItem("courses", JSON.stringify(updatedCourses));
+        Swal.fire("Deleted!", "The course has been deleted.", "success");
+      }
+    });
+  };
 
-useEffect(() => {
-  const storedCourses = localStorage.getItem("courses");
-  if (storedCourses) {
-    setCourses(JSON.parse(storedCourses));
-  }
-}, []);
-
+  useEffect(() => {
+    const storedCourses = localStorage.getItem("courses");
+    if (storedCourses) {
+      setCourses(JSON.parse(storedCourses));
+    }
+  }, []);
 
   // STUDENTS
   const [studentsModalOpen, setStudentsModalOpen] = useState(false);
@@ -229,54 +212,47 @@ useEffect(() => {
     setStudentsModalOpen(false);
   };
 
-
   const handleSectionChange = (section) => {
     setActiveSection(section);
   };
 
-
-
-
-
   // Inside the StaffDashboard component
 
-// Initialize state for the number of students
-const [numberOfStudents, setNumberOfStudents] = useState("");
+  // Initialize state for the number of students
+  const [numberOfStudents, setNumberOfStudents] = useState("");
 
-const handleSaveNumberOfStudents = () => {
-  // Convert the number of students to a number
-  const numberOfStudentsInt = parseInt(numberOfStudents, 10);
+  const handleSaveNumberOfStudents = () => {
+    // Convert the number of students to a number
+    const numberOfStudentsInt = parseInt(numberOfStudents, 10);
 
-  // Check if numberOfStudentsInt is a valid number
-  if (!isNaN(numberOfStudentsInt)) {
-    // Save the number of students to localStorage
-    localStorage.setItem("numberOfStudents", numberOfStudentsInt);
-    // Close the modal
-    setStudentsModalOpen(false);
-  } else {
-    // Display an error message if the input is not a valid number
-    Swal.fire({
-      icon: 'error',
-      title: 'Oops...',
-      text: 'Please enter a valid number for the number of students!',
-    });
-  }
-};
+    // Check if numberOfStudentsInt is a valid number
+    if (!isNaN(numberOfStudentsInt)) {
+      // Save the number of students to localStorage
+      localStorage.setItem("numberOfStudents", numberOfStudentsInt);
+      // Close the modal
+      setStudentsModalOpen(false);
+    } else {
+      // Display an error message if the input is not a valid number
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Please enter a valid number for the number of students!",
+      });
+    }
+  };
 
+  // Function to handle changes in the number of students input
+  const handleStudentsInputChange = (e) => {
+    // Update the state with the input value
+    setNumberOfStudents(e.target.value);
+  };
 
-// Function to handle changes in the number of students input
-const handleStudentsInputChange = (e) => {
-  // Update the state with the input value
-  setNumberOfStudents(e.target.value);
-};
-
-useEffect(() => {
-  const storedNumberOfStudents = localStorage.getItem("numberOfStudents");
-  if (storedNumberOfStudents) {
-    setNumberOfStudents(storedNumberOfStudents);
-  }
-}, []);
-
+  useEffect(() => {
+    const storedNumberOfStudents = localStorage.getItem("numberOfStudents");
+    if (storedNumberOfStudents) {
+      setNumberOfStudents(storedNumberOfStudents);
+    }
+  }, []);
 
   const toggleDropdown = () => {
     if (!isProfileModalOpen) {
@@ -312,9 +288,9 @@ useEffect(() => {
         handleCloseUpdateAdministratorModal();
         // Display success message using SweetAlert
         Swal.fire({
-          icon: 'success',
-          title: 'Success!',
-          text: 'Administrator updated successfully',
+          icon: "success",
+          title: "Success!",
+          text: "Administrator updated successfully",
         });
       } else {
         console.error("Failed to update Administrator");
@@ -323,7 +299,6 @@ useEffect(() => {
       console.error("Error updating administrator:", error);
     }
   };
-  
 
   const fetchStaffInfo = async () => {
     try {
@@ -341,7 +316,7 @@ useEffect(() => {
     }
   };
 
-  // eslint-disable-next-line 
+  // eslint-disable-next-line
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     navigate("/");
@@ -351,7 +326,7 @@ useEffect(() => {
     setShowModal(false);
     setIShowModal(false);
   };
-  
+
   const shandleCreateAccountClick = () => {
     setShowModal(true);
   };
@@ -359,74 +334,80 @@ useEffect(() => {
   const toggleCollapse = () => {
     const navContainer = document.querySelector(".navdashboard-container");
     const dashboardContainer = document.querySelector(".dashboard-container");
-  
+
     navContainer.classList.toggle("collapsed");
-  
+
     const isCollapsed = navContainer.classList.contains("collapsed");
     if (isCollapsed) {
-      dashboardContainer.style.width = "calc(100% - 90px)"; 
+      dashboardContainer.style.width = "calc(100% - 90px)";
     } else {
-      dashboardContainer.style.width = "calc(100% - 450px)"; 
-    } 
+      dashboardContainer.style.width = "calc(100% - 450px)";
+    }
   };
 
-
-
-
   // PROFILE
-const [isPhotoAdminSelectionOpen, setPhotoSelectionOpen] = useState(false);
-const togglePhotoAdminSelection = (event) => {
-  event.stopPropagation();
-  setPhotoSelectionOpen((prev) => !prev); // Toggle the state
-}
+  const [isPhotoAdminSelectionOpen, setPhotoSelectionOpen] = useState(false);
+  const togglePhotoAdminSelection = (event) => {
+    event.stopPropagation();
+    setPhotoSelectionOpen((prev) => !prev); // Toggle the state
+  };
 
+  const storedPhoto = localStorage.getItem("AdminselectedPhoto");
+  const [AdminselectedPhoto, setSelectedPhoto] = useState(storedPhoto);
 
-    const storedPhoto = localStorage.getItem('AdminselectedPhoto');
-    const [AdminselectedPhoto, setSelectedPhoto] = useState(storedPhoto);
-
-    useEffect(() => {
-   
-        if (AdminselectedPhoto) {
-            localStorage.setItem('AdminselectedPhoto', AdminselectedPhoto);
-        }
-    }, [AdminselectedPhoto]);
-
-
-const handlePhotoAdminSelection = (event) => {
-    const file = event.target.files[0]; 
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            setSelectedPhoto(reader.result);
-        };
-        reader.readAsDataURL(file); 
-        console.error("No file selected.");
+  useEffect(() => {
+    if (AdminselectedPhoto) {
+      localStorage.setItem("AdminselectedPhoto", AdminselectedPhoto);
     }
-};
+  }, [AdminselectedPhoto]);
+
+  const handlePhotoAdminSelection = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setSelectedPhoto(reader.result);
+      };
+      reader.readAsDataURL(file);
+      console.error("No file selected.");
+    }
+  };
 
   return (
     <div>
       <div className="nav-container">
-        <div className={`dropdown ${isProfileModalOpen ? 'disabled-dropdown' : ''}`}>
+        <div
+          className={`dropdown ${
+            isProfileModalOpen ? "disabled-dropdown" : ""
+          }`}
+        >
           <button className="admin-dropbtn" onClick={toggleDropdown}>
-          {AdminselectedPhoto ? (
-                            <img src={AdminselectedPhoto} alt="Selected" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
-                    ) : (
-                        <>
-                        <FontAwesomeIcon icon={faUser} />   {decodedStaffName}
-                        </>
-                    )}
-                    <FontAwesomeIcon icon={faAngleDown}  onClick={togglePhotoAdminSelection} />  
-                </button>
-                {isPhotoAdminSelectionOpen && (
-    <div className="admin-dropdown-content visible">
-        <input type="file" accept="image/*" onChange={handlePhotoAdminSelection} />
-    </div>
-)}
-
-
+            {AdminselectedPhoto ? (
+              <img
+                src={AdminselectedPhoto}
+                alt="Selected"
+                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+              />
+            ) : (
+              <>
+                <FontAwesomeIcon icon={faUser} /> {decodedStaffName}
+              </>
+            )}
+            <FontAwesomeIcon
+              icon={faAngleDown}
+              onClick={togglePhotoAdminSelection}
+            />
+          </button>
+          {isPhotoAdminSelectionOpen && (
+            <div className="admin-dropdown-content visible">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handlePhotoAdminSelection}
+              />
             </div>
-
+          )}
+        </div>
 
         <nav className="navdashboard-container">
           <div className="collapse-btn" onClick={toggleCollapse}>
@@ -436,12 +417,40 @@ const handlePhotoAdminSelection = (event) => {
           </div>
           <img src={logoImage} alt="Logo" className="logo-image" />
           <span className="logo-text">College of Computer Studies</span>
-          <button className="dashboard-button" onClick={() => handleSectionChange("dashboard")}><FontAwesomeIcon icon={faBell} className="button-icon" /><span className="button-text">Dashboard</span></button>
-          <button className="sa-button" onClick={shandleCreateAccountClick}><FontAwesomeIcon icon={faUser} className="sa-icon" />  <span className="sa-text">Student Account </span></button>
-          <button className="sub-button" onClick={() => handleSectionChange("subject")}><FontAwesomeIcon icon={faBook} className="sub-icon" />  <span className="sub-text">Subjects </span></button>
-          <button className="ts-button" onClick={() => handleSectionChange("list")}><FontAwesomeIcon icon={faMoneyCheckAlt} className="ts-icon" />  <span className="ts-text">Tuition Status </span></button>
-          <button className="ad-button"  onClick={handleOpenUpdateAdministratorModal}><FontAwesomeIcon icon={faUser} className="ts-icon" /> Admin</button>
-          <button onClick={handleLogout} className="logout-button"><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
+          <button
+            className="dashboard-button"
+            onClick={() => handleSectionChange("dashboard")}
+          >
+            <FontAwesomeIcon icon={faBell} className="button-icon" />
+            <span className="button-text">Dashboard</span>
+          </button>
+          <button className="sa-button" onClick={shandleCreateAccountClick}>
+            <FontAwesomeIcon icon={faUser} className="sa-icon" />{" "}
+            <span className="sa-text">Student Account </span>
+          </button>
+          <button
+            className="sub-button"
+            onClick={() => handleSectionChange("subject")}
+          >
+            <FontAwesomeIcon icon={faBook} className="sub-icon" />{" "}
+            <span className="sub-text">Subjects </span>
+          </button>
+          <button
+            className="ts-button"
+            onClick={() => handleSectionChange("list")}
+          >
+            <FontAwesomeIcon icon={faMoneyCheckAlt} className="ts-icon" />{" "}
+            <span className="ts-text">Tuition Status </span>
+          </button>
+          <button
+            className="ad-button"
+            onClick={handleOpenUpdateAdministratorModal}
+          >
+            <FontAwesomeIcon icon={faUser} className="ts-icon" /> Admin
+          </button>
+          <button onClick={handleLogout} className="logout-button">
+            <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+          </button>
         </nav>
 
         <div className="dashboard-container">
@@ -449,51 +458,61 @@ const handlePhotoAdminSelection = (event) => {
             <div>
               <h1>Welcome to the Dashboard, {decodedStaffName}!</h1>
               <div className="Instructors-info">
-              <h2>Instructors   <FontAwesomeIcon
-                icon={faAdd}
-                className="info-icon"
-                onClick={() => handleOpenModal("instructors")}
-              /></h2>
-              <ul>
-                {instructors.map((instructor, index) => (
-                  <li key={index}>{instructor.name} - {instructor.position}
-                   <FontAwesomeIcon
-                icon={faTrash}
-                className="delete-icon"
-                onClick={() => handleDeleteInstructor(index)}
-              />
-      </li>
-                ))}
-              </ul>
-            </div>
+                <h2>
+                  Instructors{" "}
+                  <FontAwesomeIcon
+                    icon={faAdd}
+                    className="info-icon"
+                    onClick={() => handleOpenModal("instructors")}
+                  />
+                </h2>
+                <ul>
+                  {instructors.map((instructor, index) => (
+                    <li key={index}>
+                      {instructor.name} - {instructor.position}
+                      <FontAwesomeIcon
+                        icon={faTrash}
+                        className="delete-icon"
+                        onClick={() => handleDeleteInstructor(index)}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-            <div className="Courses-info">
-      <h2>Courses Offered   <FontAwesomeIcon
-        icon={faAdd}
-        className="info-icon"
-        onClick={handleOpenCourseModal}
-      /></h2>
-      <ul>
-        {courses.map((course, index) => (
-          <li key={index}>{course.name}
-            <FontAwesomeIcon
-              icon={faTrash}
-              className="delete-icon"
-              onClick={() => handleDeleteCourse(index)}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
+              <div className="Courses-info">
+                <h2>
+                  Courses Offered{" "}
+                  <FontAwesomeIcon
+                    icon={faAdd}
+                    className="info-icon"
+                    onClick={handleOpenCourseModal}
+                  />
+                </h2>
+                <ul>
+                  {courses.map((course, index) => (
+                    <li key={index}>
+                      {course.name}
+                      <FontAwesomeIcon
+                        icon={faTrash}
+                        className="delete-icon"
+                        onClick={() => handleDeleteCourse(index)}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-            <div className="Students-info">
-              <h2>Number of Students       
-                <FontAwesomeIcon
-                icon={faAdd}
-                className="info-icon"
-                onClick={handleOpenStudentsModal}
-              /></h2>
-            </div>
+              <div className="Students-info">
+                <h2>
+                  Number of Students
+                  <FontAwesomeIcon
+                    icon={faAdd}
+                    className="info-icon"
+                    onClick={handleOpenStudentsModal}
+                  />
+                </h2>
+              </div>
             </div>
           )}
           {activeSection === "StudentCreateAccount" && (
@@ -546,7 +565,12 @@ const handlePhotoAdminSelection = (event) => {
         {isProfileModalOpen && (
           <div className="modal">
             <div className="staffProfile-modal-content">
-              <span className="staffProfile-close" onClick={handleOpenUpdateAdministratorModal}>&times;</span>
+              <span
+                className="staffProfile-close"
+                onClick={handleOpenUpdateAdministratorModal}
+              >
+                &times;
+              </span>
               <h2>Admin Information</h2>
               <p>Staff Name: {decodedStaffName}</p>
               <p>Email: {decodedStaffEmail}</p>
@@ -564,15 +588,16 @@ const handlePhotoAdminSelection = (event) => {
                 <h2>Instructor Information</h2>
               </div>
               <div className="modal-body">
-              <div>
-              <label>Name:</label>
-              <input
-                type="text"
-                name="name"
-                value={instructorInput.name}
-                onChange={handleInputChange} required
-              />
-            </div>
+                <div>
+                  <label>Name:</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={instructorInput.name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                </div>
 
                 <div>
                   <label>Position:</label>
@@ -592,7 +617,9 @@ const handlePhotoAdminSelection = (event) => {
         {courseModalOpen && (
           <div className="modal">
             <div className="modal-content">
-              <span className="close" onClick={handleCloseCourseModal}>&times;</span>
+              <span className="close" onClick={handleCloseCourseModal}>
+                &times;
+              </span>
               <div className="modal-header">
                 <h2>Course Information</h2>
               </div>
@@ -606,8 +633,6 @@ const handlePhotoAdminSelection = (event) => {
                     onChange={handleCourseInputChange}
                     required
                   />
-
-                  
                 </div>
                 {/* Add further input fields for course information as needed */}
                 <button onClick={handleSaveCourse}>Save</button>
@@ -619,7 +644,9 @@ const handlePhotoAdminSelection = (event) => {
         {studentsModalOpen && (
           <div className="modal">
             <div className="modal-content">
-              <span className="close" onClick={handleCloseStudentsModal}>&times;</span>
+              <span className="close" onClick={handleCloseStudentsModal}>
+                &times;
+              </span>
               <div className="modal-header">
                 <h2>Number of Students</h2>
               </div>
