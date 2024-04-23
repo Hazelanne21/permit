@@ -23,7 +23,6 @@ const StudentDashboard = () => {
   const [permits, setPermits] = useState([]);
   const [activeSection, setActiveSection] = useState("dashboard");
   const [isProfileModalOpen, setProfileModalOpen] = useState(false);
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isPermitModalOpen, setPermitModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -36,12 +35,6 @@ const StudentDashboard = () => {
     navigate("/");
   };
 
-  // DROPDOWN PROFILE
-  const toggleDropdown = () => {
-    if (!isProfileModalOpen) {
-      setDropdownOpen(!isDropdownOpen);
-    }
-  };
 
   // PERMIT
 
@@ -144,10 +137,7 @@ const StudentDashboard = () => {
   }, []);
 
   // PROFILE
-  const [isPhotoSelectionOpen, setPhotoSelectionOpen] = useState(false);
-  const togglePhotoSelection = () => {
-    setPhotoSelectionOpen(!isPhotoSelectionOpen);
-  };
+
 
   const storedPhoto = localStorage.getItem("selectedPhoto");
   const [selectedPhoto, setSelectedPhoto] = useState(storedPhoto);
@@ -164,44 +154,69 @@ const StudentDashboard = () => {
       const reader = new FileReader();
       reader.onload = () => {
         setSelectedPhoto(reader.result);
+        togglePhotoSelection(); // Close the dropdown after selecting a photo
       };
       reader.readAsDataURL(file);
-      console.error("No file selected.");
+    } else {
+      // If no file is selected, reset the selected photo
+      setSelectedPhoto(null);
     }
   };
+  
+  
 
   
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+const [isPhotoSelectionOpen, setPhotoSelectionOpen] = useState(false);
+
+const toggleDropdown = () => {
+  setDropdownOpen(!isDropdownOpen);
+  setPhotoSelectionOpen(false);
+};
+
+const togglePhotoSelection = () => {
+  setPhotoSelectionOpen(!isPhotoSelectionOpen);
+  setDropdownOpen(false);
+
+};
 
   return (
     <div>
-      {/* DROPDOWN */}
-      <div
-        className={`dropdown ${isProfileModalOpen ? "disabled-dropdown" : ""}`}
-      >
-        <button className="dropbtn" onClick={toggleDropdown}>
-          {selectedPhoto ? (
-            <img
-              src={selectedPhoto}
-              alt="Selected"
-              style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-            />
-          ) : (
-            <>
-              {decodedStudentName} <FontAwesomeIcon icon={faUser} />
-            </>
-          )}
-          <FontAwesomeIcon icon={faAngleDown} onClick={togglePhotoSelection} />
-        </button>
-        {isPhotoSelectionOpen && (
-          <div className="dropdown-content">
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handlePhotoSelection}
-            />
-          </div>
-        )}
-      </div>
+  <div className={`dropdown ${isDropdownOpen ? "active" : ""}`}>
+ <button className="dropbtn" onClick={toggleDropdown}>
+  {selectedPhoto ? (
+   <img
+    src={selectedPhoto}
+    alt="Selected"
+    style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+   />
+  ) : (
+   <>
+    {decodedStudentName} <FontAwesomeIcon icon={faUser} />
+   </>
+  )}
+  <FontAwesomeIcon icon={faAngleDown} />
+</button>
+{/* Photo Selection Dropdown */}
+{isDropdownOpen && (
+ <div className="dropdown-content">
+  <label className="browse-btn" htmlFor="photo-upload">
+   Choose Photo
+  </label>
+  <input
+   id="photo-upload"
+   type="file"
+   accept="image/*"
+   onChange={handlePhotoSelection}
+   style={{ display: "none" }} // Hide the input element
+  />
+</div>
+)}
+</div>
+
+  
+
+      
 
       <nav className="navdashboard-container">
         {/* COLLAPSE SIDE BAR */}

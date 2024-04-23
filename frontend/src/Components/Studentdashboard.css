@@ -99,6 +99,45 @@
   }
   
   
+  /* Add this CSS to your stylesheet */
+
+/* Style for the dropdown content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  z-index: 1;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+.input-file {
+  display: none; 
+}
+
+
+.browse-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+
+
+.selected-photo-preview {
+  margin-top: 10px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 
 /* PERMIT MODAL */
 .modal {
