@@ -272,128 +272,33 @@ const StudentDashboard = () => {
         )}
       </div>
       {activeSection === "permits" && (
-        <div className="permits-section">
-          <h1 className="headerpermit">Permits</h1>
-          <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginRight: "100px",
-                marginLeft: "100px",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "Verdana",
-                  backgroundColor: "#E58C8C",
-                  borderRadius: "10px",
-                  padding: "20px",
-                  width: "300px",
-                  zIndex: "1",
-                }}
-              >
-                <h3>Prelim</h3>
-                <p>2nd Semester</p>
-                <button
-                  style={{
-                    backgroundColor: "#D0A2F7",
-                    color: "white",
-                    padding: "5px 10px",
-                    border: "none",
-                    borderRadius: "5px",
-                    marginToptop: "-10px",
-                  }}
-                >
-                  View
-                </button>
-              </div>
-              <div
-                style={{
-                  fontFamily: "Verdana",
-                  backgroundColor: "#E58C8C",
-                  borderRadius: "10px",
-                  padding: "20px",
-                  width: "300px",
-                  zIndex: "1",
-                }}
-              >
-                <h3>Midterm</h3>
-                <p>2nd Semester</p>
-                <button
-                  style={{
-                    backgroundColor: "#D0A2F7",
-                    color: "white",
-                    padding: "5px 10px",
-                    border: "none",
-                    borderRadius: "5px",
-                  }}
-                >
-                  View
-                </button>
-              </div>
-            </div>
+  <div className="permits-section">
+    <h1 className="headerpermit">Permits</h1>
+    <div className="permit-container">
+      <div className="permit-item">
+        <h3>Prelim</h3>
+        <p>2nd Semester</p>
+        <button className="permit-view-button">View</button>
+      </div>
+      <div className="permit-item">
+        <h3>Midterm</h3>
+        <p>2nd Semester</p>
+        <button className="permit-view-button">View</button>
+      </div>
+      <div className="permit-item">
+        <h3>Semi Finals</h3>
+        <p>2nd Semester</p>
+        <button className="permit-view-button">View</button>
+      </div>
+      <div className="permit-item">
+        <h3>Finals</h3>
+        <p>2nd Semester</p>
+        <button className="permit-view-button">View</button>
+      </div>
+    </div>
+  </div>
+)}
 
-
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginRight: "100px",
-                marginLeft: "100px",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "Verdana",
-                  backgroundColor: "#E58C8C",
-                  borderRadius: "10px",
-                  padding: "20px",
-                  width: "300px",
-                  zIndex: "1",
-                }}
-              >
-                <h3>Semi Finals</h3>
-                <p>2nd Semester</p>
-                <button
-                  style={{
-                    backgroundColor: "#D0A2F7",
-                    color: "white",
-                    padding: "5px 10px",
-                    border: "none",
-                    borderRadius: "5px",
-                  }}
-                >
-                  View
-                </button>
-              </div>
-              <div
-                style={{
-                  fontFamily: "Verdana",
-                  backgroundColor: "#E58C8C",
-                  borderRadius: "10px",
-                  padding: "20px",
-                  width: "300px",
-                  zIndex: "1",
-                }}
-              >
-                <h3>Finals</h3>
-                <p>2nd Semester</p>
-                <button
-                  style={{
-                    backgroundColor: "#D0A2F7",
-                    color: "white",
-                    padding: "5px 10px",
-                    border: "none",
-                    borderRadius: "5px",
-                  }}
-                >
-                  View
-                </button>
-              </div>
-            </div>
-          </div>
-        
-      )}
       {activeSection === "student" && (
         <div className="student-section">
           <h2 className="headerstudent">Update Student Information</h2>
