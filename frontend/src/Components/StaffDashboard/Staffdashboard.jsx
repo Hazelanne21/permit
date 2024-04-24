@@ -418,7 +418,7 @@ const StaffDashboard = () => {
           <img src={logoImage} alt="Logo" className="logo-image" />
           <span className="logo-text">College of Computer Studies</span>
           <button
-            className="dashboard-button"
+            className="dashboard-button1"
             onClick={() => handleSectionChange("dashboard")}
           >
             <FontAwesomeIcon icon={faBell} className="button-icon" />
@@ -446,14 +446,14 @@ const StaffDashboard = () => {
             className="ad-button"
             onClick={handleOpenUpdateAdministratorModal}
           >
-            <FontAwesomeIcon icon={faUser} className="ts-icon" /> Admin
+            <FontAwesomeIcon icon={faUser} className="ts-icon2"/> {" "} <span className="ts-text2">Admin </span>
           </button>
           <button onClick={handleLogout} className="logout-button">
             <FontAwesomeIcon icon={faSignOutAlt} /> Logout
           </button>
         </nav>
 
-        <div className="dashboard-container" style={{ textAlign: "center", backgroundColor: "#FDFFB6"}}>
+        <div className="dashboard-container" style={{ textAlign: "center", backgroundColor: "#FAFBF6"}}>
           {activeSection === "dashboard" && (
             <div>
               <h1 style={{
