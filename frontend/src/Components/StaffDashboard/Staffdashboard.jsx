@@ -453,10 +453,16 @@ const StaffDashboard = () => {
           </button>
         </nav>
 
-        <div className="dashboard-container">
+        <div className="dashboard-container" style={{ textAlign: "center", backgroundColor: "#FDFFB6"}}>
           {activeSection === "dashboard" && (
             <div>
-              <h1>Welcome to the Dashboard, {decodedStaffName}!</h1>
+              <h1 style={{
+                  fontFamily: "Verdana",
+                  fontSize: "30px",
+                  fontWeight: "bold",
+                  color: "#344e41",
+                }}
+              >Welcome to the Dashboard, {decodedStaffName}!</h1>
               <div className="Instructors-info">
                 <h2>
                   Instructors{" "}

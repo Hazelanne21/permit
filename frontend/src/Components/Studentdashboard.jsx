@@ -151,118 +151,180 @@ const StudentDashboard = () => {
   const handlePhotoSelection = (event) => {
     const file = event.target.files[0];
     if (file) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            setSelectedPhoto(reader.result);
-        };
-        reader.readAsDataURL(file); 
-        console.error("No file selected.");
+      const reader = new FileReader();
+      reader.onload = () => {
+        setSelectedPhoto(reader.result);
+        togglePhotoSelection(); // Close the dropdown after selecting a photo
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // If no file is selected, reset the selected photo
+      setSelectedPhoto(null);
     }
+  };
+  
+  
+
+  
+
+  
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+const [isPhotoSelectionOpen, setPhotoSelectionOpen] = useState(false);
+
+const toggleDropdown = () => {
+  setDropdownOpen(!isDropdownOpen);
+  setPhotoSelectionOpen(false);
 };
 
-    
+const togglePhotoSelection = () => {
+  setPhotoSelectionOpen(!isPhotoSelectionOpen);
+  setDropdownOpen(false);
+
+};
+
+  return (
+    <div>
+  <div className={`dropdown ${isDropdownOpen ? "active" : ""}`}>
+ <button className="dropbtn" onClick={toggleDropdown}>
+  {selectedPhoto ? (
+   <img
+    src={selectedPhoto}
+    alt="Selected"
+    style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+   />
+  ) : (
+   <>
+    {decodedStudentName} <FontAwesomeIcon icon={faUser} />
+   </>
+  )}
+  <FontAwesomeIcon icon={faAngleDown} />
+</button>
+{/* Photo Selection Dropdown */}
+{isDropdownOpen && (
+ <div className="dropdown-content">
+  <label className="browse-btn" htmlFor="photo-upload">
+   Choose Photo
+  </label>
+  <input
+   id="photo-upload"
+   type="file"
+   accept="image/*"
+   onChange={handlePhotoSelection}
+   style={{ display: "none" }} // Hide the input element
+  />
+</div>
+)}
+</div>
+
   
-    return (
-        <div>
-            {/* DROPDOWN */}
-            <div className={`dropdown ${isProfileModalOpen ? 'disabled-dropdown' : ''}`}>
-                <button className="dropbtn" onClick={toggleDropdown}>
-                    {selectedPhoto ? (
-                            <img src={selectedPhoto} alt="Selected" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
-                    ) : (
-                        <>
-                            {decodedStudentName} <FontAwesomeIcon icon={faUser} />
-                        </>
-                    )}
-                    <FontAwesomeIcon icon={faAngleDown} onClick={togglePhotoSelection} />
-                </button>
-                {isPhotoSelectionOpen && (
-                    <div className="dropdown-content">
-                        <input type="file" accept="image/*" onChange={handlePhotoSelection} />
-                    </div>
-                )}
-            </div>
 
+      
 
-            <nav className="navdashboard-container">
-                {/* COLLAPSE SIDE BAR */}
-                <div className="collapse-btn" onClick={toggleCollapse}>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    </div>
-                <img src={logoImage} alt="Logo" className="logo-image" />
-                <span className="logo-text">College of Computer Studies</span>
-                <button className="dashboard-button" onClick={() => handleSectionChange('dashboard')} ><FontAwesomeIcon icon={faChartBar} /> Dashboard </button>
-                <button className="dashboard-button" onClick={() => handleSectionChange('permits')}><FontAwesomeIcon icon={faClipboardList} /> Permits </button>
-                <button className= "dashboard-button" onClick={() => handleSectionChange('student')}> <FontAwesomeIcon icon={faInfoCircle} />  Students </button>
-                <button onClick={handleLogout} style={{ marginTop: '200px' }}><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
-             </nav>
-             
-            <div className="dashboard-container" style={{ textAlign: "center" }}>
-            
-            {activeSection === 'dashboard' && (
-            <div>
-                    <div style={{ backgroundColor: '#FDFFB6', borderRadius: '40px', padding: '50px', marginRight: '20px', display: 'flex', alignItems: 'center' }}>
-                    <h2 style={{ fontFamily: 'Verdana', fontSize: '40px', fontWeight: 'bold', color: '#344e41'}}>
-                      Welcome to the Dashboard, {decodedStudentName}!
-                    </h2>
-                    <img className="-image" src={tiger} alt="jpg" style={{ width: '180px', borderRadius: '10px', marginLeft: '200px' }} />
-                </div>
-            </div>
-            )}  
-
-           <div style={{ display: 'flex', flexDirection: 'column', marginTop: '30px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', marginRight: '100px', marginLeft: '100px'}}>
-                <div style={{ fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
-                    <h3>Prelim</h3>
-                    <p>2nd Semester</p>
-                    <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
-                </div>
-                <div style={{ fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
-                        <h3>Midterm</h3>
-                        <p>2nd Semester</p>
-                        <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
-                        </div>
-                    </div>
-                    
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginRight: '100px', marginLeft: '100px'}}>
-                        <div style={{fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
-                            <h3>Semi Finals</h3>
-                            <p>2nd Semester</p>
-                            <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
-                            </div>
-                    <div style={{ fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
-                        <h3>Finals</h3>
-                        <p>2nd Semester</p>
-                        <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
-                    </div>
-                </div>
-            </div>
+      <nav className="navdashboard-container">
+        {/* COLLAPSE SIDE BAR */}
+        <div className="collapse-btn" onClick={toggleCollapse}>
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
-                        {activeSection === 'permits' && (
-                        <div className="permits-section">
-                        <h1 className="headerpermit">Permits <FontAwesomeIcon icon={faDownload} className="download-icon" onClick={togglePermitExample} /></h1>
-                        <button onClick={togglePermitModal}>Request Permit</button>
+        <img src={logoImage} alt="Logo" className="logo-image" />
+        <span className="logo-text">College of Computer Studies</span>
+        <button
+          className="dashboard-button"
+          onClick={() => handleSectionChange("dashboard")}
+        >
+          <FontAwesomeIcon icon={faChartBar} /> Dashboard{" "}
+        </button>
+        <button
+          className="dashboard-button"
+          onClick={() => handleSectionChange("permits")}
+        >
+          <FontAwesomeIcon icon={faClipboardList} /> Permits{" "}
+        </button>
+        <button
+          className="dashboard-button"
+          onClick={() => handleSectionChange("student")}
+        >
+          {" "}
+          <FontAwesomeIcon icon={faInfoCircle} /> Students{" "}
+        </button>
+        <button onClick={handleLogout} style={{ marginTop: "200px" }}>
+          <FontAwesomeIcon icon={faSignOutAlt} /> Logout
+        </button>
+      </nav>
 
-                        <div className="permit-container">
+      <div className="dashboard-container" style={{ textAlign: "center" }}>
+        {activeSection === "dashboard" && (
+          <div>
+            <div
+              style={{
+                backgroundColor: "#FDFFB6",
+                borderRadius: "40px",
+                padding: "50px",
+                marginRight: "20px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <h2
+                style={{
+                  fontFamily: "Verdana",
+                  fontSize: "40px",
+                  fontWeight: "bold",
+                  color: "#344e41",
+                }}
+              >
+                Welcome to the Dashboard, {decodedStudentName}!
+              </h2>
+              <img
+                className="-image"
+                src={tiger}
+                alt="jpg"
+                style={{
+                  width: "180px",
+                  borderRadius: "10px",
+                  marginLeft: "200px",
+                }}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+      {activeSection === "permits" && (
+  <div className="permits-section">
+    <h1 className="headerpermit">Permits</h1>
+    <div className="permit-container">
+      <div className="permit-item">
+        <h3>Prelim</h3>
+        <p>2nd Semester</p>
+        <button className="permit-view-button">View</button>
+      </div>
+      <div className="permit-item">
+        <h3>Midterm</h3>
+        <p>2nd Semester</p>
+        <button className="permit-view-button">View</button>
+      </div>
+      <div className="permit-item">
+        <h3>Semi Finals</h3>
+        <p>2nd Semester</p>
+        <button className="permit-view-button">View</button>
+      </div>
+      <div className="permit-item">
+        <h3>Finals</h3>
+        <p>2nd Semester</p>
+        <button className="permit-view-button">View</button>
+      </div>
+    </div>
+  </div>
+)}
 
-                            {permits.map((permit, index) => (
+      {activeSection === "student" && (
+        <div className="student-section">
+          <h2 className="headerstudent">Update Student Information</h2>
 
-                            <Permit key={index} permit={permit} />
-
-                            ))}
-
-                        </div>
-                        </div>
-                        )}
-                        {activeSection === 'student' && (
-                        <div className="student-section">
-                              <h2 className= "headerstudent">Update Student Information</h2>
-                            
-                            <form>
-                            <label className="student-label">Password:</label>
-                            <input type="pass" name="password" className="student-input" />
+          <form>
+            <label className="student-label">Password:</label>
+            <input type="pass" name="password" className="student-input" />
 
             <label className="student-label">Mobile Number:</label>
             <input type="tel" name="mobileNumber" className="student-input" />
@@ -322,10 +384,9 @@ const StudentDashboard = () => {
                 <button onClick={handleDownloadPermit}>Download Permit</button>
               </div>
             ))}
+          </div>
         </div>
-    </div>
-)}
-
+      )}
 
       {/* PROFILE MODAL */}
       {isProfileModalOpen && (
