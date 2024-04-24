@@ -184,8 +184,7 @@ const handlePhotoSelection = (event) => {
     }
 };
 
-    
-  
+     
     return (
         <div>
             {/* DROPDOWN */}
@@ -235,34 +234,6 @@ const handlePhotoSelection = (event) => {
                 </div>
             </div>
             )}  
-
-           <div style={{ display: 'flex', flexDirection: 'column', marginTop: '30px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px', marginRight: '100px', marginLeft: '100px'}}>
-                <div style={{ fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
-                    <h3>Prelim</h3>
-                    <p>2nd Semester</p>
-                    <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
-                </div>
-                <div style={{ fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
-                        <h3>Midterm</h3>
-                        <p>2nd Semester</p>
-                        <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
-                        </div>
-                    </div>
-                    
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginRight: '100px', marginLeft: '100px'}}>
-                        <div style={{fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
-                            <h3>Semi Finals</h3>
-                            <p>2nd Semester</p>
-                            <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
-                            </div>
-                    <div style={{ fontFamily: 'Verdana', backgroundColor: '#E58C8C', borderRadius: '10px', padding: '20px', width: '300px' }}>
-                        <h3>Finals</h3>
-                        <p>2nd Semester</p>
-                        <button style={{ backgroundColor: '#D0A2F7', color: 'white', padding: '5px 10px', border: 'none', borderRadius: '5px' }}>View</button>
-                    </div>
-                </div>
-            </div>
         </div>
                         {activeSection === 'permits' && (
                         <div className="permits-section">
@@ -345,7 +316,6 @@ const handlePhotoSelection = (event) => {
         </div>
     </div>
 )}
-
 
                 {/* PROFILE MODAL */}
                {isProfileModalOpen && (
