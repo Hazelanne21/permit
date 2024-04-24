@@ -6,6 +6,8 @@
 .student-section {
   max-width: 400px;
   margin: 0 auto;
+  z-index: 1000;
+  margin-left: 500px;
 }
 
 .student-label {
@@ -97,6 +99,45 @@
   }
   
   
+  /* Add this CSS to your stylesheet */
+
+/* Style for the dropdown content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  z-index: 1;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+.input-file {
+  display: none; 
+}
+
+
+.browse-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+
+
+.selected-photo-preview {
+  margin-top: 10px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
 
 /* PERMIT MODAL */
 .modal {
@@ -214,11 +255,17 @@
    font-weight: bold;
    color: #344e41;
    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+   z-index: 1;
+  text-align: center;
 }
 .student-submit-button {
   width: 400px;
   margin-left: 10px;
 }
+
+
+
+
 
 .profile-modal-content label {
   margin-bottom: 8px;
@@ -363,15 +410,6 @@
 }
 
 
-.headerpermit {
-  font-family: Verdana;
-  font-size: 40px;
-  font-weight: bold;
-  color: #344e41;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
-
-
 .h2 {
   font-family: Verdana;
   font-size: 20px ;
@@ -418,4 +456,53 @@
 .permit-info ul {
   padding-left: 20px;
   list-style-type: disc;
+}
+
+.permits-section {
+  margin-left: 500px;
+}
+
+
+
+.permit-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-right: 200px;
+  margin-left: 200px;
+}
+
+
+
+.headerpermit {
+  position: relative;
+  font-family: Verdana;
+  font-size: 40px;
+  font-weight: bold;
+  color: #344e41;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  margin-left: 500px;
+  top: -60px;
+}
+
+.permit-item {
+  font-family: Verdana;
+  background-color: #E58C8C;
+  border-radius: 10px;
+  padding: 20px;
+  width: 300px;
+  margin-bottom: 20px;
+}
+
+.permit-item h3 {
+  margin-top: 0;
+}
+
+.permit-view-button {
+  background-color: #D0A2F7;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }

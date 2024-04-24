@@ -1,7 +1,7 @@
 /* DASHBOARD */
 .dashboard-container {
   width: 1100px;
-  height: 660px;
+  height: 600px;
   margin: 5px;
   padding: 20px;
   border: 1px solid #252424;
@@ -10,7 +10,7 @@
   box-shadow: 0 0 20px rgba(5, 5, 5, 5.2);
   position: absolute;
   top: 0;
-  right: 20px;
+  right: 10px;
   top: 80px;
 }
 
@@ -24,8 +24,8 @@ display: flex;
   color: #5ced73;
   overflow: hidden;
   transition: all 0.3s ease;
-  width: 300px;
-  height: 720px;
+  width: 299px;
+  height: 710px;
   margin: 0;
   padding: 20px;
   position: absolute;
@@ -58,17 +58,17 @@ padding: 10px;
 background-color: transparent;
 color: black;
 border: none;
-border-radius: 10px;
+border-radius: 5px;
 cursor: pointer;
 }
 
 
 .navdashboard-container button {
-margin-bottom: 30px; /* Add some space between buttons */
+margin-bottom: 25px; /* Add some space between buttons */
 }
 
 .navdashboard-container button:nth-child(4) {
-margin-top: 200px; /* Add margin to the fourth button */
+margin-top: 160px; /* Add margin to the fourth button */
 }
 
 
@@ -909,3 +909,7 @@ table th {
   background-color: #f2f2f2; 
   color: #000; 
 }
+
+
+
+

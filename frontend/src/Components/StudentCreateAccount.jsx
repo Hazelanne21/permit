@@ -12,7 +12,7 @@ const StudentCreateAccount = () => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [setSuccess] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [yearLevelId, setYearLevelId] = useState("");
   const [semesterId, setSemesterId] = useState("");
   const [isIrregular, setIsIrregular] = useState(false);
@@ -30,6 +30,7 @@ const StudentCreateAccount = () => {
     setLoading(true);
     setError(null);
     setSuccess(false);
+
     const studentNumberRegex = /^\d{2}-\d{5}$/;
 
     if (!studentNumber.match(studentNumberRegex)) {
@@ -85,6 +86,7 @@ const StudentCreateAccount = () => {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="create-account-container">
@@ -202,6 +204,9 @@ const StudentCreateAccount = () => {
         </button>
 
         {error && <p className="mqcreate-error-message">{error}</p>}
+        {success && (
+          <p className="mqcreate-success-message">Account created successfully!</p>
+        )}
       </form>
     </div>
   );
