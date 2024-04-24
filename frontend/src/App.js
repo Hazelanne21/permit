@@ -27,14 +27,14 @@ const handleUserTypeSelect = (type) => {
   };
 
   return (
-    <div className="type-container"  style={{ background: "linear-gradient(to bottom, #abf7b1, #cefad0)" }}>
+    <div className="type-container"  style={{ backgroundColor: "#FAFBF6"}}>
       <img
         src={logo}
         alt="Logo"
         className="logo"
-        style={{ marginTop: "-50px", marginLeft: "55px", background: ""}}
+        style={{ marginTop: "-60px", marginLeft: "50px", background: ""}}
       />
-      <h1 style={{ marginLeft: "30px" }}>Exam Permit</h1>
+      <h1 style={{ marginLeft: "10px", color: "#0B3426", fontFamily: "inherit", fontSize: "40px", textAlign: "center" }}>Exam Permit</h1>
       <div className="button-container">
         <button onClick={() => handleUserTypeSelect("student")}>STUDENT</button>
         <button onClick={() => handleUserTypeSelect("staff")}>ADMIN</button>
