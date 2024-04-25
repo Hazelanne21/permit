@@ -304,24 +304,24 @@ const togglePhotoSelection = () => {
     <div className="permit-container">
   <div className="permit-row">
     <div className="permit-prelim">
-      <h3>Prelim</h3>
+      <h3>Prelim <img src={logoImage} alt="Logo" className="prelim-image" /></h3>
       <p>2nd Semester</p>
       <button className="permit-view-button">View</button>
     </div>
     <div className="permit-midterm">
-      <h3>Midterm</h3>
+      <h3>Midterm <img src={logoImage} alt="Logo" className="midterm-image" /></h3>
       <p>2nd Semester</p>
       <button className="permit-view-button">View</button>
     </div>
   </div>
   <div className="permit-row">
     <div className="permit-semi">
-      <h3>Semi Finals</h3>
+      <h3>Semi Finals <img src={logoImage} alt="Logo" className="semi-image" /></h3>
       <p>2nd Semester</p>
       <button className="permit-view-button">View</button>
     </div>
     <div className="permit-final">
-      <h3>Finals</h3>
+      <h3>Finals <img src={logoImage} alt="Logo" className="final-image" /></h3>
       <p>2nd Semester</p>
       <button className="permit-view-button">View</button>
     </div>
