@@ -544,7 +544,7 @@
 
 
 
-.permit-view-button {
+.prelim-view-button {
   background-color: #D0A2F7;
   color: white;
   padding: 5px 10px;
@@ -553,6 +553,35 @@
   cursor: pointer;
 }
 
+
+.midterm-view-button {
+  background-color: #D0A2F7;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.semi-view-button {
+  background-color: #D0A2F7;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.final-view-button {
+  background-color: #D0A2F7;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
 .permit-container.collapsed {
   display: flex;

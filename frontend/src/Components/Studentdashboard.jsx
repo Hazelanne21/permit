@@ -298,24 +298,24 @@ const StudentDashboard = () => {
     <div className="permit-prelim">
       <h3>Prelim </h3>
       <p>2nd Semester</p>
-      <button className="permit-view-button">View</button>
+      <button className="prelim-view-button">View</button>
     </div>
     <div className="permit-midterm">
       <h3>Midterm </h3>
       <p>2nd Semester</p>
-      <button className="permit-view-button">View</button>
+      <button className="midterm-view-button">View</button>
     </div>
   </div>
   <div className="permit-row">
     <div className="permit-semi">
       <h3>Semi Finals </h3>
       <p>2nd Semester</p>
-      <button className="permit-view-button">View</button>
+      <button className="semi-view-button">View</button>
     </div>
     <div className="permit-final">
       <h3>Finals </h3>
       <p>2nd Semester</p>
-      <button className="permit-view-button">View</button>
+      <button className="final-view-button">View</button>
     </div>
   </div>
 </div>
