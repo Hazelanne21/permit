@@ -14,7 +14,7 @@ import logoImage from "../images/CCS.png";
 import Image from "../images/ncf.png";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-
+import tiger from "../images/rawr.png";
 
 const StudentDashboard = () => {
   // eslint-disable-next-line
@@ -233,7 +233,7 @@ const togglePhotoSelection = () => {
           className="dashboard-button"
           onClick={() => handleSectionChange("dashboard")}
         >
-          <FontAwesomeIcon icon={faChartBar} className="ts-icon2"/> {" "} <span className="StuDashboard"> Dashboard{" "} </span>
+          <FontAwesomeIcon icon={faChartBar} /> Dashboard{" "}
         </button>
         <button
           className="dashboard-button"
@@ -248,15 +248,24 @@ const togglePhotoSelection = () => {
           {" "}
           <FontAwesomeIcon icon={faInfoCircle} /> Students{" "}
         </button>
-        <button onClick={handleLogout} style={{ marginTop: "250px" }}>
+        <button onClick={handleLogout} style={{ marginTop: "200px" }}>
           <FontAwesomeIcon icon={faSignOutAlt} /> Logout
         </button>
       </nav>
 
-      <div className="dashboard-container" style={{ textAlign: "center", backgroundColor: "#FAFBF6"}}>
+      <div className="dashboard-container" style={{ textAlign: "center" }}>
         {activeSection === "dashboard" && (
           <div>
-            <div>
+            <div
+              style={{
+                backgroundColor: "#FDFFB6",
+                borderRadius: "40px",
+                padding: "50px",
+                marginRight: "20px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
               <h2
                 style={{
                   fontFamily: "Verdana",
@@ -267,15 +276,24 @@ const togglePhotoSelection = () => {
               >
                 Welcome to the Dashboard, {decodedStudentName}!
               </h2>
+              <img
+                className="-image"
+                src={tiger}
+                alt="jpg"
+                style={{
+                  width: "180px",
+                  borderRadius: "10px",
+                  marginLeft: "200px",
+                }}
+              />
             </div>
           </div>
         )}
       </div>
       {activeSection === "permits" && (
-      <div className="permits-section">
-      <h1 className="headerpermit">Permits</h1>
-    <   div className="permit-container">
-
+  <div className="permits-section">
+    <h1 className="headerpermit">Permits</h1>
+    <div className="permit-container">
       <div className="permit-item">
         <h3>Prelim</h3>
         <p>2nd Semester</p>
@@ -303,6 +321,7 @@ const togglePhotoSelection = () => {
       {activeSection === "student" && (
         <div className="student-section">
           <h2 className="headerstudent">Update Student Information</h2>
+
           <form>
             <label className="student-label">Password:</label>
             <input type="pass" name="password" className="student-input" />
