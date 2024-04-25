@@ -98,29 +98,34 @@ const StudentDashboard = () => {
     console.log("Permit downloaded");
   };
 
-  // COLLAPSE SIDE BAR
-// COLLAPSE SIDE BAR
-// COLLAPSE SIDE BAR
-const toggleCollapse = () => {
-  const navContainer = document.querySelector(".navdashboard-container");
-  const dashboardContainer = document.querySelector(".dashboard-container");
-  const permitContainer = document.querySelector(".permit-container");
-  const permitItems = document.querySelectorAll(".permit-item");
-  const headerPermit = document.querySelector(".headerpermit");
-
-  navContainer.classList.toggle("collapsed");
-  permitContainer.classList.toggle("collapsed");
-  headerPermit.classList.toggle("collapsed");
-
-  const isCollapsed = navContainer.classList.contains("collapsed");
-  if (isCollapsed) {
-    dashboardContainer.style.width = "calc(100% - 90px)";
-    permitItems.forEach((item) => item.classList.add("collapsed"));
-  } else {
-    dashboardContainer.style.width = "calc(100% - 450px)";
-    permitItems.forEach((item) => item.classList.remove("collapsed"));
-  }
-};
+  const toggleCollapse = () => {
+    const navContainer = document.querySelector(".navdashboard-container");
+    const permitContainer = document.querySelector(".permit-container");
+    const headerPermit = document.querySelector(".headerpermit");
+  
+    if (navContainer && permitContainer && headerPermit) {
+      navContainer.classList.toggle("collapsed");
+      permitContainer.classList.toggle("collapsed");
+      headerPermit.classList.toggle("collapsed");
+  
+      const isCollapsed = navContainer.classList.contains("collapsed");
+      const dashboardContainer = document.querySelector(".dashboard-container");
+      const permitItems = document.querySelectorAll(".permit-item");
+      if (dashboardContainer) {
+        dashboardContainer.style.width = isCollapsed
+          ? "calc(100% - 90px)"
+          : "calc(100% - 450px)";
+      }
+      if (permitItems) {
+        permitItems.forEach((item) =>
+          item.classList.toggle("collapsed", isCollapsed)
+        );
+      }
+    } else {
+      console.error("Cannot find permitContainer or navContainer or headerPermit");
+    }
+  };
+  
 
 
   // SIDE BAR
