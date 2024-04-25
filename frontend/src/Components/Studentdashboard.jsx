@@ -97,32 +97,25 @@ const StudentDashboard = () => {
     // Implement the logic to download the permit
     console.log("Permit downloaded");
   };
-
   const toggleCollapse = () => {
     const navContainer = document.querySelector(".navdashboard-container");
     const permitContainer = document.querySelector(".permit-container");
     const headerPermit = document.querySelector(".headerpermit");
+    const studentSection = document.querySelector(".student-section");
+    const permitsSection = document.querySelector(".permits-section");
   
-    if (navContainer && permitContainer && headerPermit) {
-      navContainer.classList.toggle("collapsed");
-      permitContainer.classList.toggle("collapsed");
-      headerPermit.classList.toggle("collapsed");
+    navContainer?.classList.toggle("collapsed");
+    permitContainer?.classList.toggle("collapsed");
+    headerPermit?.classList.toggle("collapsed");
+    studentSection?.classList.toggle("collapsed");
+    permitsSection?.classList.toggle("collapsed");
   
-      const isCollapsed = navContainer.classList.contains("collapsed");
-      const dashboardContainer = document.querySelector(".dashboard-container");
-      const permitItems = document.querySelectorAll(".permit-item");
-      if (dashboardContainer) {
-        dashboardContainer.style.width = isCollapsed
-          ? "calc(100% - 90px)"
-          : "calc(100% - 450px)";
-      }
-      if (permitItems) {
-        permitItems.forEach((item) =>
-          item.classList.toggle("collapsed", isCollapsed)
-        );
-      }
+    const isCollapsed = navContainer?.classList.contains("collapsed");
+    const dashboardContainer = document.querySelector(".dashboard-container");
+    if (isCollapsed) {
+      dashboardContainer.style.width = "calc(100% - 90px)";
     } else {
-      console.error("Cannot find permitContainer or navContainer or headerPermit");
+      dashboardContainer.style.width = "calc(100% - 450px)";
     }
   };
   
