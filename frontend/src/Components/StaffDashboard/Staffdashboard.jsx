@@ -204,9 +204,7 @@ const StaffDashboard = () => {
   // STUDENTS
   const [studentsModalOpen, setStudentsModalOpen] = useState(false);
 
-  const handleOpenStudentsModal = () => {
-    setStudentsModalOpen(true);
-  };
+
 
   const handleCloseStudentsModal = () => {
     setStudentsModalOpen(false);
@@ -509,16 +507,7 @@ const StaffDashboard = () => {
                 </ul>
               </div>
 
-              <div className="Students-info">
-                <h2>
-                  Number of Students
-                  <FontAwesomeIcon
-                    icon={faAdd}
-                    className="info-icon"
-                    onClick={handleOpenStudentsModal}
-                  />
-                </h2>
-              </div>
+            
             </div>
           )}
           {activeSection === "StudentCreateAccount" && (
@@ -547,14 +536,14 @@ const StaffDashboard = () => {
                 </span>
                 <h2>Update Administrator Information</h2>
                 <form onSubmit={handleSubmitUpdateAdministrator}>
-                  <label>Email:</label>
+                  <label className="label">Email:</label>
                   <input
                     type="text"
                     name="Email"
                     value={updateAdminFormData.Email}
                     onChange={handleUpdateAdminInputChange}
                   />
-                  <label>Password:</label>
+                  <label className="labelp">Password:</label>
                   <input
                     type="text"
                     name="Password"

@@ -426,7 +426,7 @@ const Subjects = () => {
             </span>
             <h2>Create Subject</h2>
             <form onSubmit={handleSubmitSubject}>
-              <label>Subject Code:</label>
+              <label className="subject-label">Subject Code:</label>
               <input
                 type="text"
                 name="Subject_Code"
@@ -434,7 +434,7 @@ const Subjects = () => {
                 onChange={handleSubjectInputChange}
                 required
               />
-              <label>Description:</label>
+              <label className="description-label">Description:</label>
               <input
                 type="text"
                 name="Name"
@@ -442,7 +442,7 @@ const Subjects = () => {
                 onChange={handleSubjectInputChange}
                 required
               />
-              <label htmlFor="semester">Semester:</label>
+              <label className="semester-label">Semester:</label>
               <select
                 id="semester"
                 name="Semester_ID"
@@ -457,7 +457,7 @@ const Subjects = () => {
                 <option value="2">2nd Semester</option>
                 <option value="3">Summer</option>
               </select>
-              <label htmlFor="year">Year Level:</label>
+              <label className="year-label">Year Level:</label>
               <select
                 id="year"
                 name="Year_Level_ID"
@@ -474,7 +474,7 @@ const Subjects = () => {
                 <option value="4">4th Year</option>
               </select>
               {errorMessage && <p className="error-message">{errorMessage}</p>}
-              <button type="submit">Create</button>
+              <button type="submit" className="submit-create">Create</button>
             </form>
           </div>
         </div>
@@ -490,7 +490,7 @@ const Subjects = () => {
             </span>
             <h2>Update Subject</h2>
             <form onSubmit={handleSubmitUpdateSubject}>
-              <label>Subject Code:</label>
+              <label className="subject-label-update">Subject Code:</label>
               <input
                 type="text"
                 name="Subject_Code"
@@ -498,7 +498,7 @@ const Subjects = () => {
                 onChange={handleUpdateSubjectInputChange}
                 required
               />
-              <label>Name:</label>
+              <label className="description-label-update">Description:</label>
               <input
                 type="text"
                 name="Name"
@@ -506,7 +506,7 @@ const Subjects = () => {
                 onChange={handleUpdateSubjectInputChange}
                 required
               />
-              <label htmlFor="semester">Semester:</label>
+              <label className="semester-label-update">Semester:</label>
               <select
                 id="semester"
                 name="Semester_ID"
@@ -521,7 +521,7 @@ const Subjects = () => {
                 <option value="2">2nd Semester</option>
                 <option value="3">Summer</option>
               </select>
-              <label htmlFor="year">Year Level:</label>
+              <label className="year-label-update">Year Level:</label>
               <select
                 id="year"
                 name="Year_Level_ID"
@@ -538,7 +538,7 @@ const Subjects = () => {
                 <option value="4">4th Year</option>
               </select>
               {errorMessage && <p className="error-message">{errorMessage}</p>}
-              <button type="submit">Update</button>
+              <button type="submit" className="submit-update">Update</button>
             </form>
           </div>
         </div>

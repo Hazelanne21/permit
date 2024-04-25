@@ -321,7 +321,7 @@ const StudentStatus = () => {
             </span>
             <h2>Create Student Tuition Status</h2>
             <form onSubmit={handleSubmitStatus}>
-              <label>Student Number:</label>
+              <label className="studentlabel">Student Number:</label>
               <input
                 type="text"
                 name="Student_Number"
@@ -329,7 +329,7 @@ const StudentStatus = () => {
                 onChange={handleStatusInputChange}
                 required
               />
-              <label>Prelim Status:</label>
+              <label className="prelimlabel">Prelim Status:</label>
               <select
                 className="select-dropdown"
                 name="Prelim_Status"
@@ -342,7 +342,7 @@ const StudentStatus = () => {
                 <option value="False">Not Paid</option>
               </select>
 
-              <label>Midterm Status:</label>
+              <label className="midtermlabel">Midterm Status:</label>
               <select
                 className="select-dropdown"
                 name="Midterm_Status"
@@ -355,7 +355,7 @@ const StudentStatus = () => {
                 <option value="False">Not Paid</option>
               </select>
 
-              <label>SemiFinal Status:</label>
+              <label className="semifinallabel">SemiFinal Status:</label>
               <select
                 className="select-dropdown"
                 name="SemiFinal_Status"
@@ -368,7 +368,7 @@ const StudentStatus = () => {
                 <option value="False">Not Paid</option>
               </select>
 
-              <label>Final Status:</label>
+              <label className="finallabel">Final Status:</label>
               <select
                 className="select-dropdown"
                 name="Final_Status"
@@ -394,7 +394,7 @@ const StudentStatus = () => {
             </span>
             <h2>Update Student Tuition Status</h2>
             <form onSubmit={handleUpdateSubmitStatus}>
-            <label>Student Number:</label>
+            <label className="studentlabel-update">Student Number:</label>
               <input
                 type="text"
                 name="Student_Number"
@@ -402,7 +402,7 @@ const StudentStatus = () => {
                 onChange={handleStatusInputChange}
                 required
               />
-              <label>Prelim Status:</label>
+              <label className="prelimlabel-update">Prelim Status:</label>
               <select
                 className="select-dropdown"
                 name="Prelim_Status"
@@ -415,7 +415,7 @@ const StudentStatus = () => {
                 <option value="False">Not Paid</option>
               </select>
 
-              <label>Midterm Status:</label>
+              <label className="midtermlabel-update">Midterm Status:</label>
               <select
                 className="select-dropdown"
                 name="Midterm_Status"
@@ -428,7 +428,7 @@ const StudentStatus = () => {
                 <option value="False">Not Paid</option>
               </select>
 
-              <label>SemiFinal Status:</label>
+              <label className="semifinallabel-update">SemiFinal Status:</label>
               <select
                 className="select-dropdown"
                 name="SemiFinal_Status"
@@ -441,7 +441,7 @@ const StudentStatus = () => {
                 <option value="False">Not Paid</option>
               </select>
 
-              <label>Final Status:</label>
+              <label className="finallabel-update">Final Status:</label>
               <select
                 className="select-dropdown"
                 name="Final_Status"

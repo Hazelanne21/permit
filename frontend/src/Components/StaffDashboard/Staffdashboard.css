@@ -114,35 +114,7 @@ margin-top: 160px; /* Add margin to the fourth button */
 
 
 
-/* ANNOUNCMENT */
-.Announcement-container {
-  margin-top: 20px;
-}
 
-.Announcement-bar {
-  width: 100%;
-  height: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  box-sizing: border-box;
-}
-
-
-.Announcement-submit-btn {
-  background-color: #82d08a; 
-  color: #fff;
-  border: none; 
-  padding: 10px 15px; 
-  font-size: 16px; 
-  cursor: pointer; 
-  border-radius: 5px; 
-}
-
-.Announcement-submit-btn:hover {
-  background-color: #8ed23b; /* Darker blue on hover */
-}
 
 /* SUBJECTS */
 .modal {
@@ -270,6 +242,15 @@ position: relative;
   width: 100%;
 }
 
+.label {
+  display: block;
+  margin-left: -350px;
+}
+
+.labelp {
+  display: block;
+  margin-left: -320px;
+}
 .uclose {
   color: #aaa;
   position: absolute;
@@ -451,8 +432,8 @@ position: relative;
 .sclose {
   color: #aaa;
   position: absolute;
-  top: 260px;
-  right: 590px;
+  top: 250px;
+  right: 320px;
   font-size: 30px;
   font-weight: bold;
   cursor: pointer;
@@ -526,7 +507,7 @@ table th {
 .StudentStatus-button {
   background-color: transparent;
   position: absolute;
-  left: 740px; 
+  left: 900px; 
   top: 25px; 
   color: black;
   border: none;
@@ -929,6 +910,56 @@ table th {
 .logout-button:hover {
   background-color: #f2f2f2; 
   color: #000; 
+}
+
+
+.studentlabel {
+  margin-right: 270px;
+}
+
+.prelimlabel {
+  margin-right: 290px;
+}
+
+.midtermlabel {
+  margin-right: 276px;
+  margin-top: 10px;
+}
+
+.semifinallabel {
+  margin-right: 265px;
+  margin-top: 10px;
+}
+
+.finallabel {
+  margin-right: 300px;
+  margin-top: 10px;
+}
+
+
+
+
+.studentlabel-update {
+  margin-right: 270px;
+}
+
+.prelimlabel-update {
+  margin-right: 290px;
+}
+
+.midtermlabel-update {
+  margin-right: 276px;
+  margin-top: 10px;
+}
+
+.semifinallabel-update {
+  margin-right: 265px;
+  margin-top: 10px;
+}
+
+.finallabel-update {
+  margin-right: 300px;
+  margin-top: 10px;
 }
 
 
