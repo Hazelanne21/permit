@@ -111,12 +111,18 @@ const StudentDashboard = () => {
     permitsSection?.classList.toggle("collapsed");
   
     const isCollapsed = navContainer?.classList.contains("collapsed");
-    const dashboardContainer = document.querySelector(".dashboard-container");
+    const sdashboardContainer = document.querySelector(".sdashboard-container");
     if (isCollapsed) {
-      dashboardContainer.style.width = "calc(100% - 90px)";
+      sdashboardContainer.style.width = "calc(100% - 90px)";
     } else {
-      dashboardContainer.style.width = "calc(100% - 450px)";
+      sdashboardContainer.style.width = "calc(100% - 450px)";
     }
+  
+    // Toggle expansion of permit items
+    const permitItems = document.querySelectorAll(".permit-item");
+    permitItems.forEach((item) => {
+      item.classList.toggle("expanded", !isCollapsed);
+    });
   };
   
 
@@ -304,24 +310,24 @@ const togglePhotoSelection = () => {
     <div className="permit-container">
   <div className="permit-row">
     <div className="permit-prelim">
-      <h3>Prelim <img src={logoImage} alt="Logo" className="prelim-image" /></h3>
+      <h3>Prelim <img src={Image} alt="Logo" className="prelim-image" /></h3>
       <p>2nd Semester</p>
       <button className="permit-view-button">View</button>
     </div>
     <div className="permit-midterm">
-      <h3>Midterm <img src={logoImage} alt="Logo" className="midterm-image" /></h3>
+      <h3>Midterm <img src={Image} alt="Logo" className="midterm-image" /></h3>
       <p>2nd Semester</p>
       <button className="permit-view-button">View</button>
     </div>
   </div>
   <div className="permit-row">
-    <div className="permit-semi">
-      <h3>Semi Finals <img src={logoImage} alt="Logo" className="semi-image" /></h3>
+    <div className="permit-semi"><img src={Image} alt="Logo" className="semi-image" />
+      <h3>Semi Finals </h3>
       <p>2nd Semester</p>
       <button className="permit-view-button">View</button>
     </div>
     <div className="permit-final">
-      <h3>Finals <img src={logoImage} alt="Logo" className="final-image" /></h3>
+      <h3>Finals <img src={Image} alt="Logo" className="final-image" /></h3>
       <p>2nd Semester</p>
       <button className="permit-view-button">View</button>
     </div>
