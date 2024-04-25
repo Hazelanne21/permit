@@ -99,19 +99,29 @@ const StudentDashboard = () => {
   };
 
   // COLLAPSE SIDE BAR
-  const toggleCollapse = () => {
-    const navContainer = document.querySelector(".navdashboard-container");
-    const dashboardContainer = document.querySelector(".dashboard-container");
+// COLLAPSE SIDE BAR
+// COLLAPSE SIDE BAR
+const toggleCollapse = () => {
+  const navContainer = document.querySelector(".navdashboard-container");
+  const dashboardContainer = document.querySelector(".dashboard-container");
+  const permitContainer = document.querySelector(".permit-container");
+  const permitItems = document.querySelectorAll(".permit-item");
+  const headerPermit = document.querySelector(".headerpermit");
 
-    navContainer.classList.toggle("collapsed");
+  navContainer.classList.toggle("collapsed");
+  permitContainer.classList.toggle("collapsed");
+  headerPermit.classList.toggle("collapsed");
 
-    const isCollapsed = navContainer.classList.contains("collapsed");
-    if (isCollapsed) {
-      dashboardContainer.style.width = "calc(100% - 90px)";
-    } else {
-      dashboardContainer.style.width = "calc(100% - 450px)";
-    }
-  };
+  const isCollapsed = navContainer.classList.contains("collapsed");
+  if (isCollapsed) {
+    dashboardContainer.style.width = "calc(100% - 90px)";
+    permitItems.forEach((item) => item.classList.add("collapsed"));
+  } else {
+    dashboardContainer.style.width = "calc(100% - 450px)";
+    permitItems.forEach((item) => item.classList.remove("collapsed"));
+  }
+};
+
 
   // SIDE BAR
   const handleSectionChange = (section) => {
@@ -294,27 +304,32 @@ const togglePhotoSelection = () => {
   <div className="permits-section">
     <h1 className="headerpermit">Permits</h1>
     <div className="permit-container">
-      <div className="permit-item">
-        <h3>Prelim</h3>
-        <p>2nd Semester</p>
-        <button className="permit-view-button">View</button>
-      </div>
-      <div className="permit-item">
-        <h3>Midterm</h3>
-        <p>2nd Semester</p>
-        <button className="permit-view-button">View</button>
-      </div>
-      <div className="permit-item">
-        <h3>Semi Finals</h3>
-        <p>2nd Semester</p>
-        <button className="permit-view-button">View</button>
-      </div>
-      <div className="permit-item">
-        <h3>Finals</h3>
-        <p>2nd Semester</p>
-        <button className="permit-view-button">View</button>
-      </div>
+  <div className="permit-row">
+    <div className="permit-prelim">
+      <h3>Prelim</h3>
+      <p>2nd Semester</p>
+      <button className="permit-view-button">View</button>
     </div>
+    <div className="permit-midterm">
+      <h3>Midterm</h3>
+      <p>2nd Semester</p>
+      <button className="permit-view-button">View</button>
+    </div>
+  </div>
+  <div className="permit-row">
+    <div className="permit-semi">
+      <h3>Semi Finals</h3>
+      <p>2nd Semester</p>
+      <button className="permit-view-button">View</button>
+    </div>
+    <div className="permit-final">
+      <h3>Finals</h3>
+      <p>2nd Semester</p>
+      <button className="permit-view-button">View</button>
+    </div>
+  </div>
+</div>
+
   </div>
 )}
 

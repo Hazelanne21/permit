@@ -464,39 +464,60 @@
 
 
 
+
 .permit-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  
+}
+
+.permit-row {
+  display: flex;
   justify-content: space-between;
-  margin-right: 200px;
-  margin-left: 200px;
+  width: 1000px;
+  margin-right: 370px;
+  margin-left: 20px;
 }
 
 
 
+.permit-container {
+  justify-content: space-between;
+  width: 1000px;
+  margin-right: 170px;
+  margin-left: 20px;
+}
+
+
 .headerpermit {
-  position: relative;
   font-family: Verdana;
   font-size: 40px;
   font-weight: bold;
   color: #344e41;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-  margin-left: 500px;
-  top: -60px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-left: 440px; /* Adjust the margin-left value as needed */
+  margin-top: 20px; /* Add margin-top to separate from the top */
 }
 
-.permit-item {
+
+.headerpermit.collapsed {
   font-family: Verdana;
-  background-color: #E58C8C;
-  border-radius: 10px;
-  padding: 20px;
-  width: 300px;
-  margin-bottom: 20px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #344e41;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-left: 250px; /* Adjust the margin-left value as needed */
+  margin-top: 20px; /* Add margin-top to separate from the top */
+  
 }
 
-.permit-item h3 {
-  margin-top: 0;
+.headerpermit {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  transition: display 0.3s ease;
 }
+
+
 
 .permit-view-button {
   background-color: #D0A2F7;
@@ -506,3 +527,85 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+
+.permit-container.collapsed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+.permit-item h3 {
+  margin-top: 0;
+}
+
+
+
+
+.permit-item.collapsed {
+  width: calc(100% - 40px);
+}
+
+
+
+.permit-prelim {
+  width: 45%; /* Adjust the width as needed */
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: lightpink ;
+  transition: all 0.3s ease;
+}
+
+.permit-prelim:hover {
+  background-color: 'red';
+}
+
+
+.permit-midterm {
+  width: 45%; /* Adjust the width as needed */
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: lightyellow ;
+  transition: all 0.3s ease;
+}
+
+.permit-midterm:hover {
+  background-color: 'red';
+}
+
+
+.permit-semi {
+  width: 45%; /* Adjust the width as needed */
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: lightgreen ;
+  transition: all 0.3s ease;
+}
+
+.permit-semi:hover {
+  background-color: 'red';
+}
+
+
+.permit-final {
+  width: 45%; /* Adjust the width as needed */
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: lightblue ;
+  transition: all 0.3s ease;
+}
+
+.permit-final:hover {
+  background-color: 'red';
+}
+
