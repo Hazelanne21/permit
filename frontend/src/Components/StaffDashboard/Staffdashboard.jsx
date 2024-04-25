@@ -7,6 +7,7 @@ import List from "./list";
 import StudentCreateAccount from "../StudentCreateAccount";
 import { jwtDecode } from "jwt-decode";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import tiger from "../../images/rawr.png";
 import {
   faSignOutAlt,
   faAngleDown,
@@ -339,29 +340,35 @@ const StaffDashboard = () => {
   };
 
   // PROFILE
-
-
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [isPhotoSelectionOpen, setPhotoSelectionOpen] = useState(false);
-
-  const togglePhotoSelection = () => {
-    setPhotoSelectionOpen(!isPhotoSelectionOpen);
-  };
-
+  const [selectedPhoto, setSelectedPhoto] = useState(() => {
+    const storedPhoto = localStorage.getItem("selectedPhoto");
+    return storedPhoto ? storedPhoto : null;
+  });
+  
   const handlePhotoSelection = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
         setSelectedPhoto(reader.result);
+        // Store the selected photo in local storage
+        localStorage.setItem("selectedPhoto", reader.result);
         togglePhotoSelection(); // Close the dropdown after selecting a photo
       };
       reader.readAsDataURL(file);
     } else {
-      // If no file is selected, reset the selected photo
+      // If no file is selected, reset the selected photo and remove it from local storage
       setSelectedPhoto(null);
+      localStorage.removeItem("selectedPhoto");
     }
   };
+  
+  // Function to toggle the photo selection dropdown
+  const togglePhotoSelection = () => {
+    setPhotoSelectionOpen(!isPhotoSelectionOpen);
+  };
+  
 
   return (
     <div>
@@ -444,14 +451,38 @@ const StaffDashboard = () => {
 
         <div className="dashboard-container" style={{ textAlign: "center", backgroundColor: "#FAFBF6"}}>
           {activeSection === "dashboard" && (
-            <div>
-              <h1 style={{
+            <div> <div
+              style={{
+                backgroundColor: "#FDFFB6",
+                borderRadius: "40px",
+                padding: "30px",
+                marginRight: "20px",
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <h2
+                style={{
                   fontFamily: "Verdana",
-                  fontSize: "30px",
+                  fontSize: "40px",
                   fontWeight: "bold",
                   color: "#344e41",
                 }}
-              >Welcome to the Dashboard, {decodedStaffName}!</h1>
+              >
+                Welcome to the Dashboard, {decodedStaffName}!
+              </h2>
+              <img
+                className="-image"
+                src={tiger}
+                alt="jpg"
+                style={{
+                  width: "180px",
+                  borderRadius: "10px",
+                  marginLeft: "200px",
+                }}
+              />
+            </div>
+
               <div className="Instructors-info">
                 <h2>
                   Instructors{" "}
