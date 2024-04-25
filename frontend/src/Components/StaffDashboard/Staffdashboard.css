@@ -12,7 +12,6 @@
   top: 0;
   right: 10px;
   top: 80px;
-  z-index: -1;
 }
 
 .nav-container {
@@ -962,7 +961,3 @@ table th {
   margin-right: 300px;
   margin-top: 10px;
 }
-
-
-
-
