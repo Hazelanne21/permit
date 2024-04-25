@@ -261,7 +261,7 @@ const togglePhotoSelection = () => {
         </button>
       </nav>
 
-      <div className="dashboard-container" style={{ textAlign: "center" }}>
+      <div className="sdashboard-container" style={{ textAlign: "center" }}>
         {activeSection === "dashboard" && (
           <div>
             <div
