@@ -28,13 +28,13 @@ const StudentDashboard = () => {
 
   const token = sessionStorage.getItem("token");
   const decodedStudentName = jwtDecode(token).name;
+  const student_id = jwtDecode(token).studentId;
 
   // LOGOUT
   const handleLogout = () => {
     sessionStorage.removeItem("token");
     navigate("/");
   };
-
 
   // PERMIT
 
@@ -103,13 +103,13 @@ const StudentDashboard = () => {
     const headerPermit = document.querySelector(".headerpermit");
     const studentSection = document.querySelector(".student-section");
     const permitsSection = document.querySelector(".permits-section");
-  
+
     navContainer?.classList.toggle("collapsed");
     permitContainer?.classList.toggle("collapsed");
     headerPermit?.classList.toggle("collapsed");
     studentSection?.classList.toggle("collapsed");
     permitsSection?.classList.toggle("collapsed");
-  
+
     const isCollapsed = navContainer?.classList.contains("collapsed");
     const sdashboardContainer = document.querySelector(".sdashboard-container");
     if (isCollapsed) {
@@ -117,41 +117,37 @@ const StudentDashboard = () => {
     } else {
       sdashboardContainer.style.width = "calc(100% - 450px)";
     }
-  
+
     // Toggle expansion of permit items
     const permitItems = document.querySelectorAll(".permit-item");
     permitItems.forEach((item) => {
       item.classList.toggle("expanded", !isCollapsed);
     });
   };
-  
-
 
   // SIDE BAR
   const handleSectionChange = (section) => {
     setActiveSection(section);
   };
 
-  // FETCH STUDENT INFO & FETCH PERMIT
-  const fetchStudentInfo = async () => {};
-
-  const fetchPermits = async () => {
-    try {
-      const response = await axios.get("/permits/getPermits");
-      setPermits(response.data);
-    } catch (error) {
-      console.error("Error fetching permits:", error);
-      // Handle error, such as showing an error message to the user
-    }
-  };
-
   useEffect(() => {
-    fetchStudentInfo();
+    const fetchPermits = async () => {
+      try {
+        const response = await axios.get(
+          `/permits/getPermits?student_id=${student_id}`
+        );
+        setPermits(response.data);
+        console.log("Permits fetched:", response.data);
+      } catch (error) {
+        console.error("Error fetching permits:", error);
+        // Handle error, such as showing an error message to the user
+      }
+    };
+
     fetchPermits();
-  }, []);
+  }, [student_id]);
 
   // PROFILE
-
 
   const storedPhoto = localStorage.getItem("selectedPhoto");
   const [selectedPhoto, setSelectedPhoto] = useState(storedPhoto);
@@ -176,63 +172,53 @@ const StudentDashboard = () => {
       setSelectedPhoto(null);
     }
   };
-  
-  
 
-  
-
-  
   const [isDropdownOpen, setDropdownOpen] = useState(false);
-const [isPhotoSelectionOpen, setPhotoSelectionOpen] = useState(false);
+  const [isPhotoSelectionOpen, setPhotoSelectionOpen] = useState(false);
 
-const toggleDropdown = () => {
-  setDropdownOpen(!isDropdownOpen);
-  setPhotoSelectionOpen(false);
-};
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen);
+    setPhotoSelectionOpen(false);
+  };
 
-const togglePhotoSelection = () => {
-  setPhotoSelectionOpen(!isPhotoSelectionOpen);
-  setDropdownOpen(false);
-
-};
+  const togglePhotoSelection = () => {
+    setPhotoSelectionOpen(!isPhotoSelectionOpen);
+    setDropdownOpen(false);
+  };
 
   return (
     <div>
-  <div className={`dropdown ${isDropdownOpen ? "active" : ""}`}>
- <button className="dropbtn" onClick={toggleDropdown}>
-  {selectedPhoto ? (
-   <img
-    src={selectedPhoto}
-    alt="Selected"
-    style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-   />
-  ) : (
-   <>
-    {decodedStudentName} <FontAwesomeIcon icon={faUser} />
-   </>
-  )}
-  <FontAwesomeIcon icon={faAngleDown} />
-</button>
-{/* Photo Selection Dropdown */}
-{isDropdownOpen && (
- <div className="dropdown-content">
-  <label className="browse-btn" htmlFor="photo-upload">
-   Choose Photo
-  </label>
-  <input
-   id="photo-upload"
-   type="file"
-   accept="image/*"
-   onChange={handlePhotoSelection}
-   style={{ display: "none" }} // Hide the input element
-  />
-</div>
-)}
-</div>
-
-  
-
-      
+      <div className={`dropdown ${isDropdownOpen ? "active" : ""}`}>
+        <button className="dropbtn" onClick={toggleDropdown}>
+          {selectedPhoto ? (
+            <img
+              src={selectedPhoto}
+              alt="Selected"
+              style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+            />
+          ) : (
+            <>
+              {decodedStudentName} <FontAwesomeIcon icon={faUser} />
+            </>
+          )}
+          <FontAwesomeIcon icon={faAngleDown} />
+        </button>
+        {/* Photo Selection Dropdown */}
+        {isDropdownOpen && (
+          <div className="dropdown-content">
+            <label className="browse-btn" htmlFor="photo-upload">
+              Choose Photo
+            </label>
+            <input
+              id="photo-upload"
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoSelection}
+              style={{ display: "none" }} // Hide the input element
+            />
+          </div>
+        )}
+      </div>
 
       <nav className="navdashboard-container">
         {/* COLLAPSE SIDE BAR */}
@@ -305,37 +291,44 @@ const togglePhotoSelection = () => {
         )}
       </div>
       {activeSection === "permits" && (
-  <div className="permits-section">
-    <h1 className="headerpermit">Permits</h1>
-    <div className="permit-container">
-  <div className="permit-row">
-    <div className="permit-prelim">
-      <h3>Prelim <img src={Image} alt="Logo" className="prelim-image" /></h3>
-      <p>2nd Semester</p>
-      <button className="permit-view-button">View</button>
-    </div>
-    <div className="permit-midterm">
-      <h3>Midterm <img src={Image} alt="Logo" className="midterm-image" /></h3>
-      <p>2nd Semester</p>
-      <button className="permit-view-button">View</button>
-    </div>
-  </div>
-  <div className="permit-row">
-    <div className="permit-semi"><img src={Image} alt="Logo" className="semi-image" />
-      <h3>Semi Finals </h3>
-      <p>2nd Semester</p>
-      <button className="permit-view-button">View</button>
-    </div>
-    <div className="permit-final">
-      <h3>Finals <img src={Image} alt="Logo" className="final-image" /></h3>
-      <p>2nd Semester</p>
-      <button className="permit-view-button">View</button>
-    </div>
-  </div>
-</div>
-
-  </div>
-)}
+        <div className="permits-section">
+          <h1 className="headerpermit">Permits</h1>
+          <div className="permit-container">
+            <div className="permit-row">
+              <div className="permit-prelim">
+                <h3>
+                  Prelim <img src={Image} alt="Logo" className="prelim-image" />
+                </h3>
+                <p>2nd Semester</p>
+                <button className="permit-view-button">View</button>
+              </div>
+              <div className="permit-midterm">
+                <h3>
+                  Midterm{" "}
+                  <img src={Image} alt="Logo" className="midterm-image" />
+                </h3>
+                <p>2nd Semester</p>
+                <button className="permit-view-button">View</button>
+              </div>
+            </div>
+            <div className="permit-row">
+              <div className="permit-semi">
+                <img src={Image} alt="Logo" className="semi-image" />
+                <h3>Semi Finals </h3>
+                <p>2nd Semester</p>
+                <button className="permit-view-button">View</button>
+              </div>
+              <div className="permit-final">
+                <h3>
+                  Finals <img src={Image} alt="Logo" className="final-image" />
+                </h3>
+                <p>2nd Semester</p>
+                <button className="permit-view-button">View</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {activeSection === "student" && (
         <div className="student-section">

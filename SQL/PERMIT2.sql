@@ -66,12 +66,10 @@ CREATE TABLE Permit (
     Student_ID INT NOT NULL,
     Exam VARCHAR(50) NOT NULL,
     Date_Release DATE NOT NULL,
-    Subject_ID INT,
     Description VARCHAR(255),
     Sequence_No VARCHAR(255) NOT NULL,
     Staff_ID INT,
     Exam_Period VARCHAR(50) NOT NULL,
     FOREIGN KEY (Student_ID) REFERENCES Students(Student_ID),
-    FOREIGN KEY (Subject_ID) REFERENCES Subjects (Subject_ID),
     FOREIGN KEY (Staff_ID) REFERENCES Staff (Staff_ID)
 );
