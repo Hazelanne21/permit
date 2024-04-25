@@ -27,7 +27,6 @@ const StaffDashboard = () => {
     useState(false);
   // eslint-disable-next-line
   const [staffInfo, setStaffInfo] = useState({});
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [isProfileModalOpen] = useState(false);
 
   // Decode the token
@@ -252,11 +251,7 @@ const StaffDashboard = () => {
     }
   }, []);
 
-  const toggleDropdown = () => {
-    if (!isProfileModalOpen) {
-      setDropdownOpen(!isDropdownOpen);
-    }
-  };
+
 
   const handleOpenUpdateAdministratorModal = () => {
     setShowUpdateAdministratorModal(true);
@@ -344,68 +339,64 @@ const StaffDashboard = () => {
   };
 
   // PROFILE
-  const [isPhotoAdminSelectionOpen, setPhotoSelectionOpen] = useState(false);
-  const togglePhotoAdminSelection = (event) => {
-    event.stopPropagation();
-    setPhotoSelectionOpen((prev) => !prev); // Toggle the state
+
+
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [isPhotoSelectionOpen, setPhotoSelectionOpen] = useState(false);
+
+  const togglePhotoSelection = () => {
+    setPhotoSelectionOpen(!isPhotoSelectionOpen);
   };
 
-  const storedPhoto = localStorage.getItem("AdminselectedPhoto");
-  const [AdminselectedPhoto, setSelectedPhoto] = useState(storedPhoto);
-
-  useEffect(() => {
-    if (AdminselectedPhoto) {
-      localStorage.setItem("AdminselectedPhoto", AdminselectedPhoto);
-    }
-  }, [AdminselectedPhoto]);
-
-  const handlePhotoAdminSelection = (event) => {
+  const handlePhotoSelection = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
         setSelectedPhoto(reader.result);
+        togglePhotoSelection(); // Close the dropdown after selecting a photo
       };
       reader.readAsDataURL(file);
-      console.error("No file selected.");
+    } else {
+      // If no file is selected, reset the selected photo
+      setSelectedPhoto(null);
     }
   };
 
   return (
     <div>
       <div className="nav-container">
-        <div
-          className={`dropdown ${
-            isProfileModalOpen ? "disabled-dropdown" : ""
-          }`}
-        >
-          <button className="admin-dropbtn" onClick={toggleDropdown}>
-            {AdminselectedPhoto ? (
-              <img
-                src={AdminselectedPhoto}
-                alt="Selected"
-                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-              />
-            ) : (
-              <>
-                <FontAwesomeIcon icon={faUser} /> {decodedStaffName}
-              </>
-            )}
-            <FontAwesomeIcon
-              icon={faAngleDown}
-              onClick={togglePhotoAdminSelection}
+      <div className={`dropdown ${isPhotoSelectionOpen ? "active" : ""}`}>
+        <button className="dropbtn" onClick={togglePhotoSelection}>
+          {selectedPhoto ? (
+            <img
+              src={selectedPhoto}
+              alt="Selected"
+              style={{ width: "50px", height: "50px", borderRadius: "50%" }}
             />
-          </button>
-          {isPhotoAdminSelectionOpen && (
-            <div className="admin-dropdown-content visible">
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handlePhotoAdminSelection}
-              />
-            </div>
+          ) : (
+            <>
+        <FontAwesomeIcon icon={faUser} />
+            </>
           )}
-        </div>
+          <FontAwesomeIcon icon={faAngleDown} />
+        </button>
+        {/* Photo Selection Dropdown */}
+        {isPhotoSelectionOpen && (
+          <div className="dropdown-content">
+            <label className="browse-btn" htmlFor="photo-upload">
+              Choose Photo
+            </label>
+            <input
+              id="photo-upload"
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoSelection}
+              style={{ display: "none" }} // Hide the input element
+            />
+          </div>
+        )}
+      </div>
 
         <nav className="navdashboard-container">
           <div className="collapse-btn" onClick={toggleCollapse}>
