@@ -453,7 +453,7 @@ const StaffDashboard = () => {
           {activeSection === "dashboard" && (
             <div> <div
               style={{
-                backgroundColor: "#FDFFB6",
+                backgroundColor: "#94929df6",
                 borderRadius: "40px",
                 padding: "30px",
                 marginRight: "20px",
