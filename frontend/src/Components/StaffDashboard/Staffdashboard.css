@@ -285,7 +285,7 @@ position: relative;
 }
 
 .umodal-content button {
-  background-color: #4CAF50;
+  background-color: #126553;
   color: white;
   padding: 10px;
   border: none;
@@ -296,7 +296,7 @@ position: relative;
 }
 
 .umodal-content button:hover {
-  background-color: #45a049;
+  background-color: #1c5b4ddd;
 }
 
 
@@ -465,7 +465,7 @@ position: relative;
 
 
 .smodal-content button {
-  background-color: #4CAF50;
+  background-color: #126553;
   color: white;
   padding: 10px; 
   border: none;
@@ -476,7 +476,7 @@ position: relative;
 }
 
 .smodal-content button:hover {
-  background-color: #45a049;
+  background-color: #1c5b4ddd;
 }
 
 
@@ -578,6 +578,15 @@ table th {
   cursor: pointer;
 }
 
+.admin-update-button {  
+  background-color: #1c5b4ddd;
+  color: #007bff;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 16px;
+  margin-left: 5px;
+  cursor: pointer;
+}
 
 
 /* LIST OF STUDENT */

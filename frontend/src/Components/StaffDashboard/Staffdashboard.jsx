@@ -572,7 +572,7 @@ const StaffDashboard = () => {
                     value={updateAdminFormData.Password}
                     onChange={handleUpdateAdminInputChange}
                   />
-                  <button type="submit">Update</button>
+                  <button type="submit" className="admin-update-button">Update</button>
                 </form>
               </div>
             </div>

@@ -64,7 +64,6 @@ const StudentStatus = () => {
           if (response.status === 200) {
             console.log("Status deleted successfully");
             setStudentStatuses(studentStatuses.filter(status => status.student_number !== studentNumber));
-            // Display success message using SweetAlert
             Swal.fire({
               icon: 'success',
               title: 'Success!',
@@ -75,7 +74,6 @@ const StudentStatus = () => {
           }
         } catch (error) {
           console.error("Error deleting status:", error.message);
-          // Display error message using SweetAlert
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -83,7 +81,6 @@ const StudentStatus = () => {
           });
         }
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // If user cancels, show a message
         Swal.fire({
           title: 'Cancelled',
           text: 'Student tuition status deletion has been cancelled',
@@ -99,7 +96,6 @@ const StudentStatus = () => {
     
     const studentNumberRegex = /^[0-9-]+$/;
   if (!statusFormData.Student_Number.match(studentNumberRegex)) {
-    // Display a warning message if the input contains invalid characters
     Swal.fire({
       icon: 'warning',
       title: 'Invalid Input',
@@ -110,13 +106,12 @@ const StudentStatus = () => {
   
      const existingStudent = studentStatuses.find(status => status.student_number === statusFormData.Student_Number);
   if (existingStudent) {
-    // Display a warning message if the student number already exists
     Swal.fire({
       icon: 'warning',
       title: 'Oops...',
       text: 'A tuition status for this student already exists.',
     });
-    return; // Stop further execution
+    return; 
   }
   
     try {
@@ -146,16 +141,13 @@ const StudentStatus = () => {
     } catch (error) {
       console.error("Error creating status:", error.message);
       
-      // Check if the error message indicates that the student does not exist
       if (error.response && error.response.status === 404 && error.response.data && error.response.data.error === "Student not found") {
-        // Display a specific error message for student not found
         Swal.fire({
           icon: 'error',
           title: 'Error',
           text: 'The student does not exist. Please enter a valid student number.',
         });
       } else {
-        // Display a generic error message for other errors
         Swal.fire({
           icon: 'error',
           title: 'Connection Error',
@@ -203,7 +195,6 @@ const StudentStatus = () => {
       return;
     }
 
-    // Display a confirmation dialog
     Swal.fire({
       title: 'Are you sure?',
       text: 'Do you want to update this student tuition status?',
@@ -218,7 +209,6 @@ const StudentStatus = () => {
           await handleUpdateStatus(statusFormData);
           console.log("Status updated successfully");
           handleCloseUpdateStatusModal();
-          // Display success message using SweetAlert
           Swal.fire({
             icon: 'success',
             title: 'Success!',
@@ -226,7 +216,6 @@ const StudentStatus = () => {
           });
         } catch (error) {
           console.error("Error updating status:", error.message);
-          // Display error message using SweetAlert
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -234,7 +223,6 @@ const StudentStatus = () => {
           });
         }
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // If user cancels, show a message
         Swal.fire({
           title: 'Cancelled',
           text: 'Student tuition status update has been cancelled',
@@ -244,7 +232,6 @@ const StudentStatus = () => {
     });
   };
   
-  // Handle network-related errors
   window.addEventListener('offline', () => {
     Swal.fire({
       icon: 'error',
@@ -277,12 +264,12 @@ const StudentStatus = () => {
       <table>
         <thead>
           <tr>
-            <th>Student Number</th>
-            <th>Prelim Status</th>
-            <th>Midterm Status</th>
-            <th>SemiFinal Status</th>
-            <th>Final Status</th>
-            <th>Actions</th>
+            <th  className="table-header">Student Number</th>
+            <th className="table-header">Prelim Status</th>
+            <th className="table-header">Midterm Status</th>
+            <th className="table-header">SemiFinal Status</th>
+            <th className="table-header">Final Status</th>
+            <th  className="table-header">Actions</th>
           </tr>
         </thead>
         <tbody>
