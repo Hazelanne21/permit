@@ -19,8 +19,10 @@ display: flex;
 }
 
 
+
 /* SIDEBAR */
 .navdashboard-container {
+  background-image: url('../../images/rawr.png');
   color: #5ced73;
   overflow: hidden;
   transition: all 0.3s ease;
@@ -32,7 +34,13 @@ display: flex;
   top: 20px;
   left: 30px;
   border-radius: 30px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-size: 300px;
+  background-position: 120px 550px;
 }
+
+
 
 .navdashboard-container.collapsed .logo-image,
 .navdashboard-container.collapsed .logo-text,
@@ -961,3 +969,6 @@ table th {
   margin-right: 300px;
   margin-top: 10px;
 }
+
+
+

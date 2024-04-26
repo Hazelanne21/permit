@@ -8,6 +8,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  z-index: 2;
 }
 
 .modal-content {
@@ -16,6 +18,11 @@
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   align-content: center;
+    background-image: url('../../images/ncf.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-size: 50px;
+    background-position: 10px 10px;
 }
 
 .modal h2 {
@@ -87,6 +94,19 @@ color: red;
   overflow-y: auto; 
 }
 
+/* Define alternating row colors */
+.table-container table tr:nth-child(even) {
+  background-color: #ced8a9; 
+}
+
+.table-container table tr:nth-child(odd) {
+  background-color: white;
+}
+
+
+.table-header {
+  background-color: #DAB16F;
+}
 
 .subject-label {
   margin-right: 290px;

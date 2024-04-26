@@ -375,11 +375,11 @@ const Subjects = () => {
           <table>
             <thead>
               <tr>
-                <th>Subject Code</th>
-                <th>Description</th>
-                <th>Semester</th>
-                <th>Year Level</th>
-                <th>Action</th>
+                <th className="table-header">Subject Code</th>
+                <th className="table-header">Description</th>
+                <th className="table-header">Semester</th>
+                <th className="table-header">Year Level</th>
+                <th className="table-header">Action</th>
               </tr>
             </thead>
             <tbody>
