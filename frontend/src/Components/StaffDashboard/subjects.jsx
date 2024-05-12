@@ -38,6 +38,7 @@ const Subjects = () => {
     Name: "",
     Semester_ID: "",
     Year_Level_ID: "",
+    Course_ID: "",
   });
 
   // UPDATE SUBJECT
@@ -47,6 +48,7 @@ const Subjects = () => {
     Name: "",
     Semester_ID: "",
     Year_Level_ID: "",
+    Course_ID: "",
   });
 
 
@@ -73,8 +75,8 @@ const Subjects = () => {
       setErrorMessage("");
       return;
     }
-    if (!subjectFormData.Semester_ID || !subjectFormData.Year_Level_ID) {
-      setErrorMessage("Semester and Year Level are required");
+    if (!subjectFormData.Semester_ID || !subjectFormData.Year_Level_ID || !subjectFormData.Course_ID) {
+      setErrorMessage("Semester, Year Level and Course are required");
       return;
     }
     try {
@@ -379,6 +381,7 @@ const Subjects = () => {
                 <th className="table-header">Description</th>
                 <th className="table-header">Semester</th>
                 <th className="table-header">Year Level</th>
+                <th className="table-header">Course</th>
                 <th className="table-header">Action</th>
               </tr>
             </thead>
@@ -394,6 +397,7 @@ const Subjects = () => {
                           : subject.semester_id}
                       </td>
                       <td>{subject.year_level_id}</td>
+                      <td>{subject.course_id}</td>
                       <td>
                         <button
                           onClick={() => handleUpdateSubject(subject)}
@@ -457,6 +461,9 @@ const Subjects = () => {
                 <option value="2">2nd Semester</option>
                 <option value="3">Summer</option>
               </select>
+
+
+
               <label className="year-label">Year Level:</label>
               <select
                 id="year"
@@ -473,6 +480,25 @@ const Subjects = () => {
                 <option value="3">3rd Year</option>
                 <option value="4">4th Year</option>
               </select>
+
+
+
+              <label className="course-label">Course:</label>
+              <select
+                id="Course"
+                name="Course_ID"
+                value={subjectFormData.Course_ID}
+                onChange={handleSubjectInputChange}
+                required
+              >
+                <option value="" disabled selected>
+                  Select Course
+                </option>
+                <option value="1">BSCS</option>
+                <option value="2">BSIS</option>
+              </select>
+
+
               {errorMessage && <p className="error-message">{errorMessage}</p>}
               <button type="submit" className="submit-create">Create</button>
             </form>
@@ -521,6 +547,8 @@ const Subjects = () => {
                 <option value="2">2nd Semester</option>
                 <option value="3">Summer</option>
               </select>
+
+
               <label className="year-label-update">Year Level:</label>
               <select
                 id="year"
@@ -536,6 +564,22 @@ const Subjects = () => {
                 <option value="2">2nd Year</option>
                 <option value="3">3rd Year</option>
                 <option value="4">4th Year</option>
+              </select>
+
+
+              <label className="year-label-update">Course:</label>
+              <select
+                id="Course"
+                name="Course_ID"
+                value={updateSubjectFormData.Course_ID}
+                onChange={handleUpdateSubjectInputChange}
+                required
+              >
+                <option value="" disabled selected>
+                  Select Course
+                </option>
+                <option value="1">BSCS</option>
+                <option value="2">BSIS</option>
               </select>
               {errorMessage && <p className="error-message">{errorMessage}</p>}
               <button type="submit" className="submit-update">Update</button>

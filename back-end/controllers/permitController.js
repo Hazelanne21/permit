@@ -12,7 +12,7 @@ router.get("/getPermits", async (req, res) => {
     console.log("student_id", student_id);
 
     let selectPermitsQuery =
-      "SELECT Permit_Number, Student_ID, Exam, Date_Release, Description, Sequence_No, Staff_ID, Exam_Period FROM Permit";
+      "SELECT Permit_Number, Student_ID, Exam, Date_Release, Name, Sequence_No, Staff_ID, Exam_Period FROM Permit";
 
     if (student_id) {
       selectPermitsQuery += ` WHERE Student_ID = ${student_id}`;
@@ -25,7 +25,7 @@ router.get("/getPermits", async (req, res) => {
       permit.student_id,
       permit.exam,
       permit.date_release,
-      permit.description,
+      permit.Name,
       permit.sequence_no,
       permit.staff_id,
       permit.exam_period,

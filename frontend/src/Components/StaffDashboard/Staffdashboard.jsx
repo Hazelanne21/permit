@@ -558,6 +558,13 @@ const StaffDashboard = () => {
                 </span>
                 <h2>Update Administrator Information</h2>
                 <form onSubmit={handleSubmitUpdateAdministrator}>
+                <label className="labels">Staff_Name:</label>
+                  <input
+                    type="text"
+                    name="Staff_Name"
+                    value={updateAdminFormData.Staff_Name}
+                    onChange={handleUpdateAdminInputChange}
+                  />
                   <label className="label">Email:</label>
                   <input
                     type="text"

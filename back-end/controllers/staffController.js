@@ -106,6 +106,8 @@ router.put('/update', async (req, res) => {
   }
 });
 
+
+
 router.delete('/delete', async (req, res) => {
   try {
     const { Staff_Name } = req.body;

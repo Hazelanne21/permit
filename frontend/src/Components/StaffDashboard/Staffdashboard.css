@@ -250,6 +250,12 @@ position: relative;
   width: 100%;
 }
 
+
+.labels {
+  display: block;
+  margin-left: -300px;
+}
+
 .label {
   display: block;
   margin-left: -350px;

@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post("/createSubject", async (req, res) => {
   try {
-    const { Subject_Code, Name, Semester_ID, Year_Level_ID } = req.body;
+    const { Subject_Code, Name, Semester_ID, Year_Level_ID, Course_ID } = req.body;
     const checkExistingSubjectQuery =
       "SELECT * FROM Subjects WHERE Subject_Code = $1";
     const existingSubjectRows = await db.query(checkExistingSubjectQuery, [
@@ -19,12 +19,13 @@ router.post("/createSubject", async (req, res) => {
     }
 
     const insertSubjectQuery =
-      "INSERT INTO Subjects (Subject_Code, Name, Semester_ID, Year_Level_ID) VALUES ($1, $2, $3, $4)";
+      "INSERT INTO Subjects (Subject_Code, Name, Semester_ID, Year_Level_ID, Course_ID) VALUES ($1, $2, $3, $4, $5)";
     await db.query(insertSubjectQuery, [
       Subject_Code,
       Name,
       Semester_ID,
       Year_Level_ID,
+      Course_ID,
     ]);
 
     res.status(201).json({ message: "Subject created successfully" });
@@ -37,7 +38,7 @@ router.post("/createSubject", async (req, res) => {
 router.get("/getSubject", async (req, res) => {
   try {
     const selectUsersQuery =
-      "SELECT Subject_ID, Subject_Code, Name, Semester_ID, Year_Level_ID FROM Subjects";
+      "SELECT Subject_ID, Subject_Code, Name, Semester_ID, Year_Level_ID, Course_ID FROM Subjects";
     const result = await db.query(selectUsersQuery);
     res.status(200).json(result);
   } catch (error) {
@@ -49,7 +50,7 @@ router.get("/getSubject", async (req, res) => {
 router.put("/updateSubject/:Subject_ID", async (req, res) => {
   try {
     const { Subject_ID } = req.params;
-    const { Subject_Code, Name, Semester_ID, Year_Level_ID } = req.body;
+    const { Subject_Code, Name, Semester_ID, Year_Level_ID, Course_ID } = req.body;
 
     const checkExistingSubjectQuery =
       "SELECT * FROM Subjects WHERE Subject_ID = $1";
@@ -64,12 +65,13 @@ router.put("/updateSubject/:Subject_ID", async (req, res) => {
     }
 
     const updateSubjectQuery =
-      "UPDATE Subjects SET Subject_Code = $1, Name = $2, Semester_ID = $3, Year_Level_ID = $4 WHERE Subject_ID = $5";
+      "UPDATE Subjects SET Subject_Code = $1, Name = $2, Semester_ID = $3, Year_Level_ID = $4, Course_ID = $5, WHERE Subject_ID = $6";
     await db.query(updateSubjectQuery, [
       Subject_Code,
       Name,
       Semester_ID,
       Year_Level_ID,
+      Course_ID, 
       Subject_ID,
     ]);
 

@@ -9,12 +9,11 @@ import {
   faInfoCircle,
   faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import "./Studentdashboard.css";
-import logoImage from "../images/CCS.png";
-import Image from "../images/ncf.png";
+import "../StudentDashboard/Studentdashboard.css";
+import logoImage from "../../images/CCS.png";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-import tiger from "../images/rawr.png";
+import tiger from "../../images/rawr.png";
 
 const StudentDashboard = () => {
   // eslint-disable-next-line
@@ -23,7 +22,6 @@ const StudentDashboard = () => {
   const [permits, setPermits] = useState([]);
   const [activeSection, setActiveSection] = useState("dashboard");
   const [isProfileModalOpen, setProfileModalOpen] = useState(false);
-  const [isPermitModalOpen, setPermitModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const token = sessionStorage.getItem("token");
@@ -36,55 +34,21 @@ const StudentDashboard = () => {
     navigate("/");
   };
 
-  // PERMIT
 
-  const [permitFormData, setPermitFormData] = useState({
-    examType: "",
-    semester: "",
-  });
 
-  const handlePermitInputChange = (e) => {
-    const { name, value } = e.target;
-    setPermitFormData({ ...permitFormData, [name]: value });
-  };
-
-  const togglePermitModal = () => {
-    console.log("Toggling permit modal");
-    setPermitModalOpen(!isPermitModalOpen);
-  };
-
-  const handleSubmitPermit = () => {
-    // Handle permit submission
-    console.log("Permit submitted:", permitFormData);
-    // Close the modal after submission
-    setPermitModalOpen(false);
-  };
-
-  const [isPermitExampleOpen, setPermitExampleOpen] = useState(false);
-
-  const togglePermitExample = () => {
-    setPermitExampleOpen(!isPermitExampleOpen);
-  };
-
+ 
   // PROFILE MODAL
   const [profileFormData, setProfileFormData] = useState({
     password: "",
     mobileNumber: "",
     yearLevel: "",
+    Course: "",
     semester: "",
-    showPassword: false, // Initialize showPassword to false
+    showPassword: false,
   });
-
   const handleProfileInputChange = (e) => {
     const { name, value } = e.target;
     setProfileFormData({ ...profileFormData, [name]: value });
-  };
-
-  const handleSubmitProfile = () => {
-    // Handle profile update submission
-    console.log("Profile data submitted:", profileFormData);
-    // Close the modal after submission
-    setProfileModalOpen(false);
   };
 
   const toggleProfileModal = () => {
@@ -93,10 +57,21 @@ const StudentDashboard = () => {
     setDropdownOpen(false);
   };
 
-  const handleDownloadPermit = () => {
-    // Implement the logic to download the permit
-    console.log("Permit downloaded");
+  const handleSubmitProfile = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put(`/upStudents`, profileFormData);
+      console.log("Profile data updated:", response.data);
+      // Optionally, show a success message or perform any other action upon successful update
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      // Handle error, such as showing an error message to the user
+    }
   };
+
+ 
+
+
   const toggleCollapse = () => {
     const navContainer = document.querySelector(".navdashboard-container");
     const permitContainer = document.querySelector(".permit-container");
@@ -185,6 +160,8 @@ const StudentDashboard = () => {
     setPhotoSelectionOpen(!isPhotoSelectionOpen);
     setDropdownOpen(false);
   };
+
+
 
   return (
     <div>
@@ -343,6 +320,13 @@ const StudentDashboard = () => {
               <option value="4">4th Year</option>
             </select>
 
+            <label className="student-label">Course:</label>
+            <select name="Course" className="student-input2">
+              <option value="">Select Course</option>
+              <option value="1">BSCS</option>
+              <option value="2">BSIS</option>
+            </select>
+
             <label className="student-label">Semester:</label>
             <select name="semester" className="student-input2">
               <option value="">Select Semester</option>
@@ -358,40 +342,7 @@ const StudentDashboard = () => {
         </div>
       )}
 
-      {isPermitExampleOpen && (
-        <div className="modal">
-          <div className="permit-content">
-            <span className="permit-close" onClick={togglePermitExample}>
-              &times;
-            </span>
-            <div className="modal-address">
-              <img src={Image} alt="Logo" className="modal-logo" />
-              <div>
-                <p className="address-text">Naga College Foundation</p>
-                <p className="address-text">Naga City, Camarines Sur</p>
-              </div>
-            </div>
-            {permits.map((permit, index) => (
-              <div key={index}>
-                <p>ID number of the student: {permit.Student_Number}</p>
-                <p>Examination: {permit.Exam}</p>
-                <p>Student's name: {permit.Student_Name}</p>
-                <p>Course and level: {permit.Year}</p>
-                <p>Semester: {permit.Semester}</p>
-                <p>List of Subjects:</p>
-                <ul>
-                  {permit.Subjects.map((subject, index) => (
-                    <li key={index}>{subject}</li>
-                  ))}
-                </ul>
-                <p>Sequence number: {permit.SequenceNumber}</p>
-                <p>Released by: {permit.ReleasedBy}</p>
-                <button onClick={handleDownloadPermit}>Download Permit</button>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+     
 
       {/* PROFILE MODAL */}
       {isProfileModalOpen && (
@@ -402,94 +353,57 @@ const StudentDashboard = () => {
             </span>
             <h2>Update Student Information</h2>
             <form onSubmit={handleSubmitProfile}>
-              <label>Password:</label>
-              <div className="password-input-container">
-                <input
-                  type={profileFormData.showPassword ? "text" : "password"}
-                  name="password"
-                  value={profileFormData.password}
-                  onChange={handleProfileInputChange}
-                />
-                <i
-                  className={`fas ${
-                    profileFormData.showPassword ? "fa-eye-slash" : "fa-eye"
-                  }`}
-                  onClick={() =>
-                    setProfileFormData({
-                      ...profileFormData,
-                      showPassword: !profileFormData.showPassword,
-                    })
-                  }
-                ></i>
-              </div>
-              <label>Mobile Number:</label>
-              <input
-                type="text"
-                name="mobileNumber"
-                value={profileFormData.mobileNumber}
-                onChange={handleProfileInputChange}
-              />
-              <label>Year Level:</label>
-              <input
-                type="text"
-                name="yearLevel"
-                value={profileFormData.yearLevel}
-                onChange={handleProfileInputChange}
-              />
-              <label>Semester:</label>
-              <input
-                type="text"
-                name="semester"
-                value={profileFormData.semester}
-                onChange={handleProfileInputChange}
-              />
-              <button className="student-submit-button" type="submit">
-                Submit
-              </button>
-            </form>
+  <label>Password:</label>
+  <div className="password-input-container">
+    <input
+      type={profileFormData.showPassword ? "text" : "password"}
+      name="password"
+      value={profileFormData.password}
+      onChange={handleProfileInputChange}
+    />
+    <i
+      className={`fas ${
+        profileFormData.showPassword ? "fa-eye-slash" : "fa-eye"
+      }`}
+      onClick={() =>
+        setProfileFormData({
+          ...profileFormData,
+          showPassword: !profileFormData.showPassword,
+        })
+      }
+    ></i>
+  </div>
+  <label>Mobile Number:</label>
+  <input
+    type="text"
+    name="mobileNumber"
+    value={profileFormData.mobileNumber}
+    onChange={handleProfileInputChange}
+  />
+  <label>Year Level:</label>
+  <input
+    type="text"
+    name="yearLevel"
+    value={profileFormData.yearLevel}
+    onChange={handleProfileInputChange}
+  />
+  <label>Semester:</label>
+  <input
+    type="text"
+    name="semester"
+    value={profileFormData.semester}
+    onChange={handleProfileInputChange}
+  />
+  <button className="student-submit-button" type="submit">
+    Submit
+  </button>
+</form>
+
           </div>
         </div>
       )}
 
-      {/* REQUEST PERMIT MODAL */}
-      {isPermitModalOpen && (
-        <div className="modal">
-          <div className="permit-modal-content">
-            <span className="permit-close" onClick={togglePermitModal}>
-              &times;
-            </span>
-            <h2>Request Permit</h2>
-            <form onSubmit={handleSubmitPermit}>
-              <label>Exam:</label>
-              <select
-                name="examType"
-                value={permitFormData.examType}
-                onChange={handlePermitInputChange}
-                required
-              >
-                <option value="">Select Exam Type</option>
-                <option value="Prelim">Prelim</option>
-                <option value="Midterm">Midterm</option>
-                <option value="Semifinals">Semifinals</option>
-                <option value="Finals">Finals</option>
-              </select>
-              <label>Semester:</label>
-              <select
-                name="semester"
-                value={permitFormData.semester}
-                onChange={handlePermitInputChange}
-                required
-              >
-                <option value="">Select Semester</option>
-                <option value="1">1st Semester</option>
-                <option value="2">2nd Semester</option>
-                <option value="3">Summer</option>
-              </select>
-              <button type="submit">Submit</button>
-            </form>
-          </div>
-        </div>
-      )}
+    
     </div>
   );
 };

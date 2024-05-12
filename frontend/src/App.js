@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import StudentLogin from "./Components/StudentLogin";
 import StaffLogin from "./Components/StaffLogin";
-import Studentdashboard from "./Components/Studentdashboard";
+import Studentdashboard from "./Components/StudentDashboard/Studentdashboard";
 import Staffdashboard from "./Components/StaffDashboard/Staffdashboard";
 import logo from "./images/CCS.png";
 import "./App.css";

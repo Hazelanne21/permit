@@ -15,6 +15,7 @@ router.post("/register", async (req, res) => {
       Gbox,
       Mobile_Number,
       Year_Level_ID,
+      Course_ID,
       Semester_ID,
       Is_Irregular
     } = req.body;
@@ -57,11 +58,12 @@ router.post("/register", async (req, res) => {
     }
 
     const insertStudentQuery =
-      "INSERT INTO Students (Student_Number, Student_Name, Year_Level_ID, Semester_ID, Password, Gbox, Mobile_Number, Is_Irregular) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)";
+      "INSERT INTO Students (Student_Number, Student_Name, Year_Level_ID, Course_ID, Semester_ID, Password, Gbox, Mobile_Number, Is_Irregular) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)";
     await db.query(insertStudentQuery, [
       Student_Number,
       Student_Name,
       Year_Level_ID,
+      Course_ID,
       Semester_ID,
       hashedPassword,
       Gbox,
@@ -80,7 +82,7 @@ router.post("/register", async (req, res) => {
 router.get("/getStudents", async (req, res) => {
   try {
     const selectUsersQuery =
-      "SELECT Student_Number, Student_Name, Year_Level_ID, Semester_ID, Password, Gbox, Mobile_Number, Is_Irregular FROM Students";
+      "SELECT Student_Number, Student_Name, Year_Level_ID, Course_ID, Semester_ID, Password, Gbox, Mobile_Number, Is_Irregular FROM Students";
     const { rows } = await db.query(selectUsersQuery);
     res.status(200).json(rows);
   } catch (error) {
@@ -137,55 +139,30 @@ router.post("/login", async (req, res) => {
 });
 
 
-// Update student details
-router.put("/upStudents/:studentNumber", async (req, res) => {
+router.put("/upStudents", async (req, res) => {
   try {
     const { studentNumber } = req.params;
-    const { Student_Name, Year_Level_ID, Semester_ID, Password, Gbox, Mobile_Number, Is_Irregular } = req.body;
-
-    const hashedPassword = await bcrypt.hash(Password, 10);
-
-    const mobileRegex = /^09\d{9}$/;
-    if (Mobile_Number && !mobileRegex.test(Mobile_Number)) {
-      return res.status(400).json({ error: "Invalid mobile number format" });
-    }
-
-    const gboxRegex = /^[a-zA-Z0-9._%+-]+@gbox\.ncf\.edu\.ph$/;
-    if (Gbox && !gboxRegex.test(Gbox)) {
-      return res
-        .status(400)
-        .json({
-          error: "Invalid Gbox format. It should end with @gbox.ncf.edu.ph",
-        });
-    }
-
-    const checkExistingStudentQuery =
-      "SELECT * FROM Students WHERE Student_Number = $1";
-    const { rows: existingRows } = await db.query(checkExistingStudentQuery, [studentNumber]);
-
-    if (existingRows.length === 0) {
-      return res.status(404).json({ error: "Student not found" });
-    }
-
-    const updateStudentQuery =
-      "UPDATE Students SET Student_Name = $1, Year_Level_ID = $2, Semester_ID = $3, Password = $4, Gbox = $5, Mobile_Number = $6, Is_Irregular = $7 WHERE Student_Number = $8";
-    await db.query(updateStudentQuery, [
-      Student_Name,
-      Year_Level_ID,
-      Semester_ID,
-      hashedPassword,
-      Gbox,
-      Mobile_Number,
-      Is_Irregular,
+    const {  Mobile_Number, Password, Year_Level_ID, Course_ID, Semester_ID, } = req.body;
+    const updatedStudent = await Student.findByIdAndUpdate(
       studentNumber,
-    ]);
+      {
 
-    res.status(200).json({ message: "Student details updated successfully" });
+        Mobile_Number,
+        Password, 
+        Year_Level_ID,
+        Course_ID,
+        Semester_ID,
+      },
+      { new: true }
+    );
+
+    res.status(200).json(updatedStudent);
   } catch (error) {
-    console.error("Error updating student:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error("Error updating student information:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
+
 
 // Delete student
 router.delete("/delStudents/:studentNumber", async (req, res) => {

@@ -22,7 +22,7 @@ router.post("/createTuitionList", async (req, res) => {
         Final_Status,
         Staff_ID,
       } = entry;
-
+      const Name = ""; 
       const StudentNumber = String(entry.Student_Number);
       const getStudentIdQuery =
         "SELECT Student_ID FROM Students WHERE Student_Number = $1";
@@ -74,7 +74,7 @@ router.post("/createTuitionList", async (req, res) => {
 
       // Insert into Permit table
       const insertPermitQuery = `
-      INSERT INTO Permit (Permit_Number, Student_ID, Exam, Date_Release, Description, Sequence_No, Staff_ID, Exam_Period)
+      INSERT INTO Permit (Permit_Number, Student_ID, Exam, Date_Release, Name, Sequence_No, Staff_ID, Exam_Period)
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
     `;
 
@@ -88,12 +88,11 @@ router.post("/createTuitionList", async (req, res) => {
       const Exam_Period = semester_id;
       console.log("Exam_Period", Exam_Period);
       const permitParams = [
-        // Replace these with the actual values
         permit_number,
         Student_ID,
         "Exam",
         new Date(),
-        "Your Permit for the exam is ready!",
+        Name, 
         sequence_no,
         Staff_ID,
         Exam_Period,
@@ -206,7 +205,7 @@ router.put("/updateTuitionList", async (req, res) => {
     SET Permit_Number = $1,
         Exam = $2,
         Date_Release = $3,
-        Description = $4,
+        Name = $4, 
         Sequence_No = $5,
         Staff_ID = $6,
         Exam_Period = $7
@@ -226,7 +225,7 @@ router.put("/updateTuitionList", async (req, res) => {
       Student_ID,
       "Exam",
       new Date(),
-      "Your Permit for the exam is ready!",
+      Name, 
       sequence_no,
       Staff_ID,
       exam_period,

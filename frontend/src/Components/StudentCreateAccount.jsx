@@ -14,6 +14,7 @@ const StudentCreateAccount = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [yearLevelId, setYearLevelId] = useState("");
+  const [Course_ID, setCourse_ID] = useState("");
   const [semesterId, setSemesterId] = useState("");
   const [isIrregular, setIsIrregular] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -52,6 +53,7 @@ const StudentCreateAccount = () => {
         Gbox: gbox,
         Mobile_Number: mobileNumber,
         Year_Level_ID: yearLevelId,
+        Course_ID: Course_ID,
         Semester_ID: semesterId,
         Is_Irregular: isIrregular,
       });
@@ -63,6 +65,7 @@ const StudentCreateAccount = () => {
         setGbox("");
         setMobileNumber("");
         setYearLevelId("");
+        setCourse_ID("");
         setSemesterId("");
         setIsIrregular(false);
         // Display success message using SweetAlert
@@ -164,6 +167,10 @@ const StudentCreateAccount = () => {
           />
         </div>
 
+  
+     
+     
+
         <div className="form-group">
           <label htmlFor="yearLevelId">Year Level:</label>
           <select
@@ -180,6 +187,21 @@ const StudentCreateAccount = () => {
           </select>
         </div>
 
+
+        <div className="form-group">
+          <label htmlFor="Course_ID">Course:</label>
+          <select
+            id="Course_ID"
+            value={Course_ID}
+            onChange={(e) => setCourse_ID(e.target.value)}
+            required
+          >
+            <option value="">Select Course</option>
+            <option value="1">BSCS</option>
+            <option value="2">BSIS</option>
+          </select>
+        </div>
+        
         <div className="form-group">
           <label htmlFor="semesterId">Semester:</label>
           <select
