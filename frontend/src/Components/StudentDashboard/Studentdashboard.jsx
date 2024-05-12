@@ -225,7 +225,7 @@ const StudentDashboard = () => {
           {" "}
           <FontAwesomeIcon icon={faInfoCircle} /> Students{" "}
         </button>
-        <button onClick={handleLogout} style={{ marginTop: "200px" }}>
+        <button onClick={handleLogout} style={{ marginTop: "240px" }}>
           <FontAwesomeIcon icon={faSignOutAlt} /> Logout
         </button>
       </nav>
